@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>About | Everose</title>
+<title>Models | Everose</title>
 <style>
 body {
   margin:0;
   font-family: Georgia, serif;
-  background: linear-gradient(to bottom, #ffe4f0, #ffffff);
+  background:#fff5fa;
   text-align:center;
 }
 
@@ -20,27 +20,36 @@ nav a {
   text-decoration:none;
   margin:15px;
   font-weight:bold;
-  font-size:18px;
-}
-
-.section {
-  max-width:800px;
-  margin:80px auto;
-  background:white;
-  padding:50px;
-  border-radius:25px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.12);
 }
 
 h1 {
+  margin-top:60px;
   color:#c2185b;
   font-size:48px;
 }
 
-p {
-  font-size:20px;
+.grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap:30px;
+  max-width:900px;
+  margin:50px auto 100px;
+  padding:20px;
+}
+
+.card {
+  background:white;
+  border-radius:25px;
+  padding:30px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.12);
+}
+
+.card h3 {
+  color:#c2185b;
+}
+
+.card p {
   color:#5a2a3c;
-  line-height:1.6;
 }
 </style>
 </head>
@@ -55,18 +64,32 @@ p {
   <a href="contact.html">Contact</a>
 </nav>
 
-<div class="section">
-<h1>About Everose</h1>
+<h1>Everose Models</h1>
+<p>Our models represent elegance, confidence, and individuality.</p>
 
-<p>Everose is a luxury fragrance brand inspired by beauty, confidence, and the elegance of every season.</p>
+<div class="grid">
+  <div class="card">
+    <h3>Spring Muse</h3>
+    <p>Soft, fresh, and full of life.</p>
+  </div>
 
-<p>Our brand was created to capture feelings, memories, and moods through scent. Each design is soft, feminine, and modern — made to feel special, just like the person wearing it.</p>
+  <div class="card">
+    <h3>Summer Glow</h3>
+    <p>Bright, radiant, and confident.</p>
+  </div>
 
-<p>Everose represents growth, creativity, and self-expression. Every detail is designed with love, intention, and style.</p>
+  <div class="card">
+    <h3>Autumn Rose</h3>
+    <p>Warm, bold, and graceful.</p>
+  </div>
 
-<p><b>Everose — where fragrance meets feeling.</b></p>
+  <div class="card">
+    <h3>Winter Bloom</h3>
+    <p>Cool, elegant, and timeless.</p>
+  </div>
 </div>
 
 </body>
 </html>
+
 
