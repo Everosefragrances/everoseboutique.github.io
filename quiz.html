@@ -2,68 +2,55 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Find Your Scent | Everose</title>
+<title>Find Your Scent</title>
 
 <style>
 body {
   margin: 0;
-  font-family: "Georgia", serif;
-  background: linear-gradient(to bottom, #ffd1e6, #fff);
-  color: #7a1f46;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(to bottom, #ffe6f0, #fff);
+  color: #7a003c;
   text-align: center;
 }
 
 nav {
-  background: #ff9fcb;
-  padding: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background: #ff8fbd;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
 nav a {
-  margin: 0 15px;
   text-decoration: none;
-  font-weight: bold;
-  color: #7a1f46;
+  color: white;
+  font-weight: 600;
   font-size: 18px;
 }
 
-.box {
-  max-width: 800px;
-  margin: 60px auto;
-  background: #ffe4f0;
-  padding: 40px;
-  border-radius: 25px;
+.section {
+  max-width: 900px;
+  margin: 70px auto;
+  background: #fff0f6;
+  padding: 50px 30px;
+  border-radius: 22px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
 
-h1 {
-  font-size: 42px;
-}
-
-.question {
-  margin: 30px 0;
-  font-size: 20px;
-}
-
 button {
-  background: #ff85b5;
+  background: #ff5fa2;
+  color: white;
   border: none;
-  padding: 12px 20px;
-  margin: 8px;
-  border-radius: 20px;
+  padding: 12px 25px;
+  border-radius: 25px;
   font-size: 16px;
+  margin: 10px;
   cursor: pointer;
-  color: #7a1f46;
 }
 
 button:hover {
-  background: #ff5fa2;
-}
-
-#result {
-  margin-top: 30px;
-  font-size: 24px;
-  font-weight: bold;
+  background: #ff3f8f;
 }
 </style>
 </head>
@@ -74,61 +61,35 @@ button:hover {
   <a href="index.html">Home</a>
   <a href="hints.html">Hints</a>
   <a href="quiz.html">Find Your Scent</a>
+  <a href="questions.html">Ask Everose</a>
 </nav>
 
-<div class="box">
-<h1>Find Your Scent</h1>
-<p>Not every scent is worn. Some are felt.</p>
+<div class="section">
+  <h1>Find Your Scent 💗</h1>
+  <p>Choose what feels most like you.</p>
 
-<div class="question">
-<p>1. Choose a mood:</p>
-<button onclick="pick('soft')">Soft & romantic</button>
-<button onclick="pick('warm')">Warm & glowing</button>
-<button onclick="pick('fresh')">Clean & light</button>
-<button onclick="pick('deep')">Deep & cozy</button>
-</div>
+  <h3>Your perfect night is:</h3>
+  <button onclick="result('soft')">Soft music & candlelight</button>
+  <button onclick="result('warm')">Laughing & late talks</button>
+  <button onclick="result('fresh')">Fresh air & quiet</button>
+  <button onclick="result('bright')">Fun, energy & glow</button>
 
-<div class="question">
-<p>2. Choose a moment:</p>
-<button onclick="pick('soft')">Quiet mornings</button>
-<button onclick="pick('fresh')">Open windows</button>
-<button onclick="pick('warm')">Golden hour</button>
-<button onclick="pick('deep')">Late nights</button>
-</div>
-
-<div class="question">
-<p>3. Choose a feeling:</p>
-<button onclick="pick('fresh')">Free</button>
-<button onclick="pick('soft')">Loved</button>
-<button onclick="pick('warm')">Confident</button>
-<button onclick="pick('deep')">Comforted</button>
-</div>
-
-<div id="result"></div>
+  <p id="answer" style="margin-top:30px;font-weight:600;"></p>
 </div>
 
 <script>
-let scores = {soft:0, warm:0, fresh:0, deep:0};
+function result(type) {
+  let text = "";
 
-function pick(type){
-  scores[type]++;
+  if(type === "soft") text = "You’re drawn to soft, romantic, and gentle scents.";
+  if(type === "warm") text = "You love warm, comforting, unforgettable scents.";
+  if(type === "fresh") text = "You’re drawn to clean, calm, airy scents.";
+  if(type === "bright") text = "You love playful, glowing, happy scents.";
 
-  let total = scores.soft + scores.warm + scores.fresh + scores.deep;
-
-  if(total >= 5){
-    let top = Object.keys(scores).reduce((a,b)=>scores[a]>scores[b]?a:b);
-
-    let text = {
-      soft: "🌸 Your scent is soft, romantic, and delicate. Something beautiful is waiting for you.",
-      warm: "✨ Your scent is warm, glowing, and comforting. Your Everose match is coming.",
-      fresh: "🕊️ Your scent is clean, light, and airy. A new feeling is on the way.",
-      deep: "🌙 Your scent is deep, cozy, and sensual. Your Everose scent is waiting."
-    };
-
-    document.getElementById("result").innerHTML = text[top] + "<br><br>Everose — launching soon.";
-  }
+  document.getElementById("answer").innerText = text;
 }
 </script>
 
 </body>
 </html>
+
