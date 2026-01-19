@@ -5,9 +5,7 @@
 <title>Everose</title>
 
 <style>
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -37,9 +35,7 @@ nav a {
   font-size: 17px;
 }
 
-nav a:hover {
-  text-decoration: underline;
-}
+nav a:hover { text-decoration: underline; }
 
 /* SECTIONS */
 .section {
@@ -51,7 +47,7 @@ nav a:hover {
   box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
 
-/* QUIZ BUTTONS */
+/* BUTTONS */
 button {
   background: #ff5fa2;
   color: white;
@@ -63,9 +59,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background: #ff3f8f;
-}
+button:hover { background: #ff3f8f; }
 </style>
 </head>
 
@@ -82,30 +76,28 @@ button:hover {
   <h1>Everose 🌸</h1>
   <h2>Luxury fragrance, softly blooming.</h2>
 
-  <p>
-    Everose is a fragrance brand inspired by emotion, softness, and quiet confidence.
-  </p>
+  <p>Everose is a fragrance brand inspired by emotion, softness, and quiet confidence.</p>
 
-  <p style="font-weight:600;">
-    We are so excited to release our first scents.
-  </p>
+  <p style="font-weight:600;">We are so excited to release our first scents.</p>
 
-  <!-- ✨ EDIT THIS TEXT ANYTIME ✨ -->
-  <p style="margin-top:20px;">
-    Stay close. The rose is about to bloom.
-  </p>
+  <!-- ✨ YOU CAN EDIT THIS TEXT ANYTIME ✨ -->
+  <p>Stay close. The rose is about to bloom.</p>
+
+  <hr style="margin:40px auto;width:60%;border:1px solid #ffc1da;">
+
+  <h2>Countdown to Our First Drop 💕</h2>
+  <h1 id="countdown" style="font-size:38px;"></h1>
+  <p style="font-weight:600;">Launching soon.</p>
 </div>
 
 <!-- HINTS -->
 <div class="section" id="hints">
   <h1>Everose Hints ✨</h1>
   <p>Soft clues. Nothing obvious.</p>
-
   <p>✨ One scent feels like sunlight on skin.</p>
   <p>❄ One scent feels like silk in winter air.</p>
   <p>🌷 One scent feels like something new beginning.</p>
   <p>🍂 One scent feels warm… familiar… unforgettable.</p>
-
   <p style="margin-top:20px;font-weight:600;">
     They belong together. But each one tells its own story.
   </p>
@@ -127,22 +119,31 @@ button:hover {
 </div>
 
 <script>
+// 🌸 CHANGE YOUR LAUNCH DATE HERE 🌸
+const launchDate = new Date("June 1, 2026 12:00:00").getTime();
+
+setInterval(function() {
+  const now = new Date().getTime();
+  const distance = launchDate - now;
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("countdown").innerHTML =
+    days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+}, 1000);
+
 function result(type) {
   let text = "";
-
   if(type === "soft") text = "You’re drawn to soft, romantic, gentle scents.";
   if(type === "warm") text = "You love warm, comforting, unforgettable scents.";
   if(type === "fresh") text = "You’re drawn to clean, calm, airy scents.";
   if(type === "bright") text = "You love playful, glowing, happy scents.";
-
   document.getElementById("answer").innerText = text;
 }
 </script>
 
 </body>
 </html>
-
-
-
-
-
