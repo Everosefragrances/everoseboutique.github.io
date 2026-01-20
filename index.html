@@ -139,10 +139,10 @@ button:hover {
   <p>Choose what feels most like you.</p>
 
   <h3>Your perfect scent is:</h3>
-  <button onclick="result('soft')">you love simple scents</button>
-  <button onclick="result('warm')">You love summer</button>
-  <button onclick="result('fresh')">Fresh air & quiet</button>
-  <button onclick="result('bright')">Fun, energy & glow</button>
+  <button onclick="result('soft')">Light scent</button>
+  <button onclick="result('warm')">Medium scent</button>
+  <button onclick="result('fresh')">Strong scent</button>
+  <button onclick="result('bright')">A mix of everything</button>
 
   <p id="answer" style="margin-top:30px;font-weight:600;"></p>
 </div>
@@ -158,10 +158,10 @@ button:hover {
 <script>
 function result(type) {
   let text = "";
-  if(type === "soft") text = "You’re drawn to soft, gentle scents.";
-  if(type === "warm") text = "You love warm, comforting, unforgettable scents.";
-  if(type === "fresh") text = "You’re drawn to clean, calm, airy scents.";
-  if(type === "bright") text = "You love playful, glowing, happy scents.";
+  if(type === "Light scent") text = "You’re drawn to delicious but simple scents.";
+  if(type === "Medium scent") text = "You love a normal but AMAZING smelling scents.";
+  if(type === "Strong scent") text = "You LOVE smelling so good that you make the whole room smell SO good.";
+  if(type === "A mix of everything") text = "You will love our SOON to be released sets.";
   document.getElementById("answer").innerText = text;
 }
 
