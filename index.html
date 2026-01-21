@@ -56,28 +56,19 @@ nav a {
   gap: 60px;
 }
 
-.hero-text {
-  max-width: 520px;
-}
+.hero-text { max-width: 520px; }
 
-.hero h1 {
-  font-size: 64px;
-  margin-bottom: 10px;
-}
+.hero h1 { font-size: 64px; margin-bottom: 10px; }
 
-.hero p {
-  font-size: 20px;
-  line-height: 1.6;
-}
+.hero p { font-size: 20px; line-height: 1.6; }
 
 .hero img {
-  max-width: 360px;
+  max-width: 340px;
   border-radius: 30px;
-  filter: blur(0.8px);
   box-shadow: 0 20px 40px rgba(0,0,0,.15);
 }
 
-/* COUNTDOWN BOX */
+/* COUNTDOWN */
 .countdown-wrap {
   display:flex;
   gap:20px;
@@ -90,20 +81,11 @@ nav a {
   padding:18px 24px;
   border-radius:20px;
   box-shadow:0 8px 20px rgba(0,0,0,.08);
-  text-align:center;
   min-width:180px;
 }
 
-.countbox h2 {
-  font-size:16px;
-  letter-spacing:2px;
-  margin-bottom:6px;
-}
-
-.countbox div {
-  font-size:22px;
-  font-weight:700;
-}
+.countbox h2 { font-size:16px; letter-spacing:2px; }
+.countbox div { font-size:22px; font-weight:700; }
 
 /* BUTTONS */
 button {
@@ -117,8 +99,18 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background: #ff3f8f;
+button:hover { background: #ff3f8f; }
+
+/* SCROLL ANIMATION */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 0.9s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>
 </head>
@@ -133,12 +125,11 @@ button:hover {
 </nav>
 
 <!-- HOME -->
-<section class="hero" id="home">
+<section class="hero reveal" id="home">
   <div class="hero-text">
     <h1>Everose 🌸</h1>
     <p>Luxury fragrance, softly blooming.</p>
-    <p><b>We are so excited to release our first scents.</b></p>
-    <p>Stay close. The rose is about to bloom.</p>
+    <p><b>Our first scents are coming soon.</b></p>
 
     <div class="countdown-wrap">
       <div class="countbox">
@@ -157,17 +148,16 @@ button:hover {
 </section>
 
 <!-- ABOUT -->
-<div class="section" id="about">
+<div class="section reveal" id="about">
   <h1>About Me 🌸</h1>
-  <p>Hi! My name is Cruz Keller, and I absolutely LOVE perfume. I was born in New York and then moved to New Jersey, followed by Miami, and after a few more moves, I finally settled in Austin! I currently attend Alpha School and I’m 13 years old.</p>
-  <p>My family is a group of four: my dad, mom, brother, and me. We also have a dog named Banner, a Rottweiler named after the Incredible Hulk.</p>
-  <p>I’m so excited to start my very own fragrance brand and share my passion for perfume with the world!</p>
+  <p>Hi! My name is Cruz Keller, and I absolutely LOVE perfume. I was born in New York, then moved to New Jersey, then Miami, and after a few more moves, I finally settled in Austin.</p>
+  <p>I go to Alpha School and I’m 13 years old.</p>
+  <p>My family is four people: my dad, mom, brother, and me. We also have a dog named Banner — a Rottweiler named after the Incredible Hulk.</p>
+  <p>I’m so excited to start my own fragrance brand and share my passion with the world.</p>
 </div>
 
 <!-- HINTS -->
-<div class="section" id="hints">
+<div class="section reveal" id="hints">
   <h1>Everose Hints ✨</h1>
-  <p>✨ One scent feels like getting a suntan</p>
-  <p>❄ One scent feels like silk in winter air.</p>
-  <p>🌷 One scent feels like something new beginning.</p>
-  <p>🍂 One scent feels warm… f
+  <p>✨ One scent feels like getting a suntan.</p>
+  <p>❄ One scent feels like sil
