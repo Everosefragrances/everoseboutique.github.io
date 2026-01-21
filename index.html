@@ -127,6 +127,7 @@ button:hover {
 
 <nav>
   <a href="#home">Home</a>
+  <a href="#about">About</a>
   <a href="#hints">Hints</a>
   <a href="#quiz">Find Your Scent</a>
 </nav>
@@ -139,7 +140,6 @@ button:hover {
     <p><b>We are so excited to release our first scents.</b></p>
     <p>Stay close. The rose is about to bloom.</p>
 
-    <!-- COUNTDOWNS -->
     <div class="countdown-wrap">
       <div class="countbox">
         <h2>LAUNCHING IN</h2>
@@ -153,71 +153,21 @@ button:hover {
     </div>
   </div>
 
-  <!-- PERFUME IMAGE -->
   <img src="https://i.postimg.cc/hGjtnFQw/Screenshot-2026-01-20-at-6-55-11-PM.png" alt="Everose perfume bottle">
 </section>
+
+<!-- ABOUT -->
+<div class="section" id="about">
+  <h1>About Me 🌸</h1>
+  <p>Hi! My name is Cruz Keller, and I absolutely LOVE perfume. I was born in New York and then moved to New Jersey, followed by Miami, and after a few more moves, I finally settled in Austin! I currently attend Alpha School and I’m 13 years old.</p>
+  <p>My family is a group of four: my dad, mom, brother, and me. We also have a dog named Banner, a Rottweiler named after the Incredible Hulk.</p>
+  <p>I’m so excited to start my very own fragrance brand and share my passion for perfume with the world!</p>
+</div>
 
 <!-- HINTS -->
 <div class="section" id="hints">
   <h1>Everose Hints ✨</h1>
-  <p>Soft clues. Nothing obvious.</p>
   <p>✨ One scent feels like getting a suntan</p>
   <p>❄ One scent feels like silk in winter air.</p>
   <p>🌷 One scent feels like something new beginning.</p>
-  <p>🍂 One scent feels warm… familiar… unforgettable.</p>
-</div>
-
-<!-- QUIZ -->
-<div class="section" id="quiz">
-  <h1>Find Your Scent 💗</h1>
-  <p>Choose what feels most like you.</p>
-
-  <h3>Your perfect scent is:</h3>
-  <button onclick="result('soft')">Light scent</button>
-  <button onclick="result('warm')">Medium scent</button>
-  <button onclick="result('fresh')">Strong scent</button>
-  <button onclick="result('bright')">A mix of everything</button>
-
-  <p id="answer" style="margin-top:30px;font-weight:600;"></p>
-</div>
-
-<script>
-/* 🌸 CHANGE ONLY THESE TWO DATES */
-const launchDate = new Date("September 29, 2026 00:00:00").getTime();
-const updateDate = new Date("Febuuary 14, 2026 00:00:00").getTime();
-
-setInterval(function () 
-  const now = new Date().getTime();
-
-  function countdown(target, element, doneText) {
-    let d = target - now;
-    if (d <= 0) {
-      document.getElementById(element).innerHTML = doneText;
-      return;
-    }
-    let days = Math.floor(d / (1000 * 60 * 60 * 24));
-    let hours = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let mins = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
-    let secs = Math.floor((d % (1000 * 60)) / 1000);
-    document.getElementById(element).innerHTML = 
-      days+"d "+hours+"h "+mins+"m "+secs+"s";
-  }
-
-  countdown(launchDate, "launchCountdown", "WE ARE LIVE ✨");
-  countdown(updateDate, "updateCountdown", "UPDATE LIVE ✨");
-
-}, 1000);
-
-/* QUIZ */
-function result(type) {
-  let text = "";
-  if(type === "light scent") text = "You love soft, airy, gentle scents.";
-  if(type === "Medium scent") text = "People complement you when you walk by.";
-  if(type === "Strong scent") text = "You like strong, clean, confident scents that when you walk in the room it instantly smells amazing.";
-  if(type === "A mix of everything") text = "You love playful, layered, signature scents.";
-  document.getElementById("answer").innerText = text;
-}
-</script>
-
-</body>
-</html>
+  <p>🍂 One scent feels warm… f
