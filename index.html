@@ -274,7 +274,7 @@ function revealOnScroll() {
 window.addEventListener("scroll", revealOnScroll);
 setTimeout(revealOnScroll, 100);
 
-/* SECRET FEATURE */
+/* SECRET FEATURE: CLICK BOTTLE */
 let clicks = 0;
 
 document.getElementById("bottle").addEventListener("click", () => {
@@ -292,6 +292,40 @@ document.getElementById("bottle").addEventListener("click", () => {
 
       setTimeout(() => heart.remove(), 3000);
     }
+  }
+});
+
+/* SECRET FEATURE: CURSOR MAGIC */
+let hoverCount = 0;
+
+bottle.addEventListener("mouseenter", () => {
+  hoverCount++;
+
+  if (hoverCount === 5) {
+    // Change cursor to flower
+    document.body.style.cursor = "url('https://i.postimg.cc/Zq0g5zVf/flower-cursor.png'), auto";
+
+    // Floating hearts follow cursor
+    function createHeart(e) {
+      for (let i = 0; i < 5; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💗";
+        heart.style.left = e.clientX + Math.random()*20 - 10 + "px";
+        heart.style.top = e.clientY + Math.random()*20 - 10 + "px";
+        heart.style.fontSize = 16 + Math.random()*12 + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+      }
+    }
+
+    document.addEventListener("mousemove", createHeart);
+
+    // Reset cursor and remove hearts after 5 seconds
+    setTimeout(() => {
+      document.body.style.cursor = "auto";
+      document.removeEventListener("mousemove", createHeart);
+    }, 5000);
   }
 });
 </script>
