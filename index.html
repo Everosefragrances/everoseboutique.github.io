@@ -60,7 +60,6 @@ nav a {
 .hero img {
   max-width: 360px;
   border-radius: 30px;
-  filter: blur(0.6px);
   box-shadow: 0 20px 40px rgba(0,0,0,.15);
   transition: all 0.8s ease;
 }
@@ -146,7 +145,7 @@ button:hover { background: #ff3f8f; }
 </nav>
 
 <!-- HOME -->
-<section class="hero reveal" id="home">
+<section class="hero reveal active" id="home">
   <div class="hero-text">
     <h1>Everose 🌸</h1>
     <p>Luxury fragrance, softly blooming.</p>
@@ -181,7 +180,6 @@ button:hover { background: #ff3f8f; }
 <!-- HINTS -->
 <div class="section reveal" id="hints">
   <h1>Everose Hints ✨</h1>
-  <p>Soft clues. Nothing obvious.</p>
   <p>✨ One scent feels like getting a suntan.</p>
   <p>❄ One scent feels like silk in winter air.</p>
   <p>🌷 One scent feels like something new beginning.</p>
@@ -202,7 +200,7 @@ button:hover { background: #ff3f8f; }
 </div>
 
 <script>
-/* COUNTDOWN DATES */
+/* COUNTDOWN */
 const launchDate = new Date("September 29, 2026 00:00:00").getTime();
 const updateDate = new Date("February 14, 2026 00:00:00").getTime();
 
@@ -256,7 +254,7 @@ function revealOnScroll() {
 }
 
 window.addEventListener("scroll", revealOnScroll);
-revealOnScroll();
+setTimeout(revealOnScroll, 100);
 </script>
 
 </body>
