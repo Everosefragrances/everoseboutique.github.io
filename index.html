@@ -184,9 +184,9 @@ button:hover {
 <script>
 /* 🌸 CHANGE ONLY THESE TWO DATES */
 const launchDate = new Date("September 29, 2026 00:00:00").getTime();
-const updateDate = new Date("February 15, 2026 18:00:00").getTime();
+const updateDate = new Date("January 20, 2026 11:35:00").getTime();
 
-setInterval(function () {
+setInterval(function () 
   const now = new Date().getTime();
 
   function countdown(target, element, doneText) {
@@ -211,10 +211,10 @@ setInterval(function () {
 /* QUIZ */
 function result(type) {
   let text = "";
-  if(type === "soft") text = "You love soft, airy, gentle scents.";
-  if(type === "warm") text = "You’re drawn to warm, comforting scents.";
-  if(type === "fresh") text = "You like strong, clean, confident scents.";
-  if(type === "bright") text = "You love playful, layered, signature scents.";
+  if(type === "light scent") text = "You love soft, airy, gentle scents.";
+  if(type === "Medium scent") text = "People complement you when you walk by.";
+  if(type === "Strong scent") text = "You like strong, clean, confident scents that when you walk in the room it instantly smells amazing.";
+  if(type === "A mix of everything") text = "You love playful, layered, signature scents.";
   document.getElementById("answer").innerText = text;
 }
 </script>
