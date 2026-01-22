@@ -179,7 +179,7 @@ button:hover { background: #ff3f8f; }
     </div>
   </div>
 
-  <!-- SECRET FEATURE ADDED HERE -->
+  <!-- SECRET FEATURE: CLICK BOTTLE -->
   <div>
     <img id="bottle" src="https://i.postimg.cc/hGjtnFQw/Screenshot-2026-01-20-at-6-55-11-PM.png" alt="Everose perfume bottle">
     <p id="secretText" style="display:none;font-weight:700;margin-top:20px;">🌸 Welcome to Everose. You found the secret.</p>
@@ -330,51 +330,6 @@ bottle.addEventListener("mouseenter", () => {
 
 bottle.addEventListener("mouseleave", () => {
   clearTimeout(hoverTimer); // cancel if mouse leaves early
-});
-
-/* SECRET FEATURE: GROWING ROSE */
-let roseClicks = 0;
-
-document.getElementById("bottle").addEventListener("click", () => {
-  roseClicks++;
-
-  // Create a tiny rose
-  const rose = document.createElement("div");
-  rose.innerHTML = "🌹";
-  rose.style.position = "fixed";
-  rose.style.left = Math.random() * (window.innerWidth - 50) + "px";
-  rose.style.top = Math.random() * (window.innerHeight - 50) + "px";
-  rose.style.fontSize = (10 + roseClicks * 2) + "px"; // grows bigger with clicks
-  rose.style.opacity = 0;
-  rose.style.transition = "all 1s ease";
-  document.body.appendChild(rose);
-
-  setTimeout(() => {
-    rose.style.opacity = 1;
-  }, 50);
-
-  // Full bloom at 10 clicks
-  if (roseClicks === 10) {
-    for (let i = 0; i < 25; i++) {
-      const petal = document.createElement("div");
-      petal.innerHTML = "🌸";
-      petal.style.position = "fixed";
-      petal.style.left = Math.random() * window.innerWidth + "px";
-      petal.style.top = "-50px";
-      petal.style.fontSize = (12 + Math.random() * 12) + "px";
-      petal.style.opacity = 0.8;
-      petal.style.transition = "top 4s linear, transform 4s linear";
-      document.body.appendChild(petal);
-
-      setTimeout(() => {
-        petal.style.top = window.innerHeight + "px";
-        petal.style.transform = `rotate(${Math.random() * 360}deg)`;
-      }, 50);
-
-      setTimeout(() => petal.remove(), 4000);
-    }
-    roseClicks = 0;
-  }
 });
 </script>
 
