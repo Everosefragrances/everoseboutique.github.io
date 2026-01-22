@@ -43,7 +43,6 @@ nav a {
   justify-content: space-between;
   padding: 140px 10%;
   gap: 60px;
-  position: relative;
 }
 
 .hero-text { max-width: 520px; }
@@ -63,8 +62,6 @@ nav a {
   border-radius: 30px;
   box-shadow: 0 20px 40px rgba(0,0,0,.15);
   transition: all 0.8s ease;
-  position: relative;
-  z-index: 2;
 }
 
 /* bottle hover */
@@ -136,7 +133,7 @@ button:hover { background: #ff3f8f; }
   transform: translateY(0);
 }
 
-/* HEARTS */
+/* FLOATING HEARTS */
 .heart {
   position: fixed;
   bottom: 20px;
@@ -149,35 +146,18 @@ button:hover { background: #ff3f8f; }
   to { transform: translateY(-300px); opacity: 0; }
 }
 
-/* 🌫️ SECRET AURA */
-#aura {
-  position: absolute;
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,160,200,0.35), transparent 70%);
-  filter: blur(25px);
-  opacity: 0;
+/* ✨ CURSOR SPARKLES */
+.sparkle {
+  position: fixed;
   pointer-events: none;
-  transition: opacity 1s ease;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
+  font-size: 14px;
+  animation: sparkleFloat 1.2s ease-out forwards;
+  z-index: 9999;
 }
 
-/* 🔐 SECRET KEY MESSAGE */
-#keySecret {
-  display: none;
-  margin-top: 25px;
-  font-size: 22px;
-  font-weight: 700;
-  animation: fadeIn 2s ease forwards;
-}
-
-@keyframes fadeIn {
-  from {opacity:0; transform: translateY(10px);}
-  to {opacity:1; transform: translateY(0);}
+@keyframes sparkleFloat {
+  from { transform: translateY(0) scale(1); opacity: 1; }
+  to { transform: translateY(-20px) scale(0.3); opacity: 0; }
 }
 </style>
 </head>
@@ -215,9 +195,7 @@ button:hover { background: #ff3f8f; }
 
   <div>
     <img id="bottle" src="https://i.postimg.cc/hGjtnFQw/Screenshot-2026-01-20-at-6-55-11-PM.png" alt="Everose perfume bottle">
-    <div id="aura"></div>
     <p id="secretText" style="display:none;font-weight:700;margin-top:20px;">🌸 Welcome to Everose. You found the secret.</p>
-    <p id="keySecret">🌹 Access granted. You belong in Everose.</p>
   </div>
 </section>
 
@@ -290,23 +268,26 @@ function result(type) {
   document.getElementById("answer").innerText = text;
 }
 
-/* SCROLL */
+/* SCROLL ANIMATION */
 const reveals = document.querySelectorAll(".reveal");
+
 function revealOnScroll() {
   reveals.forEach(el => {
-    if (el.getBoundingClientRect().top < window.innerHeight - 80) {
+    const windowHeight = window.innerHeight;
+    const elementTop = el.getBoundingClientRect().top;
+    if (elementTop < windowHeight - 80) {
       el.classList.add("active");
     }
   });
 }
+
 window.addEventListener("scroll", revealOnScroll);
 setTimeout(revealOnScroll, 100);
 
-/* 💗 CLICK SECRET */
+/* SECRET FEATURE: CLICK BOTTLE */
 let clicks = 0;
-const bottle = document.getElementById("bottle");
 
-bottle.addEventListener("click", () => {
+document.getElementById("bottle").addEventListener("click", () => {
   clicks++;
   if (clicks === 5) {
     document.getElementById("secretText").style.display = "block";
@@ -321,59 +302,22 @@ bottle.addEventListener("click", () => {
   }
 });
 
-/* 🌸 HOVER SECRET */
-let hoverTimer;
-bottle.addEventListener("mouseenter", () => {
-  hoverTimer = setTimeout(() => {
-    document.body.style.cursor = "url('https://i.postimg.cc/Zq0g5zVf/flower-cursor.png'), auto";
-  }, 5000);
-});
-bottle.addEventListener("mouseleave", () => {
-  clearTimeout(hoverTimer);
-  document.body.style.cursor = "auto";
-});
-
-/* 🌫️ SCENT AURA SECRET */
-let swirlCount = 0;
-let lastX = null;
-const aura = document.getElementById("aura");
-
+/* ✨ CURSOR SPARKLES */
 document.addEventListener("mousemove", (e) => {
-  const rect = bottle.getBoundingClientRect();
-  const near =
-    e.clientX > rect.left - 120 &&
-    e.clientX < rect.right + 120 &&
-    e.clientY > rect.top - 120 &&
-    e.clientY < rect.bottom + 120;
+  if (Math.random() > 0.6) return;
 
-  if (!near) { swirlCount = 0; lastX = null; return; }
+  const sparkle = document.createElement("div");
+  sparkle.className = "sparkle";
 
-  if (lastX !== null) {
-    if ((lastX < e.clientX && swirlCount % 2 === 0) ||
-        (lastX > e.clientX && swirlCount % 2 === 1)) {
-      swirlCount++;
-    }
-  }
-  lastX = e.clientX;
+  const sparkles = ["✨","💫","🌸","🤍","⭐"];
+  sparkle.innerHTML = sparkles[Math.floor(Math.random() * sparkles.length)];
 
-  if (swirlCount > 18) {
-    aura.style.opacity = "1";
-    swirlCount = 0;
-    setTimeout(() => aura.style.opacity = "0", 6000);
-  }
-});
+  sparkle.style.left = e.clientX + "px";
+  sparkle.style.top = e.clientY + "px";
+  sparkle.style.fontSize = 10 + Math.random() * 12 + "px";
 
-/* 🔐 KEYBOARD SECRET */
-let typed = "";
-const secretWord = "everose";
-
-document.addEventListener("keydown", (e) => {
-  typed += e.key.toLowerCase();
-  if (!secretWord.startsWith(typed)) typed = e.key.toLowerCase();
-  if (typed === secretWord) {
-    document.getElementById("keySecret").style.display = "block";
-    typed = "";
-  }
+  document.body.appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 1200);
 });
 </script>
 
