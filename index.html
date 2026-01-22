@@ -145,6 +145,32 @@ button:hover { background: #ff3f8f; }
   from { transform: translateY(0); opacity: 1; }
   to { transform: translateY(-300px); opacity: 0; }
 }
+
+/* ===== SECRET ROSE CURSOR MODE ===== */
+body.rose-cursor {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext x='2' y='24' font-size='24'%3E%F0%9F%8C%B9%3C/text%3E%3C/svg%3E") 4 24, auto;
+}
+
+body.rose-cursor button,
+body.rose-cursor a,
+body.rose-cursor img {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext x='2' y='24' font-size='24'%3E%F0%9F%8C%B9%3C/text%3E%3C/svg%3E") 4 24, pointer;
+}
+
+.petal {
+  position: fixed;
+  pointer-events: none;
+  font-size: 18px;
+  opacity: 0.9;
+  transform: translate(-50%, -50%);
+  animation: petalFade 0.9s ease-out forwards;
+  z-index: 9999;
+}
+
+@keyframes petalFade {
+  from { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -70%) scale(0.6); }
+}
 </style>
 </head>
 
@@ -157,14 +183,12 @@ button:hover { background: #ff3f8f; }
   <a href="#quiz">Find Your Scent</a>
 </nav>
 
-<!-- HOME -->
 <section class="hero reveal active" id="home">
   <div class="hero-text">
     <h1>Everose 🌸</h1>
     <p>Luxury fragrance, softly blooming.</p>
     <p><b>We are so excited to release our first scents.</b></p>
-    <p>Stay close. The rose is about to bloom! 
-      P.S- this website is full of mysteries.(Type- Do i smell good? and a secret message will pop up)</p>
+    <p>Stay close. The rose is about to bloom!</p>
 
     <div class="countdown-wrap">
       <div class="countbox">
@@ -179,23 +203,19 @@ button:hover { background: #ff3f8f; }
     </div>
   </div>
 
-  <!-- SECRET FEATURE ADDED HERE -->
   <div>
-    <img id="bottle" src="https://i.postimg.cc/hGjtnFQw/Screenshot-2026-01-20-at-6-55-11-PM.png" alt="Everose perfume bottle">
-    <p id="secretText" style="display:none;font-weight:700;margin-top:20px;">🌸 Welcome to Everose. You found the secret.</p>
+    <img id="bottle" src="https://i.postimg.cc/hGjtnFQw/Screenshot-2026-01-20-at-6-55-11-PM.png">
+    <p id="secretText" style="display:none;font-weight:700;margin-top:20px;">
+      🌸 Welcome to Everose. You found the secret.
+    </p>
   </div>
 </section>
 
-<!-- ABOUT -->
 <div class="section reveal" id="about">
   <h1>About Me 🌸</h1>
-  <p>Hi! My name is Cruz Keller, and I absolutely love perfume. I was born in New York, then moved to New Jersey, then to Miami, and after a few more moves, I finally landed in Austin.</p>
-  <p>I’m 13 years old and currently attend Alpha School. My family is a family of four — my dad, mom, my brother, and me.</p>
-  <p>We also have a dog named Banner. He’s a Rottweiler named after the Incredible Hulk.</p>
-  <p>I’m so excited to start my own fragrance brand and share my love for scent with the world.</p>
+  <p>Hi! My name is Cruz Keller, and I absolutely love perfume.</p>
 </div>
 
-<!-- HINTS -->
 <div class="section reveal" id="hints">
   <h1>Everose Hints ✨</h1>
   <p>✨ One scent feels like getting a suntan.</p>
@@ -204,109 +224,92 @@ button:hover { background: #ff3f8f; }
   <p>🍂 One scent feels warm… familiar… unforgettable.</p>
 </div>
 
-<!-- QUIZ -->
 <div class="section reveal" id="quiz">
   <h1>Find Your Scent 💗</h1>
-  <p>Choose what feels most like you.</p>
-
   <button onclick="result('soft')">Light scent</button>
   <button onclick="result('warm')">Medium scent</button>
   <button onclick="result('fresh')">Strong scent</button>
   <button onclick="result('bright')">A mix of everything</button>
-
-  <p id="answer" style="margin-top:30px;font-weight:600;"></p>
+  <p id="answer"></p>
 </div>
 
 <script>
 /* COUNTDOWN */
-const launchDate = new Date("September 29, 2026 00:00:00").getTime();
-const updateDate = new Date("February 14, 2026 00:00:00").getTime();
+const launchDate = new Date("September 29, 2026").getTime();
+const updateDate = new Date("February 14, 2026").getTime();
 
-function updateCountdown(target, elementId) {
-  const now = new Date().getTime();
-  const distance = target - now;
-
-  if (distance < 0) {
-    document.getElementById(elementId).innerHTML = "Unlocked ✨";
-    return;
-  }
-
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  document.getElementById(elementId).innerHTML =
-    `${days}d ${hours}h ${minutes}m ${seconds}s`;
+function updateCountdown(target, id) {
+  const d = target - new Date().getTime();
+  if (d < 0) return document.getElementById(id).innerHTML = "Unlocked ✨";
+  const days = Math.floor(d / 86400000);
+  const hrs = Math.floor((d % 86400000) / 3600000);
+  const mins = Math.floor((d % 3600000) / 60000);
+  const secs = Math.floor((d % 60000) / 1000);
+  document.getElementById(id).innerHTML = `${days}d ${hrs}h ${mins}m ${secs}s`;
 }
-
 setInterval(() => {
   updateCountdown(launchDate, "launchCountdown");
   updateCountdown(updateDate, "updateCountdown");
 }, 1000);
 
 /* QUIZ */
-function result(type) {
-  let text = "";
-  if(type === "soft") text = "You love soft, airy, gentle scents.";
-  if(type === "warm") text = "You’re drawn to warm, comforting scents.";
-  if(type === "fresh") text = "You like strong, clean, confident scents.";
-  if(type === "bright") text = "You love playful, layered, signature scents.";
-  document.getElementById("answer").innerText = text;
+function result(t) {
+  const m = {
+    soft: "You love soft, airy scents.",
+    warm: "You love comforting warmth.",
+    fresh: "You love bold freshness.",
+    bright: "You love layered signatures."
+  };
+  answer.innerText = m[t];
 }
 
-/* SCROLL ANIMATION */
-const reveals = document.querySelectorAll(".reveal");
-
-function revealOnScroll() {
-  reveals.forEach(el => {
-    const windowHeight = window.innerHeight;
-    const elementTop = el.getBoundingClientRect().top;
-    if (elementTop < windowHeight - 80) {
+/* SCROLL */
+document.addEventListener("scroll", () => {
+  document.querySelectorAll(".reveal").forEach(el => {
+    if (el.getBoundingClientRect().top < innerHeight - 80)
       el.classList.add("active");
-    }
   });
-}
-
-window.addEventListener("scroll", revealOnScroll);
-setTimeout(revealOnScroll, 100);
-
-/* SECRET FEATURE: CLICK BOTTLE */
-let clicks = 0;
-
-document.getElementById("bottle").addEventListener("click", () => {
-  clicks++;
-
-  if (clicks === 5) {
-    document.getElementById("secretText").style.display = "block";
-
-    for (let i = 0; i < 15; i++) {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "💗";
-      heart.style.left = Math.random() * window.innerWidth + "px";
-      document.body.appendChild(heart);
-
-      setTimeout(() => heart.remove(), 3000);
-    }
-  }
 });
 
-/* SECRET FEATURE: TYPE "do i smell good" */
-let typed = "";
-const secretPhrase = "do i smell good";
-
-document.addEventListener("keydown", (e) => {
-  typed += e.key.toLowerCase();
-
-  if (typed.length > secretPhrase.length) {
-    typed = typed.slice(typed.length - secretPhrase.length);
+/* HEART SECRET */
+let clicks = 0;
+bottle.onclick = () => {
+  clicks++;
+  if (clicks === 5) {
+    secretText.style.display = "block";
+    for (let i=0;i<15;i++){
+      const h=document.createElement("div");
+      h.className="heart"; h.innerHTML="💗";
+      h.style.left=Math.random()*innerWidth+"px";
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),3000);
+    }
   }
+};
 
-  if (typed === secretPhrase) {
-    alert("You smell great! 💗\nThank you for exploring -Cruz");
-    typed = ""; // reset after showing message
-  }
+/* ROSE CURSOR VIP MODE */
+let roseOn=false, vipTyped="", phrase="everose vip";
+function enableRose(){ if(roseOn) return; roseOn=true; document.body.classList.add("rose-cursor"); }
+
+if (new Date().getHours() >= 19) enableRose();
+
+document.addEventListener("keydown", e=>{
+  if(e.key.length!==1) return;
+  vipTyped+=(e.key.toLowerCase());
+  if(vipTyped.length>phrase.length) vipTyped=vipTyped.slice(-phrase.length);
+  if(vipTyped===phrase) enableRose();
+});
+
+let petalTimer=0;
+document.addEventListener("mousemove", e=>{
+  if(!roseOn||Date.now()-petalTimer<45) return;
+  petalTimer=Date.now();
+  const p=document.createElement("div");
+  p.className="petal"; p.innerHTML="🌸";
+  p.style.left=e.clientX+"px";
+  p.style.top=e.clientY+"px";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),900);
 });
 </script>
 
