@@ -133,7 +133,7 @@ button:hover { background: #ff3f8f; }
   transform: translateY(0);
 }
 
-/* SECRET FEATURE */
+/* SECRET FEATURE: HEARTS */
 .heart {
   position: fixed;
   bottom: 20px;
@@ -293,43 +293,6 @@ document.getElementById("bottle").addEventListener("click", () => {
       setTimeout(() => heart.remove(), 3000);
     }
   }
-});
-
-/* SECRET FEATURE: HOVER BOTTLE FOR 5 SECONDS */
-let hoverTimer;
-
-bottle.addEventListener("mouseenter", () => {
-  hoverTimer = setTimeout(() => {
-    // Change cursor to flower
-    document.body.style.cursor = "url('https://i.postimg.cc/Zq0g5zVf/flower-cursor.png'), auto";
-
-    // Floating hearts follow cursor
-    function createHeart(e) {
-      for (let i = 0; i < 5; i++) {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerHTML = "💗";
-        heart.style.left = e.clientX + Math.random()*20 - 10 + "px";
-        heart.style.top = e.clientY + Math.random()*20 - 10 + "px";
-        heart.style.fontSize = 16 + Math.random()*12 + "px";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 3000);
-      }
-    }
-
-    document.addEventListener("mousemove", createHeart);
-
-    // Reset cursor and remove hearts after 5 seconds
-    setTimeout(() => {
-      document.body.style.cursor = "auto";
-      document.removeEventListener("mousemove", createHeart);
-    }, 5000);
-
-  }, 5000); // 5-second hover
-});
-
-bottle.addEventListener("mouseleave", () => {
-  clearTimeout(hoverTimer); // cancel if mouse leaves early
 });
 </script>
 
