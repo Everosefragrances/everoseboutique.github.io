@@ -64,17 +64,18 @@ nav a {
   transition: all 0.8s ease;
 }
 
+/* bottle hover */
 .hero img:hover {
-  transform: translateY(-18px) scale(1.05);
+  transform: translateY(-18px) scale(1.05) rotate(-1deg);
   box-shadow: 0 30px 60px rgba(255, 120, 180, 0.45);
 }
 
 /* SECTIONS */
 .section {
   max-width: 1100px;
-  margin: 140px auto;
+  margin: 120px auto;
   background: #fff0f6;
-  padding: 80px 50px;
+  padding: 70px 40px;
   border-radius: 28px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.12);
   text-align: center;
@@ -120,10 +121,10 @@ button {
 
 button:hover { background: #ff3f8f; }
 
-/* SCROLL REVEAL */
+/* SCROLL ANIMATION */
 .reveal {
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(40px);
   transition: all 1s ease;
 }
 
@@ -132,13 +133,12 @@ button:hover { background: #ff3f8f; }
   transform: translateY(0);
 }
 
-/* FLOATING HEARTS */
+/* SECRET FEATURE */
 .heart {
   position: fixed;
   bottom: 20px;
   font-size: 24px;
   animation: floatUp 3s linear forwards;
-  pointer-events:none;
 }
 
 @keyframes floatUp {
@@ -163,7 +163,8 @@ button:hover { background: #ff3f8f; }
     <h1>Everose 🌸</h1>
     <p>Luxury fragrance, softly blooming.</p>
     <p><b>We are so excited to release our first scents.</b></p>
-    <p>Stay close. The rose is about to bloom.</p>
+    <p>Stay close. The rose is about to bloom! 
+      P.S- this website is full of mysteries.</p>
 
     <div class="countdown-wrap">
       <div class="countbox">
@@ -178,19 +179,20 @@ button:hover { background: #ff3f8f; }
     </div>
   </div>
 
+  <!-- SECRET FEATURE ADDED HERE -->
   <div>
-    <img id="bottle" src="https://i.postimg.cc/hGjtnFQw/Screenshot-2026-01-20-at-6-55-11-PM.png">
-    <p id="secretText" style="display:none;font-weight:700;margin-top:20px;">
-      🌸 You found the secret of Everose.
-    </p>
+    <img id="bottle" src="https://i.postimg.cc/hGjtnFQw/Screenshot-2026-01-20-at-6-55-11-PM.png" alt="Everose perfume bottle">
+    <p id="secretText" style="display:none;font-weight:700;margin-top:20px;">🌸 Welcome to Everose. You found the secret.</p>
   </div>
 </section>
 
 <!-- ABOUT -->
 <div class="section reveal" id="about">
-  <h1>About Everose 🌷</h1>
-  <p>Everose is a luxury fragrance brand inspired by emotion, memory, and softness.</p>
-  <p>Each scent is designed to feel like a season, a moment, a secret.</p>
+  <h1>About Me 🌸</h1>
+  <p>Hi! My name is Cruz Keller, and I absolutely love perfume. I was born in New York, then moved to New Jersey, then to Miami, and after a few more moves, I finally landed in Austin.</p>
+  <p>I’m 13 years old and currently attend Alpha School. My family is a family of four — my dad, mom, my brother, and me.</p>
+  <p>We also have a dog named Banner. He’s a Rottweiler named after the Incredible Hulk.</p>
+  <p>I’m so excited to start my own fragrance brand and share my love for scent with the world.</p>
 </div>
 
 <!-- HINTS -->
@@ -256,7 +258,7 @@ function result(type) {
   document.getElementById("answer").innerText = text;
 }
 
-/* SCROLL REVEAL */
+/* SCROLL ANIMATION */
 const reveals = document.querySelectorAll(".reveal");
 
 function revealOnScroll() {
@@ -272,21 +274,106 @@ function revealOnScroll() {
 window.addEventListener("scroll", revealOnScroll);
 setTimeout(revealOnScroll, 100);
 
-/* SECRET HEART EASTER EGG */
+/* SECRET FEATURE: CLICK BOTTLE */
 let clicks = 0;
 
 document.getElementById("bottle").addEventListener("click", () => {
   clicks++;
+
   if (clicks === 5) {
     document.getElementById("secretText").style.display = "block";
-    for (let i = 0; i < 18; i++) {
+
+    for (let i = 0; i < 15; i++) {
       const heart = document.createElement("div");
       heart.className = "heart";
       heart.innerHTML = "💗";
       heart.style.left = Math.random() * window.innerWidth + "px";
       document.body.appendChild(heart);
+
       setTimeout(() => heart.remove(), 3000);
     }
+  }
+});
+
+/* SECRET FEATURE: HOVER BOTTLE FOR 5 SECONDS */
+let hoverTimer;
+
+bottle.addEventListener("mouseenter", () => {
+  hoverTimer = setTimeout(() => {
+    // Change cursor to flower
+    document.body.style.cursor = "url('https://i.postimg.cc/Zq0g5zVf/flower-cursor.png'), auto";
+
+    // Floating hearts follow cursor
+    function createHeart(e) {
+      for (let i = 0; i < 5; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💗";
+        heart.style.left = e.clientX + Math.random()*20 - 10 + "px";
+        heart.style.top = e.clientY + Math.random()*20 - 10 + "px";
+        heart.style.fontSize = 16 + Math.random()*12 + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+      }
+    }
+
+    document.addEventListener("mousemove", createHeart);
+
+    // Reset cursor and remove hearts after 5 seconds
+    setTimeout(() => {
+      document.body.style.cursor = "auto";
+      document.removeEventListener("mousemove", createHeart);
+    }, 5000);
+
+  }, 5000); // 5-second hover
+});
+
+bottle.addEventListener("mouseleave", () => {
+  clearTimeout(hoverTimer); // cancel if mouse leaves early
+});
+
+/* SECRET FEATURE: GROWING ROSE */
+let roseClicks = 0;
+
+document.getElementById("bottle").addEventListener("click", () => {
+  roseClicks++;
+
+  // Create a tiny rose
+  const rose = document.createElement("div");
+  rose.innerHTML = "🌹";
+  rose.style.position = "fixed";
+  rose.style.left = Math.random() * (window.innerWidth - 50) + "px";
+  rose.style.top = Math.random() * (window.innerHeight - 50) + "px";
+  rose.style.fontSize = (10 + roseClicks * 2) + "px"; // grows bigger with clicks
+  rose.style.opacity = 0;
+  rose.style.transition = "all 1s ease";
+  document.body.appendChild(rose);
+
+  setTimeout(() => {
+    rose.style.opacity = 1;
+  }, 50);
+
+  // Full bloom at 10 clicks
+  if (roseClicks === 10) {
+    for (let i = 0; i < 25; i++) {
+      const petal = document.createElement("div");
+      petal.innerHTML = "🌸";
+      petal.style.position = "fixed";
+      petal.style.left = Math.random() * window.innerWidth + "px";
+      petal.style.top = "-50px";
+      petal.style.fontSize = (12 + Math.random() * 12) + "px";
+      petal.style.opacity = 0.8;
+      petal.style.transition = "top 4s linear, transform 4s linear";
+      document.body.appendChild(petal);
+
+      setTimeout(() => {
+        petal.style.top = window.innerHeight + "px";
+        petal.style.transform = `rotate(${Math.random() * 360}deg)`;
+      }, 50);
+
+      setTimeout(() => petal.remove(), 4000);
+    }
+    roseClicks = 0;
   }
 });
 </script>
