@@ -256,7 +256,7 @@ document.addEventListener("scroll", () => {
   });
 });
 
-/* BOTTLE SECRET */
+/* BOTTLE SECRET (5 clicks) */
 let clicks = 0;
 document.getElementById("bottle").addEventListener("click", () => {
   clicks++;
@@ -273,14 +273,19 @@ document.getElementById("bottle").addEventListener("click", () => {
   }
 });
 
-/* TYPE SECRET */
+/* 🔐 TYPE SECRET: "do i smell good" */
 let typed = "";
-const phrase = "do i smell good";
-document.addEventListener("keydown", e => {
-  if (e.key.length !== 1) return;
+const secretPhrase = "do i smell good";
+
+document.addEventListener("keydown", (e) => {
+  if (e.key.length !== 1) return; // ignore shift, enter, etc.
   typed += e.key.toLowerCase();
-  if (typed.length > phrase.length) typed = typed.slice(-phrase.length);
-  if (typed === phrase) {
+
+  if (typed.length > secretPhrase.length) {
+    typed = typed.slice(-secretPhrase.length);
+  }
+
+  if (typed === secretPhrase) {
     alert("You smell great! 💗\nThank you for exploring – Cruz");
     typed = "";
   }
