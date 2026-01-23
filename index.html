@@ -221,6 +221,41 @@ button, a, img { cursor: var(--everose-pointer); }
 }
 
 .cursor-actions .mini:hover { background: #ff3f8f; }
+
+/* =========================
+   DONT CLICK ME BOTTLE (ADDED)
+   ========================= */
+#dontClickBottle {
+  position: fixed;
+  bottom: 18px;
+  left: 18px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+#dontClickBottle:hover {
+  transform: translateY(-2px) scale(1.05);
+  opacity: 1;
+}
+
+#dontClickBottle img {
+  width: 38px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+}
+
+#dontClickBottle span {
+  font-size: 11px;
+  opacity: 0.6;
+  letter-spacing: 0.5px;
+}
 </style>
 </head>
 
@@ -309,6 +344,12 @@ button, a, img { cursor: var(--everose-pointer); }
   </div>
 
   <p id="answer" style="margin-top:30px;font-weight:600;"></p>
+</div>
+
+<!-- DONT CLICK ME EASTER EGG (ADDED) -->
+<div id="dontClickBottle" title="don’t click me">
+  <img src="https://i.postimg.cc/hGjtnFQw/Screenshot-2026-01-20-at-6-55-11-PM.png" alt="Tiny perfume bottle">
+  <span>don’t click me</span>
 </div>
 
 <script>
@@ -467,6 +508,37 @@ document.addEventListener("keydown", (e) => {
       localStorage.setItem("everose_cursor_combo_done", "true");
     }
     comboTyped = "";
+  }
+});
+
+/* =========================
+   DONT CLICK ME BOTTLE (ADDED)
+   ========================= */
+let dontClickCount = 0;
+
+document.getElementById("dontClickBottle").addEventListener("click", () => {
+  dontClickCount++;
+
+  if (dontClickCount === 3) {
+    alert("hey.");
+  }
+
+  if (dontClickCount === 5) {
+    alert("I literally said don’t 😭");
+  }
+
+  if (dontClickCount === 7) {
+    alert("OK FINE YOU WIN 💗");
+
+    // heart burst (uses your existing .heart animation)
+    for (let i = 0; i < 18; i++) {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.innerText = "💗";
+      h.style.left = Math.random() * window.innerWidth + "px";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 3000);
+    }
   }
 });
 </script>
