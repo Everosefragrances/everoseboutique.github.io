@@ -223,18 +223,28 @@ button, a, img { cursor: var(--everose-pointer); }
 .cursor-actions .mini:hover { background: #ff3f8f; }
 
 /* =========================
-   ASK EVEROSE (AI CORNER)
+   ASK EVEROSE (AI CORNER) - UPDATED
+   bottom-left + label + scroll-friendly
    ========================= */
-#askEveroseBtn {
+#askEveroseWrap{
   position: fixed;
-  right: 18px;
+  left: 18px;
   bottom: 18px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none; /* lets page scroll normally */
+}
+
+#askEveroseBtn {
+  pointer-events: auto; /* clickable */
   width: 56px;
   height: 56px;
   border-radius: 999px;
   border: none;
   cursor: pointer;
-  z-index: 9999;
   background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(255,95,162,0.35));
   box-shadow: 0 14px 30px rgba(0,0,0,0.18);
   transition: transform .2s ease, box-shadow .2s ease;
@@ -247,13 +257,20 @@ button, a, img { cursor: var(--everose-pointer); }
 
 #askEveroseBtn span { font-size: 22px; }
 
+#askEveroseLabel{
+  pointer-events: none;
+  font-size: 12px;
+  letter-spacing: .4px;
+  opacity: .75;
+}
+
 #askEverosePanel {
   position: fixed;
-  right: 18px;
-  bottom: 84px;
-  width: 320px;
+  left: 18px;
+  bottom: 92px;
+  width: 330px;
   max-width: calc(100vw - 36px);
-  height: 420px;
+  height: 430px;
   max-height: calc(100vh - 140px);
   background: rgba(255,255,255,0.92);
   border: 1px solid rgba(255,95,162,0.22);
@@ -263,6 +280,7 @@ button, a, img { cursor: var(--everose-pointer); }
   display: none;
   overflow: hidden;
   backdrop-filter: blur(8px);
+  pointer-events: auto; /* only panel interactive */
 }
 
 .askHeader {
@@ -295,15 +313,12 @@ button, a, img { cursor: var(--everose-pointer); }
 
 #askEveroseMessages{
   padding: 12px;
-  height: calc(100% - 112px);
-  overflow:auto;
+  height: calc(100% - 120px);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-.msg {
-  margin: 10px 0;
-  display:flex;
-}
-
+.msg { margin: 10px 0; display:flex; }
 .msg.user { justify-content: flex-end; }
 .msg.bot { justify-content: flex-start; }
 
@@ -314,6 +329,7 @@ button, a, img { cursor: var(--everose-pointer); }
   font-size: 13px;
   line-height: 1.35;
   box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+  white-space: pre-wrap;
 }
 
 .msg.user .bubble {
@@ -358,6 +374,15 @@ button, a, img { cursor: var(--everose-pointer); }
 }
 
 #askSend:hover { background:#ff3f8f; }
+
+.typingDot{
+  display:inline-block;
+  animation: blink 1s infinite;
+  margin-left: 2px;
+  opacity: .85;
+}
+
+@keyframes blink { 0%,100%{opacity:.25} 50%{opacity:1} }
 </style>
 </head>
 
@@ -451,15 +476,18 @@ button, a, img { cursor: var(--everose-pointer); }
 <!-- =========================
      ASK EVEROSE (AI CORNER)
      ========================= -->
-<button id="askEveroseBtn" aria-label="Ask Everose">
-  <span>💬</span>
-</button>
+<div id="askEveroseWrap">
+  <button id="askEveroseBtn" aria-label="Ask Everose">
+    <span>💬</span>
+  </button>
+  <div id="askEveroseLabel">Ask Everose</div>
+</div>
 
 <div id="askEverosePanel" role="dialog" aria-label="Ask Everose chat">
   <div class="askHeader">
     <div class="askTitle">
       <b>Ask Everose</b>
-      <small>your fragrance assistant</small>
+      <small>soft answers • pink energy • scent help 🌸</small>
     </div>
     <button class="askClose" id="askCloseBtn" aria-label="Close">✕</button>
   </div>
@@ -467,7 +495,7 @@ button, a, img { cursor: var(--everose-pointer); }
   <div id="askEveroseMessages"></div>
 
   <form id="askEveroseForm">
-    <input id="askInput" type="text" placeholder="Ask about scents, launch, notes..." autocomplete="off" />
+    <input id="askInput" type="text" placeholder="Ask anything… 🌷" autocomplete="off" />
     <button id="askSend" type="submit">Send</button>
   </form>
 </div>
@@ -632,7 +660,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 /* =========================
-   ASK EVEROSE (FAKE-AI CHAT)
+   ASK EVEROSE (FAKE-AI CHAT) - SMART + 5s THINKING
    ========================= */
 (function(){
   const btn = document.getElementById("askEveroseBtn");
@@ -646,7 +674,7 @@ document.addEventListener("keydown", (e) => {
     panel.style.display = "block";
     setTimeout(()=>input.focus(), 50);
     if (!messages.dataset.greeted) {
-      bot("Hi 🌸 I’m Ask Everose. Tell me what you like: warm, fresh, soft, or bold.");
+      bot("Hi bestie 🌸💗 I’m Ask Everose.\nAsk me about scents, launch, hints, or vibes ✨🪞");
       messages.dataset.greeted = "true";
     }
   }
@@ -663,53 +691,143 @@ document.addEventListener("keydown", (e) => {
     row.className = `msg ${who}`;
     const bubble = document.createElement("div");
     bubble.className = "bubble";
-    bubble.textContent = text;
+    bubble.innerText = text;
     row.appendChild(bubble);
     messages.appendChild(row);
     messages.scrollTop = messages.scrollHeight;
+    return bubble;
   }
 
   function bot(text){ addMsg(text, "bot"); }
   function user(text){ addMsg(text, "user"); }
+  function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+
+  function isSecretsQuestion(q){
+    return /(mysteries|mystery|secrets|secret|easter|easter egg|hidden|vault|codes|code|what.*hidden|tell.*all)/i.test(q);
+  }
+
+  function isFirstProductQuestion(q){
+    return /(first product|first scent|first perfume|what.*product|what.*scent|what.*perfume|release.*scent)/i.test(q);
+  }
 
   function reply(qRaw){
     const q = qRaw.toLowerCase().trim();
 
-    if (q.includes("launch")) return "Launch is set for September 29, 2026 ✨ (countdown is on the homepage.)";
-    if (q.includes("update")) return "Next update is February 14, 2026 💗";
-    if (q.includes("discount") || q.includes("code")) return "Sometimes Everose drops codes for curious visitors… keep exploring 🤫";
-    if (q.includes("shipping")) return "Shipping details will be announced closer to launch — you’ll see updates on the site ✨";
-    if (q.includes("who are you") || q.includes("what are you")) return "I’m Ask Everose — a tiny fragrance helper living in the corner 🌸";
-
-    if (q.includes("warm") || q.includes("vanilla") || q.includes("cozy") || q.includes("amber")) {
-      return "You sound like a warm-scent person 🍂 Think: comforting, familiar, unforgettable.";
-    }
-    if (q.includes("fresh") || q.includes("clean") || q.includes("ocean") || q.includes("mint")) {
-      return "Fresh + confident ❄ Clean air, crisp energy, strong presence.";
-    }
-    if (q.includes("soft") || q.includes("light") || q.includes("airy") || q.includes("powder")) {
-      return "Soft + airy 🌷 Gentle, delicate, close-to-the-skin.";
-    }
-    if (q.includes("suntan") || q.includes("summer") || q.includes("beach") || q.includes("sun")) {
-      return "That sounds like the ‘suntan’ vibe ✨ warm glow, sun-kissed energy.";
-    }
-    if (q.includes("winter") || q.includes("silk") || q.includes("cold")) {
-      return "Silk in winter air ❄ smooth, cool, and clean.";
-    }
-    if (q.includes("new") || q.includes("beginning") || q.includes("spring")) {
-      return "New beginnings 🌸 fresh petals, bright optimism, soft bloom.";
+    // don’t spoil site secrets
+    if (isSecretsQuestion(qRaw)) {
+      return pick([
+        "Heheee nice try 😭🔎✨ I can’t spoil the mysteries.\nBut I *can* nudge you: interact with the bottle… and pay attention to what happens after a few tries 👀🌸",
+        "I’m not snitching on the secrets 🤫💗 That would ruin the fun.\nHint: the homepage likes curious people… especially ones who click + type things 😌✨",
+        "If I told you all the secrets it wouldn’t be magic 😭✨\nI’ll give ONE clue: try the bottle… and also try typing something while you’re on the site 👀🌸"
+      ]);
     }
 
-    return "Tell me 2 words: (1) warm or fresh, (2) soft or bold — and I’ll match your vibe 💗";
+    // first product is secret
+    if (isFirstProductQuestion(qRaw)) {
+      return "Ahhh the first Everose product… 🤫🪞✨\nIt’s a secret for now — BUT I can give hints 💗\n🌷 feels like: a new beginning\n✨ vibe: soft luxury + addictive\n🍂 memory: warm… familiar… unforgettable\nTell me what you like (fresh / warm / sweet / clean) and I’ll give a more specific hint 😌🌸";
+    }
+
+    // launch / update
+    if (q.includes("launch") || q.includes("release date") || q.includes("when does it release")) {
+      return "Launch is set for **September 29, 2026** ✨🌸\nThe countdown on the homepage is the official timer 💗⏳";
+    }
+    if (q.includes("next update") || q.includes("update date") || q.includes("when is the update") || q.includes("update")) {
+      return "Next update is **February 14, 2026** 💌✨\nVery Everose-coded honestly 😭💗";
+    }
+
+    // discount / code
+    if (q.includes("discount") || q.includes("promo") || q.includes("coupon") || q.includes("code")) {
+      return pick([
+        "Discount codes are… sometimes real 👀💗\nIf one appears, it won’t be obvious — it’s for curious people who explore 🤫✨",
+        "I can’t drop a code out loud 🤭💗\nBut I *can* say this: Everose rewards curiosity… keep exploring the site ✨🔎🌸",
+        "Codes are rare and sneaky 😭✨\nIf you ever find one, it’ll feel like a little secret gift 💗🎁"
+      ]);
+    }
+
+    // shipping / ordering (safe generic)
+    if (q.includes("ship") || q.includes("shipping") || q.includes("deliver") || q.includes("order") || q.includes("buy")) {
+      return "Ooo you’re planning ahead 💗📦\nShipping + ordering details will be shared closer to launch ✨\nFor now: explore the site + check back as the countdown gets closer 😌🌸";
+    }
+
+    // scent help / recommendations
+    if (q.includes("what scent") || q.includes("which scent") || q.includes("recommend") || q.includes("pick for me") || q.includes("choose")) {
+      if (q.includes("warm") || q.includes("cozy") || q.includes("vanilla") || q.includes("amber") || q.includes("sweet") || q.includes("spice")) {
+        return "Based on that… you’re a **warm glow** person 🍂✨\nThink: comforting, golden, unforgettable.\nIf you want it sweeter: say **sweet**.\nIf you want it deeper: say **spicy** 💗";
+      }
+      if (q.includes("fresh") || q.includes("clean") || q.includes("citrus") || q.includes("mint") || q.includes("ocean")) {
+        return "You’re giving **fresh + confident** ❄️✨\nClean air, crisp energy, ‘put-together’ vibes.\nDo you want **sparkly** fresh or **clean** fresh? 💗";
+      }
+      if (q.includes("soft") || q.includes("airy") || q.includes("floral") || q.includes("powder") || q.includes("light")) {
+        return "You’re a **soft bloom** person 🌸🫧\nGentle, airy, close-to-the-skin pretty.\nDo you like **rosy** soft or **creamy** soft? 💗";
+      }
+
+      return pick([
+        "Okay tell me ONE thing 😌🌸\nDo you want **warm 🍂** or **fresh ❄️**?",
+        "Quick vibe check 💗✨\nAre you feeling **soft 🌷** or **bold 😈** today?",
+        "Help me match you perfectly 🪞✨\nPick one word: **vanilla / clean / floral / spicy** 🌸"
+      ]);
+    }
+
+    // about
+    if (q.includes("what is everose") || q.includes("what is this") || q.includes("what is your website") || q.includes("what do you do")) {
+      return "Everose is a luxury fragrance brand 🌸✨\nSoft blooming energy, mysterious little details, and scents that feel like memories 💗\nIf you tell me your vibe, I can point you to the perfect hint section 😌";
+    }
+
+    // creator
+    if (q.includes("who made") || q.includes("who created") || q.includes("who is cruz") || q.includes("who are you")) {
+      return "Everose was created by **Cruz** 🌸💗\nA perfume lover building something dreamy, personal, and a little mysterious ✨🪞";
+    }
+
+    // notes / ingredients (keep vague)
+    if (q.includes("notes") || q.includes("ingredients") || q.includes("what's in it") || q.includes("what are the notes")) {
+      return "The exact notes are under wraps for now 🤫🌸\nBut the *feel* is what matters most:\n✨ sun-kissed warmth\n❄️ winter silk clean\n🌷 new beginnings\n🍂 unforgettable cozy\nTell me which one you want and I’ll give you hints 💗";
+    }
+
+    // fun compliments
+    if (q.includes("do i smell good") || q.includes("do i slay") || q.includes("compliment")) {
+      return pick([
+        "You smell AMAZING 💗✨ Like a signature scent people remember 🌸🪞",
+        "You smell so good it should be illegal 😭💗✨",
+        "Yes. You smell like main-character energy 💋🌸✨"
+      ]);
+    }
+
+    // general fallback (varied + helpful)
+    return pick([
+      "Wait I want to answer this perfectly 😭💗\nDo you mean this about **launch**, **scents**, **discounts**, or **shipping**? ✨",
+      "Ooo okay — do you mean the **brand**, the **scents**, or the **website**? 🌸🪞✨",
+      "I’m listeninggg 💗✨\nIf you rephrase it in one short sentence, I’ll answer way better 😌🌸",
+      "I don’t have that exact info yet 🤫✨\nBut tell me what you’re trying to figure out (like ‘when’, ‘what’, or ‘how’) and I’ll help 💗"
+    ]);
+  }
+
+  function addThinking(){
+    const row = document.createElement("div");
+    row.className = "msg bot";
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
+    bubble.innerHTML = `Thinking<span class="typingDot">.</span><span class="typingDot">.</span><span class="typingDot">.</span>`;
+    row.appendChild(bubble);
+    messages.appendChild(row);
+    messages.scrollTop = messages.scrollHeight;
+    return row;
   }
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const text = input.value.trim();
     if (!text) return;
+
     user(text);
     input.value = "";
-    setTimeout(() => bot(reply(text)), 450);
+
+    const thinkingRow = addThinking();
+
+    // 5 second “thinking” delay
+    setTimeout(() => {
+      thinkingRow.remove();
+      bot(reply(text));
+    }, 5000);
   });
 })();
 </script>
