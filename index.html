@@ -1,798 +1,925 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Everose</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Everose</title>
 
-<!-- Fonts (rich serif + cursive + clean) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Fonts (fancy serif + cursive) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<style>
-html { scroll-behavior: smooth; }
+  <style>
+    :root{
+      --bg: #070709;
+      --bg2:#0d0d10;
+      --ink: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.72);
+      --soft: rgba(255,255,255,0.12);
+      --soft2: rgba(255,255,255,0.08);
+      --pink: #ff5fa2;
+      --pink2:#ff87bd;
+      --stroke: rgba(255,255,255,0.14);
+      --shadow: 0 18px 50px rgba(0,0,0,0.55);
 
-:root{
-  --pink:#ff5fa2;
-  --pink2:#ff8fbd;
-  --ink:#0b0b0f;
-  --muted:#ffffffcc;
-  --line: rgba(255,255,255,0.18);
+      /* cursor */
+      --everose-cursor: auto;
+      --everose-pointer: pointer;
+    }
 
-  /* cursor variables */
-  --everose-cursor: auto;
-  --everose-pointer: pointer;
-}
+    html { scroll-behavior: smooth; }
+    body{
+      margin:0;
+      font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 700px at 20% 20%, rgba(255,95,162,0.12), transparent 50%),
+                  radial-gradient(900px 600px at 80% 30%, rgba(255,135,189,0.08), transparent 55%),
+                  linear-gradient(to bottom, var(--bg), var(--bg2));
+      color: var(--ink);
+      overflow-x:hidden;
+      cursor: var(--everose-cursor);
+    }
+    a, button, input { cursor: var(--everose-pointer); }
 
-body{
-  margin:0;
-  font-family:"Poppins", sans-serif;
-  background:#fff;
-  color:var(--ink);
-  cursor: var(--everose-cursor);
-}
-a, button, img, input { cursor: var(--everose-pointer); }
+    /* ===== NAV (pill, top-right) ===== */
+    nav{
+      position:fixed;
+      top:18px;
+      right:18px;
+      z-index:1000;
+      display:flex;
+      gap:26px;
+      align-items:center;
+      padding:14px 18px;
+      border-radius:999px;
+      background: rgba(255,255,255,0.14);
+      border:1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.35);
+    }
+    nav a{
+      text-decoration:none;
+      color: rgba(255,255,255,0.88);
+      font-weight:600;
+      font-size:14px;
+      letter-spacing:1.8px;
+      text-transform:uppercase;
+      opacity:0.95;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    nav a:hover{ opacity:1; transform: translateY(-1px); }
 
-.container{
-  max-width:1180px;
-  margin:0 auto;
-  padding:0 18px;
-}
+    /* ===== HERO (inspo layout) ===== */
+    .hero{
+      min-height:100vh;
+      position:relative;
+      display:flex;
+      align-items:center;
+    }
 
-/* NAV — floating like inspo */
-nav{
-  position: fixed;
-  top:0; left:0; right:0;
-  z-index: 1200;
-  padding: 18px 0;
-}
-.nav-inner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-}
+    /* IMPORTANT: put your hero image here */
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,0.74) 0%, rgba(0,0,0,0.52) 44%, rgba(0,0,0,0.25) 70%, rgba(0,0,0,0.10) 100%),
+        url("assets/everose-hero.jpg"); /* <— ADD YOUR IMAGE FILE TO THIS PATH */
+      background-size:cover;
+      background-position:center;
+      filter: contrast(1.05) saturate(0.92);
+      transform: scale(1.02);
+    }
 
-/* left side "button-ish" logo, like inspo */
-.brand-pill{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.86);
-  border: 1px solid rgba(0,0,0,0.08);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 14px 40px rgba(0,0,0,0.08);
-  user-select:none;
-}
-.brand-pill .logo{
-  font-family:"Great Vibes", cursive;
-  font-size: 28px;
-  line-height: 1;
-  color: var(--ink);
-}
-.brand-pill .dot{
-  width:8px; height:8px;
-  border-radius:999px;
-  background: var(--pink);
-  box-shadow: 0 0 0 6px rgba(255,95,162,0.16);
-  transform: translateY(-2px);
-}
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(800px 450px at 18% 35%, rgba(255,95,162,0.16), transparent 55%),
+        radial-gradient(700px 420px at 55% 75%, rgba(255,135,189,0.10), transparent 60%);
+      pointer-events:none;
+    }
 
-.links{
-  display:flex;
-  gap:22px;
-  align-items:center;
-  flex-wrap:wrap;
-  background: rgba(255,255,255,0.60);
-  border: 1px solid rgba(255,255,255,0.28);
-  padding: 10px 14px;
-  border-radius: 999px;
-  backdrop-filter: blur(10px);
-}
-.links a{
-  text-decoration:none;
-  color:#fff;
-  font-weight:600;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  font-size: 12px;
-  opacity:.92;
-  text-shadow: 0 10px 24px rgba(0,0,0,0.35);
-}
-.links a:hover{ opacity:1; color:#fff; }
+    .hero-inner{
+      position:relative;
+      z-index:2;
+      width:min(1100px, 92vw);
+      margin:0 auto;
+      padding: 110px 0 90px;
+    }
 
-/* HERO — EXACT STYLE (full image + centered text) */
-.hero{
-  position: relative;
-  min-height: 100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  overflow:hidden;
-}
+    .brand-line{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:18px;
+      opacity:0.92;
+    }
+    .brand-dot{
+      width:9px; height:9px; border-radius:999px;
+      background: rgba(255,135,189,0.9);
+      box-shadow: 0 0 0 6px rgba(255,95,162,0.14);
+    }
+    .brand-name{
+      font-family:"Great Vibes", cursive;
+      font-size:46px;
+      letter-spacing:0.2px;
+      line-height:1;
+    }
 
-/* Replace this background image with your own inspo-style photo */
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(to bottom, rgba(0,0,0,0.38), rgba(0,0,0,0.45)),
-    url("https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=2200&q=80");
-  background-size: cover;
-  background-position: center;
-  transform: scale(1.02);
-}
+    .headline{
+      font-family:"Playfair Display", serif;
+      font-weight:700;
+      font-size: clamp(46px, 6vw, 92px);
+      line-height:0.95;
+      margin: 10px 0 16px;
+      color: rgba(255,255,255,0.92);
+      text-shadow: 0 10px 40px rgba(0,0,0,0.55);
+    }
 
-/* soft film layer */
-.hero::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.06), rgba(0,0,0,0.18));
-  mix-blend-mode: overlay;
-  pointer-events:none;
-}
+    .subcopy{
+      max-width: 560px;
+      color: rgba(255,255,255,0.76);
+      font-size: 16px;
+      line-height:1.7;
+      margin: 0 0 26px;
+    }
+    .subcopy b{
+      color: rgba(255,255,255,0.92);
+      font-weight:600;
+    }
 
-.hero-content{
-  position: relative;
-  z-index: 2;
-  max-width: 920px;
-  padding: 120px 18px 80px;
-}
+    .cta-row{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top: 8px;
+    }
 
-.hero h1{
-  font-family:"Playfair Display", serif;
-  font-size: clamp(40px, 5vw, 74px);
-  line-height: 1.05;
-  margin: 0 0 14px 0;
-  color: #fff;
-  font-weight: 600;
-  letter-spacing: -0.3px;
-  text-shadow: 0 18px 60px rgba(0,0,0,0.55);
-}
+    .cta{
+      border:none;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight:700;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+      font-size: 13px;
+      background: rgba(255,255,255,0.90);
+      color: rgba(0,0,0,0.86);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .cta:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 20px 55px rgba(0,0,0,0.55);
+    }
 
-.hero p{
-  margin: 0 auto 20px auto;
-  max-width: 760px;
-  color: var(--muted);
-  font-size: clamp(14px, 1.4vw, 18px);
-  line-height: 1.65;
-  text-shadow: 0 14px 40px rgba(0,0,0,0.55);
-}
+    .launchline{
+      font-size: 13px;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      color: rgba(255,255,255,0.70);
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-top: 12px;
+    }
+    .pink-slice{
+      width:36px; height:2px;
+      background: linear-gradient(90deg, rgba(255,95,162,1), rgba(255,135,189,0.55));
+      border-radius:999px;
+      box-shadow: 0 0 0 6px rgba(255,95,162,0.10);
+    }
 
-/* CTA like inspo: clean button */
-.cta{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: 12px 18px;
-  border-radius: 10px;
-  border: 2px solid rgba(255,255,255,0.85);
-  background: rgba(255,255,255,0.96);
-  color: #111;
-  font-weight: 800;
-  letter-spacing: .6px;
-  text-transform: uppercase;
-  font-size: 13px;
-  box-shadow: 0 18px 60px rgba(0,0,0,0.35);
-}
-.cta:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 22px 70px rgba(0,0,0,0.40);
-}
+    .founded{
+      position:absolute;
+      left: 0;
+      right: 0;
+      bottom: 34px;
+      z-index: 2;
+      text-align:center;
+      opacity: 0.92;
+      pointer-events:none;
+    }
+    .founded span{
+      font-family:"Great Vibes", cursive;
+      font-size: 38px;
+      color: rgba(255,255,255,0.80);
+      text-shadow: 0 10px 30px rgba(0,0,0,0.55);
+    }
 
-/* Below-hero spacing */
-.spacer{
-  height: 22px;
-  background: #fff;
-}
+    /* ===== COUNTDOWN (clean, dark glass) ===== */
+    .count-row{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top: 26px;
+    }
+    .countbox{
+      width: 260px;
+      max-width: 92vw;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 14px 16px;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+      backdrop-filter: blur(10px);
+    }
+    .countbox h3{
+      margin:0;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform:uppercase;
+      color: rgba(255,255,255,0.70);
+    }
+    .countbox .time{
+      margin-top:8px;
+      font-family:"Playfair Display", serif;
+      font-size: 26px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.92);
+    }
+    .countbox .time small{
+      font-family:"Poppins", sans-serif;
+      font-size: 12px;
+      opacity: 0.75;
+      letter-spacing: 1px;
+      margin-left: 8px;
+    }
 
-/* SECTIONS */
-.section{
-  max-width:1100px;
-  margin: 70px auto;
-  padding: 56px 32px;
-  border-radius: 28px;
-  border: 1px solid rgba(0,0,0,0.08);
-  background:#fff;
-  box-shadow: 0 18px 60px rgba(0,0,0,0.06);
-  text-align:center;
-}
-.section h2{
-  font-family:"Great Vibes", cursive;
-  font-size: 58px;
-  margin:0 0 12px 0;
-  font-weight: 400;
-  color:#111;
-}
-.section p{
-  max-width: 860px;
-  margin: 10px auto;
-  color: #54545f;
-  line-height: 1.85;
-  font-size: 16px;
-}
+    /* ===== SECTIONS ===== */
+    .section{
+      width:min(1100px, 92vw);
+      margin: 90px auto;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 26px;
+      padding: 56px 34px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .section h2{
+      font-family:"Playfair Display", serif;
+      font-size: 38px;
+      margin: 0 0 14px;
+      color: rgba(255,255,255,0.92);
+    }
+    .section p{
+      color: rgba(255,255,255,0.72);
+      line-height: 1.75;
+      font-size: 15px;
+      margin: 10px 0;
+    }
+    .hint-grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .hint{
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 14px 14px;
+      color: rgba(255,255,255,0.82);
+    }
+    .hint .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: rgba(255,255,255,0.72);
+    }
+    .hint .tag i{
+      width: 18px; height: 2px;
+      background: linear-gradient(90deg, rgba(255,95,162,1), rgba(255,255,255,0));
+      border-radius:999px;
+      display:inline-block;
+    }
 
-/* Countdown row */
-.countdown-wrap{
-  display:flex;
-  gap:14px;
-  margin: 18px auto 0 auto;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-.countbox{
-  background:#fff;
-  border: 1px solid rgba(0,0,0,0.08);
-  border-radius: 18px;
-  padding: 14px 16px;
-  box-shadow: 0 10px 26px rgba(0,0,0,0.06);
-  min-width: 220px;
-}
-.countbox h3{
-  margin:0 0 6px 0;
-  font-size: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  opacity: .75;
-}
-.countbox div{
-  font-family:"Playfair Display", serif;
-  font-size: 18px;
-  font-weight: 600;
-}
+    /* ===== QUIZ BUTTONS ===== */
+    .quiz-buttons{
+      margin-top: 16px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+    }
+    .quiz-buttons button{
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.90);
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: transform .18s ease, background .18s ease;
+    }
+    .quiz-buttons button:hover{
+      transform: translateY(-2px);
+      background: rgba(255,95,162,0.18);
+      border-color: rgba(255,95,162,0.35);
+    }
+    #answer{
+      margin-top: 18px;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
 
-/* Quiz buttons */
-.quiz-buttons button{
-  background: var(--pink);
-  color:#fff;
-  border:none;
-  padding: 12px 18px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 800;
-  margin: 8px;
-}
-.quiz-buttons button:hover{ background:#ff3f8f; }
+    /* ===== ASK EVEROSE (bottom-left) ===== */
+    #askEveroseWrap{
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 9999;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:6px;
+      user-select:none;
+    }
+    #askEveroseBtn{
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      cursor: pointer;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.22), rgba(255,95,162,0.18));
+      box-shadow: 0 16px 40px rgba(0,0,0,0.55);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    #askEveroseBtn:hover{
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 20px 55px rgba(0,0,0,0.65);
+    }
+    #askEveroseBtn span{ font-size:22px; }
 
-#answer{
-  margin-top: 18px;
-  font-family:"Playfair Display", serif;
-  font-size: 18px;
-  color:#111;
-}
+    #askEveroseLabel{
+      font-size: 12px;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.76);
+      margin-left: 2px;
+    }
 
-/* =========================
-   ASK EVEROSE — bottom-left
-   ========================= */
-#askWrap{
-  position: fixed;
-  left: 18px;
-  bottom: 18px;
-  z-index: 2000;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-}
-#askBtn{
-  width: 56px;
-  height: 56px;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(255,95,162,0.45));
-  box-shadow: 0 14px 30px rgba(0,0,0,0.18);
-  transition: transform .2s ease, box-shadow .2s ease;
-}
-#askBtn:hover{
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 18px 40px rgba(255, 95, 162, 0.28);
-}
-#askBtn span{ font-size: 22px; }
-#askLabel{ font-size:12px; opacity:.8; letter-spacing:.2px; }
+    #askEverosePanel{
+      position: fixed;
+      left: 18px;
+      bottom: 92px;
+      width: 340px;
+      max-width: calc(100vw - 36px);
+      height: 460px;
+      max-height: calc(100vh - 140px);
+      background: rgba(10,10,12,0.86);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 22px;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.75);
+      display: none;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
 
-#askPanel{
-  position: fixed;
-  left: 18px;
-  bottom: 92px;
-  width: 340px;
-  max-width: calc(100vw - 36px);
-  height: 440px;
-  max-height: calc(100vh - 140px);
-  background: rgba(255,255,255,0.96);
-  border: 1px solid rgba(255,95,162,0.22);
-  border-radius: 22px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.18);
-  display: none;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
-}
+    .askHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .askTitle{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .askTitle b{
+      font-family:"Playfair Display", serif;
+      font-size: 14px;
+      letter-spacing: .4px;
+      color: rgba(255,255,255,0.92);
+    }
+    .askTitle small{
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.64);
+    }
 
-/* Header with tiny cursor button */
-.askHeader{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding: 10px 12px;
-  background: rgba(255,143,189,0.18);
-  border-bottom: 1px solid rgba(255,95,162,0.18);
-}
-.askLeft{
-  display:flex;
-  flex-direction:column;
-  gap:2px;
-}
-.askLeft b{
-  font-size: 14px;
-  letter-spacing: .3px;
-}
-.askLeft small{
-  font-size: 12px;
-  opacity: .75;
-}
+    .askHeaderRight{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
 
-.askRight{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.tinyBtn{
-  border: 1px solid rgba(0,0,0,0.10);
-  background: rgba(255,255,255,0.70);
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .6px;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.tinyBtn:hover{ background: rgba(255,255,255,0.92); }
+    /* tiny cursor button (inside AI only) */
+    #cursorMiniBtn{
+      border:none;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: rgba(255,95,162,0.14);
+      border: 1px solid rgba(255,95,162,0.22);
+      color: rgba(255,255,255,0.90);
+      cursor:pointer;
+      font-size: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition: transform .15s ease, background .15s ease;
+    }
+    #cursorMiniBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,95,162,0.22);
+    }
 
-.askClose{
-  border:none;
-  background:transparent;
-  cursor:pointer;
-  font-size:18px;
-  opacity:.75;
-}
-.askClose:hover{ opacity:1; }
+    .askClose{
+      border:none;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      cursor:pointer;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      font-size: 18px;
+      color: rgba(255,255,255,0.85);
+      opacity: .9;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .askClose:hover{ opacity:1; }
 
-#askMessages{
-  padding: 12px;
-  height: calc(100% - 112px);
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-.msg{ margin:10px 0; display:flex; }
-.msg.user{ justify-content:flex-end; }
-.msg.bot{ justify-content:flex-start; }
+    /* cursor tray (appears above AI input) */
+    #cursorTray{
+      display:none;
+      gap:8px;
+      flex-wrap:wrap;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+    }
+    .cursorPick{
+      border:none;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.88);
+      cursor:pointer;
+      font-size: 14px;
+    }
+    .cursorPick:hover{
+      border-color: rgba(255,95,162,0.35);
+      background: rgba(255,95,162,0.16);
+    }
+    #cursorReset{
+      border:none;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,95,162,0.78);
+      color: rgba(0,0,0,0.85);
+      font-weight: 800;
+      cursor:pointer;
+      font-size: 12px;
+      letter-spacing:1px;
+      text-transform: uppercase;
+    }
+    #cursorReset:hover{ background: rgba(255,135,189,0.85); }
 
-.bubble{
-  max-width:85%;
-  padding:10px 12px;
-  border-radius:16px;
-  font-size:13px;
-  line-height:1.35;
-  box-shadow:0 8px 18px rgba(0,0,0,0.06);
-  white-space: pre-wrap;
-}
-.msg.user .bubble{
-  background: rgba(255,95,162,0.22);
-  border: 1px solid rgba(255,95,162,0.18);
-}
-.msg.bot .bubble{
-  background: rgba(255,240,246,0.86);
-  border: 1px solid rgba(255,95,162,0.14);
-}
+    #askEveroseMessages{
+      padding: 12px;
+      height: calc(100% - 158px);
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
 
-#askForm{
-  position:absolute;
-  bottom:0; left:0; right:0;
-  padding:10px;
-  border-top: 1px solid rgba(255,95,162,0.18);
-  background: rgba(255,255,255,0.92);
-  display:flex;
-  gap:8px;
-}
-#askInput{
-  flex:1;
-  border-radius:16px;
-  border:1px solid rgba(255,95,162,0.25);
-  padding:10px 12px;
-  font-family:inherit;
-  outline:none;
-}
-#askSend{
-  border:none;
-  border-radius:16px;
-  padding:10px 12px;
-  cursor:pointer;
-  background: var(--pink);
-  color:white;
-  font-weight: 900;
-}
-#askSend:hover{ background:#ff3f8f; }
+    .msg{ margin:10px 0; display:flex; }
+    .msg.user{ justify-content:flex-end; }
+    .msg.bot{ justify-content:flex-start; }
 
-/* Cursor panel (hidden until asked) */
-#cursorMiniPanel{
-  display:none;
-  padding: 10px 12px;
-  border-bottom: 1px solid rgba(255,95,162,0.14);
-  background: rgba(255,255,255,0.85);
-}
-.cursorRow{
-  display:flex;
-  flex-wrap: wrap;
-  gap:8px;
-  align-items:center;
-  justify-content:flex-start;
-}
-.cursorPill{
-  border:none;
-  background: rgba(255,95,162,0.10);
-  border: 1px solid rgba(255,95,162,0.18);
-  padding: 8px 10px;
-  border-radius: 999px;
-  font-size: 14px;
-  margin:0;
-}
-.cursorPill:hover{ background: rgba(255,95,162,0.16); }
-#cursorReset{
-  border:none;
-  background:#111;
-  color:#fff;
-  padding: 8px 12px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 900;
-}
-#cursorReset:hover{ background:#000; }
+    .bubble{
+      max-width: 88%;
+      padding: 10px 12px;
+      border-radius: 16px;
+      font-size: 13px;
+      line-height: 1.45;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .msg.user .bubble{
+      background: rgba(255,95,162,0.18);
+      border-color: rgba(255,95,162,0.22);
+      color: rgba(255,255,255,0.92);
+    }
+    .msg.bot .bubble{
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.84);
+    }
 
-@media (max-width: 900px){
-  .links{ display:none; } /* keep it clean on mobile */
-  .hero-content{ padding-top: 140px; }
-}
-</style>
+    #askEveroseForm{
+      position:absolute;
+      bottom:0; left:0; right:0;
+      padding: 10px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      background: rgba(8,8,10,0.88);
+      display:flex;
+      gap:8px;
+    }
+    #askInput{
+      flex:1;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      padding: 10px 12px;
+      font-family: inherit;
+      outline: none;
+      color: rgba(255,255,255,0.90);
+    }
+    #askInput::placeholder{ color: rgba(255,255,255,0.52); }
+
+    #askSend{
+      border:none;
+      border-radius: 16px;
+      padding: 10px 12px;
+      cursor:pointer;
+      background: rgba(255,255,255,0.90);
+      color: rgba(0,0,0,0.86);
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    #askSend:hover{ background: rgba(255,135,189,0.92); }
+
+    /* mobile tweaks */
+    @media (max-width: 640px){
+      nav{ gap:16px; padding: 12px 14px; }
+      nav a{ font-size: 12px; }
+      .countbox{ width: 100%; }
+      .hint-grid{ grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 
 <body>
 
-<nav>
-  <div class="container nav-inner">
-    <div class="brand-pill" onclick="location.href='#home'" title="Everose">
-      <div class="logo">Everose</div>
-      <div class="dot"></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#story">Our Story</a>
+    <a href="#hints">Hints</a>
+    <a href="#quiz">Find Your Scent</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div class="brand-line">
+        <div class="brand-dot"></div>
+        <div class="brand-name">Everose</div>
+      </div>
+
+      <div class="headline">Effortless fragrance,<br/>within reach.</div>
+
+      <p class="subcopy">
+        Everose is fragrance that feels <b>soft</b>, <b>clean</b>, and quietly unforgettable.
+        It’s not about changing who you are — it’s about amplifying what’s already there. ✨
+      </p>
+
+      <div class="cta-row">
+        <button class="cta" onclick="document.querySelector('#quiz').scrollIntoView({behavior:'smooth'})">
+          Find Your Scent
+        </button>
+      </div>
+
+      <div class="launchline">
+        <span class="pink-slice"></span>
+        <span>Launching January 24, 2026 • 12:00:00</span>
+      </div>
+
+      <div class="count-row">
+        <div class="countbox">
+          <h3>Launching In</h3>
+          <div class="time" id="launchCountdown">…</div>
+        </div>
+        <div class="countbox">
+          <h3>Next Update</h3>
+          <div class="time" id="updateCountdown">…</div>
+        </div>
+      </div>
     </div>
 
-    <div class="links">
-      <a href="#home">Home</a>
-      <a href="#about">Our Story</a>
-      <a href="#hints">Hints</a>
-      <a href="#quiz">Find Your Scent</a>
+    <div class="founded">
+      <span>Founded by Cruz Keller</span>
     </div>
-  </div>
-</nav>
+  </section>
 
-<!-- HERO (inspo style) -->
-<section class="hero" id="home">
-  <div class="hero-content">
-    <h1>Effortless fragrance,<br/>within reach</h1>
+  <!-- OUR STORY -->
+  <section class="section" id="story">
+    <h2>Our Story</h2>
     <p>
-      Everose is soft, personal, and a little bit magical.
-      It’s not about changing who you are — it’s about highlighting what’s already there.
+      Everose started as a love letter to fragrance — the kind that makes you feel like the best version of yourself.
+      Soft, personal, and a little bit magical… but still modern. 🖤✨
     </p>
-    <button class="cta" onclick="document.querySelector('#quiz').scrollIntoView({behavior:'smooth'})">
-      FIND YOUR SCENT
-    </button>
-  </div>
-</section>
+    <p>
+      Founded by Cruz Keller, Everose is about building a signature scent world that feels elevated, minimal,
+      and unforgettable — with just a sliver of pink energy. 💗
+    </p>
+  </section>
 
-<div class="spacer"></div>
+  <!-- HINTS -->
+  <section class="section" id="hints">
+    <h2>Hints</h2>
+    <p>Four vibes. Four directions. One Everose world.</p>
 
-<!-- ABOUT -->
-<section class="section" id="about">
-  <h2>Our Story</h2>
-  <p>
-    Hi! My name is Cruz Keller, and I absolutely love perfume. I was born in New York, then moved to New Jersey, then to Miami,
-    and after a few more moves, I finally landed in Austin.
-  </p>
-  <p>
-    I’m 13 years old and currently attend Alpha School. My family is a family of four — my dad, mom, my brother, and me.
-  </p>
-  <p>
-    We also have a dog named Banner. He’s a Rottweiler named after the Incredible Hulk.
-  </p>
-  <p>
-    I’m so excited to start my own fragrance brand and share my love for scent with the world.
-  </p>
-
-  <div class="countdown-wrap">
-    <div class="countbox">
-      <h3>Launching In</h3>
-      <div id="launchCountdown"></div>
+    <div class="hint-grid">
+      <div class="hint">
+        <div class="tag"><i></i>Sun-kissed</div>
+        <p>One scent feels like warm skin after the sun. ☀️</p>
+      </div>
+      <div class="hint">
+        <div class="tag"><i></i>Winter silk</div>
+        <p>One scent feels clean, smooth, and cool — like silk in winter air. ❄️</p>
+      </div>
+      <div class="hint">
+        <div class="tag"><i></i>New beginnings</div>
+        <p>One scent feels like something new starting. Fresh petals, soft confidence. 🌸</p>
+      </div>
+      <div class="hint">
+        <div class="tag"><i></i>Unforgettable</div>
+        <p>One scent feels warm… familiar… impossible to forget. 🍂</p>
+      </div>
     </div>
-    <div class="countbox">
-      <h3>Next Update</h3>
-      <div id="updateCountdown"></div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- HINTS -->
-<section class="section" id="hints">
-  <h2>Hints</h2>
-  <p>✨ One scent feels like getting a suntan.</p>
-  <p>❄ One scent feels like silk in winter air.</p>
-  <p>🌷 One scent feels like something new beginning.</p>
-  <p>🍂 One scent feels warm… familiar… unforgettable.</p>
-</section>
+  <!-- QUIZ -->
+  <section class="section" id="quiz">
+    <h2>Find Your Scent</h2>
+    <p>Pick your vibe — I’ll match you.</p>
 
-<!-- QUIZ -->
-<section class="section" id="quiz">
-  <h2>Find Your Scent</h2>
-  <p>Choose what feels most like you.</p>
-
-  <div class="quiz-buttons">
-    <button onclick="result('soft')">Light scent</button>
-    <button onclick="result('warm')">Medium scent</button>
-    <button onclick="result('fresh')">Strong scent</button>
-    <button onclick="result('bright')">A mix of everything</button>
-  </div>
-
-  <p id="answer"></p>
-</section>
-
-<!-- ASK EVEROSE -->
-<div id="askWrap">
-  <button id="askBtn" aria-label="Ask Everose"><span>💬</span></button>
-  <div id="askLabel">Ask Everose</div>
-</div>
-
-<div id="askPanel" role="dialog" aria-label="Ask Everose chat">
-  <div class="askHeader">
-    <div class="askLeft">
-      <b>Ask Everose</b>
-      <small>soft answers • pink energy • scent help</small>
+    <div class="quiz-buttons">
+      <button onclick="result('soft')">Light</button>
+      <button onclick="result('warm')">Medium</button>
+      <button onclick="result('fresh')">Strong</button>
+      <button onclick="result('bright')">Mixed</button>
     </div>
 
-    <div class="askRight">
-      <button class="tinyBtn" id="cursorToggleBtn" type="button" title="Cursor">Cursor</button>
-      <button class="askClose" id="askCloseBtn" aria-label="Close">✕</button>
-    </div>
+    <p id="answer"></p>
+  </section>
+
+  <!-- ASK EVEROSE -->
+  <div id="askEveroseWrap">
+    <button id="askEveroseBtn" aria-label="Ask Everose"><span>💬</span></button>
+    <div id="askEveroseLabel">Ask Everose</div>
   </div>
 
-  <!-- Cursor changer lives INSIDE Ask Everose (hidden until asked) -->
-  <div id="cursorMiniPanel" aria-label="Cursor options">
-    <div class="cursorRow">
-      <button class="cursorPill" data-emoji="🎀" title="Bow">🎀</button>
-      <button class="cursorPill" data-emoji="🦢" title="Swan">🦢</button>
-      <button class="cursorPill" data-emoji="🤍" title="Heart">🤍</button>
-      <button class="cursorPill" data-emoji="✧" title="Star">✧</button>
-      <button class="cursorPill" data-emoji="♡" title="Outline heart">♡</button>
-      <button class="cursorPill" data-emoji="💋" title="Kiss">💋</button>
-      <button class="cursorPill" data-emoji="💎" title="Diamond">💎</button>
-      <button id="cursorReset" type="button">Reset</button>
+  <div id="askEverosePanel" role="dialog" aria-label="Ask Everose chat">
+    <div class="askHeader">
+      <div class="askTitle">
+        <b>Ask Everose</b>
+        <small>minimal • helpful • a little pink</small>
+      </div>
+
+      <div class="askHeaderRight">
+        <button id="cursorMiniBtn" title="Cursor" aria-label="Cursor">⌁</button>
+        <button class="askClose" id="askCloseBtn" aria-label="Close">✕</button>
+      </div>
     </div>
+
+    <!-- Cursor tray lives INSIDE the AI (not site-wide UI) -->
+    <div id="cursorTray" aria-label="Cursor tray">
+      <button class="cursorPick" data-emoji="🖤">🖤</button>
+      <button class="cursorPick" data-emoji="✦">✦</button>
+      <button class="cursorPick" data-emoji="💗">💗</button>
+      <button class="cursorPick" data-emoji="🎀">🎀</button>
+      <button class="cursorPick" data-emoji="🦢">🦢</button>
+      <button class="cursorPick" data-emoji="💎">💎</button>
+      <button id="cursorReset">Reset</button>
+    </div>
+
+    <div id="askEveroseMessages"></div>
+
+    <form id="askEveroseForm">
+      <input id="askInput" type="text" placeholder="Ask anything… (try: launch / hints / cursor)" autocomplete="off" />
+      <button id="askSend" type="submit">Send</button>
+    </form>
   </div>
 
-  <div id="askMessages"></div>
+  <script>
+    /* ========== COUNTDOWN ========== */
+    // Launch: Jan 24, 2026 at 12:00:00
+    const launchDate = new Date("January 24, 2026 12:00:00").getTime();
+    // Next update (keep Valentine’s unless you want to change it)
+    const updateDate = new Date("February 14, 2026 00:00:00").getTime();
 
-  <form id="askForm">
-    <input id="askInput" type="text" placeholder="Ask anything… 🌸" autocomplete="off"/>
-    <button id="askSend" type="submit">Send</button>
-  </form>
-</div>
+    function updateCountdown(target, elementId) {
+      const now = Date.now();
+      const distance = target - now;
 
-<script>
-/* COUNTDOWN */
-const launchDate = new Date("September 29, 2026 00:00:00").getTime();
-const updateDate = new Date("January 24, 2026 11:20:00").getTime();
-
-function updateCountdown(target, elementId) {
-  const now = new Date().getTime();
-  const distance = target - now;
-
-  if (distance < 0) {
-    document.getElementById(elementId).innerHTML = "Unlocked ✨";
-    return;
-  }
-
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  document.getElementById(elementId).innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-}
-setInterval(() => {
-  updateCountdown(launchDate, "launchCountdown");
-  updateCountdown(updateDate, "updateCountdown");
-}, 1000);
-
-/* QUIZ */
-function result(type) {
-  let text = "";
-  if(type === "soft") text = "• Soft + airy 🌸🫧\n• Gentle, delicate, close-to-the-skin.";
-  if(type === "warm") text = "• Warm + comforting 🍂💗\n• Cozy, familiar, unforgettable.";
-  if(type === "fresh") text = "• Fresh + confident ❄️✨\n• Clean energy, crisp presence.";
-  if(type === "bright") text = "• Playful + layered 💋✧\n• A signature scent moment.";
-  document.getElementById("answer").innerText = text;
-}
-
-/* CURSOR CHANGER */
-function makeEmojiCursor(emoji) {
-  const svg =
-    `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">
-      <text x="2" y="24" font-size="24">${emoji}</text>
-    </svg>`;
-  const data = encodeURIComponent(svg);
-  return {
-    cursor: `url("data:image/svg+xml,${data}") 4 24, auto`,
-    pointer: `url("data:image/svg+xml,${data}") 4 24, pointer`
-  };
-}
-function applyCursorEmoji(emoji) {
-  const c = makeEmojiCursor(emoji);
-  document.documentElement.style.setProperty("--everose-cursor", c.cursor);
-  document.documentElement.style.setProperty("--everose-pointer", c.pointer);
-  localStorage.setItem("everose_cursor_emoji", emoji);
-}
-function resetCursor() {
-  document.documentElement.style.setProperty("--everose-cursor", "auto");
-  document.documentElement.style.setProperty("--everose-pointer", "pointer");
-  localStorage.removeItem("everose_cursor_emoji");
-}
-const savedCursor = localStorage.getItem("everose_cursor_emoji");
-if (savedCursor) applyCursorEmoji(savedCursor);
-
-/* ASK EVEROSE */
-(function(){
-  const btn = document.getElementById("askBtn");
-  const panel = document.getElementById("askPanel");
-  const closeBtn = document.getElementById("askCloseBtn");
-  const form = document.getElementById("askForm");
-  const input = document.getElementById("askInput");
-  const messages = document.getElementById("askMessages");
-  const cursorMiniPanel = document.getElementById("cursorMiniPanel");
-  const cursorToggleBtn = document.getElementById("cursorToggleBtn");
-
-  function addMsg(text, who="bot"){
-    const row = document.createElement("div");
-    row.className = `msg ${who}`;
-    const bubble = document.createElement("div");
-    bubble.className = "bubble";
-    bubble.textContent = text;
-    row.appendChild(bubble);
-    messages.appendChild(row);
-    messages.scrollTop = messages.scrollHeight;
-  }
-
-  function openChat(){
-    panel.style.display = "block";
-    setTimeout(()=>input.focus(), 60);
-    if (!messages.dataset.greeted) {
-      addMsg(
-        "• Hi bestie 🌸\n• I’m Ask Everose 💗\n• Ask me about:\n  - scents & vibes ✨\n  - launch + updates 📅\n  - hints 🪞\n• If you want the cursor changer, just say “cursor” 🎀",
-        "bot"
-      );
-      messages.dataset.greeted = "true";
-    }
-  }
-  function closeChat(){ panel.style.display = "none"; }
-
-  btn.addEventListener("click", () => {
-    (panel.style.display === "block") ? closeChat() : openChat();
-  });
-  closeBtn.addEventListener("click", closeChat);
-
-  cursorToggleBtn.addEventListener("click", () => {
-    cursorMiniPanel.style.display = (cursorMiniPanel.style.display === "block") ? "none" : "block";
-    messages.scrollTop = messages.scrollHeight;
-  });
-
-  cursorMiniPanel.addEventListener("click", (e) => {
-    const pill = e.target.closest(".cursorPill");
-    if (pill) applyCursorEmoji(pill.getAttribute("data-emoji"));
-  });
-  document.getElementById("cursorReset").addEventListener("click", resetCursor);
-
-  function extractName(q){
-    // matches: "my name is Everett" or "im Everett" or "i'm Everett"
-    const m1 = q.match(/\bmy name is\s+([a-zA-Z]{2,20})\b/i);
-    if (m1) return m1[1];
-    const m2 = q.match(/\b(i am|im|i'm)\s+([a-zA-Z]{2,20})\b/i);
-    if (m2) return m2[2];
-    return "";
-  }
-
-  function wantsCursor(q){
-    return /(cursor|change cursor|cursor changer|pointer|mouse)/i.test(q);
-  }
-
-  function reply(qRaw){
-    const q = (qRaw || "").trim();
-    const low = q.toLowerCase();
-    const name = extractName(q);
-
-    // Cursor requests
-    if (wantsCursor(q)){
-      cursorMiniPanel.style.display = "block";
-      return "• Cursor Station unlocked 🎀\n• Pick one in the header 👆\n• Tip: 💎 is giving VIP energy ✨";
-    }
-
-    // Greetings + name
-    if (name){
-      return `• Hi ${name} 🌸\n• So cute to meet you 💗\n• Tell me what vibe you want today:\n  - warm 🍂\n  - fresh ❄️\n  - soft 🌷\n  - bold 💋`;
-    }
-    if (/(^|\b)(hi|hello|hey|hii|yo)\b/.test(low)){
-      return "• Hiii 🌸💗\n• What do you want:\n  - scent recommendation ✨\n  - launch info 📅\n  - hints 🪞\n  - cursor changer 🎀";
-    }
-
-    // Launch / update
-    if (/(launch|release|drop|come out|when)/i.test(q) && /(launch|release|drop|come out)/i.test(q)){
-      return "• Launch date: September 29, 2026 📅✨\n• Countdown is live on the site 💗⏳";
-    }
-    if (/(update|next update)/i.test(q)){
-      return "• Next update: February 14, 2026 💌✨\n• (yes it’s romantic on purpose 😭💗)";
-    }
-
-    // First product (secret)
-    if (/(first product|first scent|first perfume|first launch|what are you selling|product)/i.test(q)){
-      return "• The first Everose product is a secret (for now) 🤫✨\n• But here are hints:\n  - 🌷 new beginning energy\n  - ❄️ clean + silky vibe\n  - 🍂 warm + unforgettable\n• Tell me what you like and I’ll hint harder 💗";
-    }
-
-    // Scent matching — understand normal questions
-    const warm = /(warm|cozy|vanilla|amber|sweet|caramel|cocoa|spice)/i.test(q);
-    const fresh = /(fresh|clean|citrus|mint|ocean|airy|soap|crisp)/i.test(q);
-    const soft = /(soft|light|floral|powder|rose|peony|skin|gentle)/i.test(q);
-    const bold = /(bold|strong|sexy|night|dark|intense|musk)/i.test(q);
-
-    if (/(recommend|suggest|which scent|pick for me|what scent|match me|vibe|i like|i want)/i.test(low) || warm || fresh || soft || bold){
-      let lines = ["• Okayyy I hear you 🪞✨"];
-      if (warm) lines.push("• You’re leaning warm 🍂 (cozy + addictive)");
-      if (fresh) lines.push("• You’re leaning fresh ❄️ (clean + confident)");
-      if (soft) lines.push("• You’re leaning soft 🌷 (gentle + pretty)");
-      if (bold) lines.push("• You’re leaning bold 💋 (statement scent)");
-      if (!warm && !fresh && !soft && !bold){
-        lines.push("• Quick vibe check:");
-        lines.push("  - warm 🍂 or fresh ❄️?");
-        lines.push("  - soft 🌷 or bold 💋?");
-      } else {
-        lines.push("• Want it more daytime, or more night-out? ✨");
+      if (distance < 0) {
+        document.getElementById(elementId).innerHTML = "Unlocked <small>✨</small>";
+        return;
       }
-      return lines.join("\n");
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById(elementId).innerHTML =
+        `${days}d ${hours}h ${minutes}m ${seconds}s <small>⏳</small>`;
     }
 
-    // Default: helpful, not “rephrase”
-    return "• I got you 💗\n• Tell me what you’re trying to do (even messy wording is fine 😭)\n• And I’ll answer with:\n  - a clear answer ✨\n  - quick options 🪞\n  - next step ✅";
-  }
+    setInterval(() => {
+      updateCountdown(launchDate, "launchCountdown");
+      updateCountdown(updateDate, "updateCountdown");
+    }, 1000);
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const text = input.value.trim();
-    if (!text) return;
+    /* ========== QUIZ ========== */
+    function result(type) {
+      let text = "";
+      if (type === "soft")  text = "🌸 Soft + airy\n• gentle florals\n• clean skin scent\n• close-to-the-skin energy";
+      if (type === "warm")  text = "🍂 Warm + comforting\n• cozy glow\n• familiar sweetness\n• unforgettable trail";
+      if (type === "fresh") text = "❄️ Fresh + confident\n• crisp clean notes\n• cool silk vibe\n• strong presence";
+      if (type === "bright")text = "💗 Mixed + signature\n• playful layers\n• day-to-night\n• main character energy";
+      document.getElementById("answer").innerText = text;
+    }
 
-    addMsg(text, "user");
-    input.value = "";
+    /* ========== CURSOR (only changes cursor, nothing else) ========== */
+    function makeEmojiCursor(emoji) {
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+          <text x="2" y="24" font-size="24">${emoji}</text>
+        </svg>`;
+      const data = encodeURIComponent(svg);
+      return {
+        cursor: `url("data:image/svg+xml,${data}") 4 24, auto`,
+        pointer: `url("data:image/svg+xml,${data}") 4 24, pointer`
+      };
+    }
 
-    // Quick “thinking” but not slow
-    addMsg("• Thinking… 🤍✨", "bot");
-    const thinkingRow = messages.lastChild;
+    function applyCursorEmoji(emoji) {
+      const c = makeEmojiCursor(emoji);
+      document.documentElement.style.setProperty("--everose-cursor", c.cursor);
+      document.documentElement.style.setProperty("--everose-pointer", c.pointer);
+      localStorage.setItem("everose_cursor_emoji", emoji);
+    }
 
-    setTimeout(() => {
-      if (thinkingRow && thinkingRow.parentNode) thinkingRow.remove();
-      addMsg(reply(text), "bot");
-    }, 900);
-  });
-})();
-</script>
+    function resetCursor() {
+      document.documentElement.style.setProperty("--everose-cursor", "auto");
+      document.documentElement.style.setProperty("--everose-pointer", "pointer");
+      localStorage.removeItem("everose_cursor_emoji");
+    }
+
+    // load saved cursor
+    const savedCursor = localStorage.getItem("everose_cursor_emoji");
+    if (savedCursor) applyCursorEmoji(savedCursor);
+
+    /* ========== ASK EVEROSE ========== */
+    (function(){
+      const btn = document.getElementById("askEveroseBtn");
+      const panel = document.getElementById("askEverosePanel");
+      const closeBtn = document.getElementById("askCloseBtn");
+      const form = document.getElementById("askEveroseForm");
+      const input = document.getElementById("askInput");
+      const messages = document.getElementById("askEveroseMessages");
+
+      const cursorMiniBtn = document.getElementById("cursorMiniBtn");
+      const cursorTray = document.getElementById("cursorTray");
+      const cursorResetBtn = document.getElementById("cursorReset");
+
+      function openChat(){
+        panel.style.display = "block";
+        setTimeout(() => input.focus(), 50);
+        if (!messages.dataset.greeted) {
+          bot(
+            "Hi — I’m Ask Everose. 🖤💗\n" +
+            "• Ask about launch, hints, scents\n" +
+            "• Say “cursor” if you want the cursor picker ✦"
+          );
+          messages.dataset.greeted = "true";
+        }
+      }
+      function closeChat(){ panel.style.display = "none"; }
+
+      btn.addEventListener("click", () => {
+        (panel.style.display === "block") ? closeChat() : openChat();
+      });
+      closeBtn.addEventListener("click", closeChat);
+
+      function addMsg(text, who="bot"){
+        const row = document.createElement("div");
+        row.className = `msg ${who}`;
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.textContent = text;
+        row.appendChild(bubble);
+        messages.appendChild(row);
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      function bot(text){ addMsg(text, "bot"); }
+      function user(text){ addMsg(text, "user"); }
+
+      function showCursorTray(){
+        cursorTray.style.display = (cursorTray.style.display === "flex") ? "none" : "flex";
+      }
+
+      cursorMiniBtn.addEventListener("click", showCursorTray);
+
+      cursorTray.addEventListener("click", (e) => {
+        const pick = e.target.closest(".cursorPick");
+        if (!pick) return;
+        applyCursorEmoji(pick.getAttribute("data-emoji"));
+        bot("Cursor updated ✦🖤 (it saves on your device).");
+      });
+
+      cursorResetBtn.addEventListener("click", () => {
+        resetCursor();
+        bot("Cursor reset ✅");
+      });
+
+      // quick “smarter” reply: recognizes names + bullet style
+      function reply(raw){
+        const q = (raw||"").trim();
+        const lower = q.toLowerCase();
+
+        // name detection: "my name is ___"
+        const nameMatch = lower.match(/my name is\s+([a-zA-Z]+)\b/);
+        if (nameMatch){
+          const name = nameMatch[1];
+          const cap = name.charAt(0).toUpperCase() + name.slice(1);
+          return `Hi ${cap} — nice to meet you. 💗\n• Want scent help?\n• Want launch info?\n• Want hints?`;
+        }
+
+        // cursor request
+        if (lower.includes("cursor") || lower.includes("pointer") || lower.includes("mouse")){
+          // open tray for them
+          cursorTray.style.display = "flex";
+          return "Cursor station unlocked ✦\n• Pick one above\n• It saves on your device\n• Reset anytime ✅";
+        }
+
+        // launch
+        if (lower.includes("launch") || lower.includes("release") || lower.includes("drop")){
+          return "Launch details 📅✨\n• Date: January 24, 2026\n• Time: 12:00:00\n• Countdown is live on the homepage ⏳";
+        }
+
+        // hints
+        if (lower.includes("hints")){
+          return "Everose hints 🌸\n• Sun-kissed warmth ☀️\n• Winter silk clean ❄️\n• New beginnings bloom 🌷\n• Unforgettable comfort 🍂";
+        }
+
+        // product
+        if (lower.includes("first") && (lower.includes("scent") || lower.includes("perfume") || lower.includes("product"))){
+          return "First product? 🤫\n• Secret for now\n• But you can pick a vibe and I’ll hint harder:\n  - warm 🍂\n  - fresh ❄️\n  - soft 🌸\n  - bold ✦";
+        }
+
+        // general scent matching
+        if (lower.includes("recommend") || lower.includes("what scent") || lower.includes("which scent") || lower.includes("pick for me")){
+          return "Okay — quick vibe check 🖤💗\n• Warm or fresh?\n• Soft or bold?\n• Daytime or night-out?";
+        }
+
+        if (lower.includes("warm") || lower.includes("vanilla") || lower.includes("cozy") || lower.includes("amber")){
+          return "Warm-girl energy 🍂\n• cozy + addictive\n• soft trail that lingers\n• feels like comfort + confidence";
+        }
+        if (lower.includes("fresh") || lower.includes("clean") || lower.includes("citrus") || lower.includes("mint")){
+          return "Fresh energy ❄️\n• crisp + clean\n• confident presence\n• cool, smooth finish";
+        }
+        if (lower.includes("soft") || lower.includes("airy") || lower.includes("floral") || lower.includes("powder")){
+          return "Soft bloom 🌸\n• gentle + pretty\n• close-to-the-skin\n• effortless everyday signature";
+        }
+
+        // fallback (doesn't force rephrase)
+        return "Got you. 🖤✨\n• If you tell me the vibe (warm / fresh / soft / bold), I’ll guide you.\n• Or ask: launch, hints, cursor.\n• You can type however you want — I’ll still try to help.";
+      }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const text = input.value.trim();
+        if (!text) return;
+
+        user(text);
+        input.value = "";
+
+        // quick “thinking” but not laggy
+        const thinking = "…thinking ✦";
+        bot(thinking);
+        const thinkingRow = messages.lastChild;
+
+        setTimeout(() => {
+          if (thinkingRow && thinkingRow.parentNode) thinkingRow.remove();
+          bot(reply(text));
+        }, 900);
+      });
+    })();
+  </script>
 
 </body>
 </html>
