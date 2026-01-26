@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -12,138 +12,137 @@
 
 <style>
   :root{
+    --bg:#101013;
+    --panel:#14141a;
+    --panel2:#0f0f14;
     --ink:#f4f4f6;
-    --muted:rgba(255,255,255,.74);
+    --muted:rgba(255,255,255,.72);
+    --muted2:rgba(255,255,255,.58);
     --border:rgba(255,255,255,.16);
-    --pink:#ff4fa3;
-    --pink2:#ff87c7;
-
-    /* Ask Everose cursor vars (only affect chat panel) */
-    --askCursor:auto;
-    --askPointer:pointer;
-
-    /* ✅ BACKGROUND IMAGE PATH (put file in your repo) */
-    --bgImage: url("assets/everose-bg.jpg");
+    --soft:rgba(255,255,255,.08);
+    --pink:#ff3d9a;       /* darker pink pop */
+    --pink2:#ff78bd;
   }
 
   html{ scroll-behavior:smooth; }
-
   body{
     margin:0;
     color:var(--ink);
     font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    background: #0a0a0d;
+    background:
+      radial-gradient(1000px 600px at 12% 12%, rgba(255,61,154,.12), transparent 55%),
+      radial-gradient(900px 550px at 78% 28%, rgba(255,120,189,.08), transparent 58%),
+      linear-gradient(to bottom, #0e0e12, #121217, #0f0f14);
     overflow-x:hidden;
   }
 
-  /* ====== FULL PAGE BACKGROUND IMAGE like inspo ====== */
-  body::before{
-    content:"";
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    background-image: var(--bgImage);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    filter: grayscale(1) contrast(1.08) brightness(0.55);
-    transform: scale(1.03);
-  }
-
-  /* dark veil + pink glow like inspo */
-  body::after{
-    content:"";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background:
-      radial-gradient(900px 600px at 15% 12%, rgba(255,79,163,.18), transparent 55%),
-      radial-gradient(900px 600px at 85% 35%, rgba(255,135,199,.10), transparent 55%),
-      linear-gradient(to bottom, rgba(0,0,0,.65), rgba(0,0,0,.82));
+  /* ===== Top bar vibe (left nav + right icons) ===== */
+  .topbar{
+    position:fixed;
+    top:14px;
+    left:0;
+    right:0;
+    z-index:1000;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 0 22px;
     pointer-events:none;
   }
+  .navLeft, .navRight{ pointer-events:auto; }
 
-  /* ====== NAV pill centered ====== */
-  nav{
-    position:fixed;
-    top:16px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:1000;
-    background: rgba(255,255,255,.14);
-    border:1px solid rgba(255,255,255,.18);
-    border-radius:999px;
-    padding:10px 14px;
+  .navLeft{
     display:flex;
-    gap:18px;
+    gap:10px;
     align-items:center;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 20px 60px rgba(0,0,0,.45);
   }
-  nav a{
+  .navLeft a{
     text-decoration:none;
-    color: rgba(255,255,255,.92);
-    font-weight:700;
-    letter-spacing:.22em;
+    font-weight:800;
+    letter-spacing:.12em;
     font-size:12px;
     text-transform:uppercase;
-    padding:8px 10px;
-    border-radius:999px;
-    transition: background .2s ease, color .2s ease;
+    padding:10px 14px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.18);
+    color: rgba(255,255,255,.92);
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
   }
-  nav a:hover{
-    background: rgba(255,79,163,.18);
-    color:#fff;
+  .navLeft a:hover{
+    transform: translateY(-1px);
+    background: rgba(255,61,154,.12);
+    border-color: rgba(255,61,154,.30);
   }
 
-  /* ====== HERO (same layout as inspo) ====== */
+  .navRight{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    opacity:.9;
+  }
+  .iconBtn{
+    width:38px;
+    height:38px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.06);
+    color: rgba(255,255,255,.85);
+    display:grid;
+    place-items:center;
+    cursor:pointer;
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .iconBtn:hover{
+    transform: translateY(-1px);
+    background: rgba(255,61,154,.10);
+    border-color: rgba(255,61,154,.26);
+  }
+
+  /* ===== Hero: EXACT split layout vibe ===== */
   .hero{
     min-height: 100vh;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap: 50px;
-    padding: 120px 7vw 70px;
+    gap: 46px;
+    padding: 110px 6vw 60px;
     position:relative;
   }
-  .hero-left{ max-width: 650px; z-index:1; }
+  .hero-left{ max-width: 640px; z-index:1; }
   .hero-right{ flex:1; display:flex; justify-content:flex-end; z-index:1; }
 
   .hero-title{
     font-family:"Playfair Display", serif;
-    font-size: clamp(54px, 6.2vw, 92px);
-    line-height: .92;
-    margin: 0 0 14px;
+    font-size: clamp(52px, 6vw, 88px);
+    line-height: .95;
+    margin: 0 0 10px;
     letter-spacing:-0.02em;
   }
   .hero-title .script{
     font-family:"Great Vibes", cursive;
     font-weight:400;
+    letter-spacing: 0;
     display:inline-block;
-    transform: translateY(6px);
-    color: rgba(255,255,255,.92);
+    transform: translateY(8px);
+    color: rgba(255,61,154,.95);
   }
 
   .hero-sub{
     max-width: 560px;
     color: var(--muted);
     font-size: 16px;
-    line-height:1.65;
-    margin: 0 0 22px;
-  }
-  .hero-sub .pink{
-    color: var(--pink2);
-    font-weight: 700;
+    line-height:1.7;
+    margin: 0 0 18px;
   }
 
   .cta{
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    gap:10px;
     padding: 14px 18px;
-    border-radius: 12px;
-    border: 2px solid rgba(255,79,163,.85);
+    border-radius: 10px;
+    border: 2px solid rgba(255,61,154,.80);
     background: rgba(255,255,255,.06);
     color: rgba(255,255,255,.92);
     font-weight: 900;
@@ -155,13 +154,12 @@
   }
   .cta:hover{
     transform: translateY(-2px);
-    background: rgba(255,79,163,.12);
-    box-shadow: 0 20px 70px rgba(255,79,163,.14);
+    background: rgba(255,61,154,.12);
+    box-shadow: 0 20px 80px rgba(255,61,154,.12);
   }
 
-  /* right image card */
   .hero-img{
-    width: min(600px, 50vw);
+    width: min(640px, 54vw);
     aspect-ratio: 16 / 9;
     border-radius: 26px;
     overflow:hidden;
@@ -174,7 +172,7 @@
     width:100%;
     height:100%;
     object-fit:cover;
-    filter: grayscale(1) contrast(1.06) brightness(0.92);
+    filter: saturate(0.08) contrast(1.10) brightness(0.92);
     transform: scale(1.02);
   }
   .hero-img::after{
@@ -182,75 +180,85 @@
     position:absolute;
     inset:0;
     background:
-      radial-gradient(900px 420px at 70% 40%, rgba(255,79,163,.22), transparent 55%),
-      linear-gradient(to bottom, rgba(0,0,0,.10), rgba(0,0,0,.55));
+      radial-gradient(900px 420px at 70% 45%, rgba(255,61,154,.22), transparent 56%),
+      linear-gradient(to bottom, rgba(0,0,0,.08), rgba(0,0,0,.62));
     pointer-events:none;
   }
 
-  /* countdown chips */
-  .chips{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-    margin-top: 18px;
-  }
-  .chip{
+  /* Countdown box like inspo */
+  .countBox{
+    margin-top: 20px;
     background: rgba(255,255,255,.06);
-    border: 1px solid rgba(255,255,255,.14);
-    border-radius: 18px;
-    padding: 14px 14px;
-    min-width: 210px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 14px;
+    padding: 14px 16px;
+    max-width: 520px;
+    box-shadow: 0 30px 120px rgba(0,0,0,.40);
   }
-  .chip small{
-    display:block;
-    font-size: 11px;
-    letter-spacing: .28em;
+  .countRow{
+    display:flex;
+    justify-content:space-between;
+    gap: 14px;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255,255,255,.10);
+  }
+  .countRow:first-child{ border-top:none; }
+  .countRow span{
+    font-weight: 900;
+    letter-spacing: .16em;
     text-transform: uppercase;
-    color: rgba(255,255,255,.62);
-    margin-bottom: 8px;
+    font-size: 12px;
+    color: rgba(255,255,255,.70);
   }
-  .chip b{
+  .countRow b{
     font-family:"Playfair Display", serif;
     font-size: 18px;
-    letter-spacing: .02em;
+    letter-spacing:.02em;
+    color: rgba(255,255,255,.92);
+    white-space:nowrap;
   }
 
-  /* ====== SECTIONS ====== */
+  /* ===== Sections ===== */
   .section{
     max-width: 1100px;
     margin: 80px auto;
-    padding: 0 7vw;
+    padding: 0 6vw;
   }
   .card{
-    background: rgba(10,10,14,.58);
+    background: rgba(255,255,255,.05);
     border: 1px solid rgba(255,255,255,.12);
-    border-radius: 26px;
+    border-radius: 22px;
     padding: 34px 26px;
-    box-shadow: 0 30px 120px rgba(0,0,0,.55);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 30px 120px rgba(0,0,0,.40);
   }
   .h{
     font-family:"Playfair Display", serif;
     font-size: 44px;
-    margin: 0 0 10px;
+    margin: 0 0 8px;
   }
-  .pinkline{
-    display:inline-block;
+  .subline{
     height:2px;
-    width:70px;
-    background: var(--pink);
+    width:84px;
+    background: rgba(255,61,154,.95);
     border-radius:999px;
-    margin: 8px 0 18px;
+    margin: 10px 0 18px;
   }
   .p{
     margin:0;
     color: var(--muted);
     font-size: 16px;
-    line-height: 1.7;
+    line-height: 1.75;
   }
 
-  /* quiz buttons */
+  /* Hints list */
+  .hintList{
+    margin: 0;
+    padding-left: 18px;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+
+  /* Quiz */
   .quiz-row{
     display:flex;
     gap:10px;
@@ -264,13 +272,13 @@
     padding: 12px 14px;
     border-radius: 999px;
     cursor:pointer;
-    font-weight: 800;
+    font-weight: 900;
     transition: transform .15s ease, background .15s ease, border-color .15s ease;
   }
   .quiz-row button:hover{
     transform: translateY(-2px);
-    background: rgba(255,79,163,.14);
-    border-color: rgba(255,79,163,.32);
+    background: rgba(255,61,154,.14);
+    border-color: rgba(255,61,154,.34);
   }
   #answer{
     margin-top: 16px;
@@ -279,30 +287,29 @@
     white-space: pre-wrap;
   }
 
+  /* Footer */
   footer{
     margin-top: 80px;
-    padding: 34px 7vw 80px;
+    padding: 34px 6vw 90px;
     border-top: 1px solid rgba(255,255,255,.10);
     display:flex;
     justify-content:space-between;
     gap: 18px;
     flex-wrap:wrap;
     color: rgba(255,255,255,.58);
-    background: rgba(0,0,0,.25);
-    backdrop-filter: blur(10px);
   }
   footer .brand{
     font-family:"Great Vibes", cursive;
-    font-size: 32px;
-    color: rgba(255,255,255,.88);
+    font-size: 34px;
+    color: rgba(255,255,255,.90);
   }
   footer .by{
     font-family:"Great Vibes", cursive;
     font-size: 24px;
-    color: rgba(255,135,199,.90);
+    color: rgba(255,120,189,.92);
   }
 
-  /* ====== ASK EVEROSE ====== */
+  /* ===== Ask Everose (bottom-left) ===== */
   #askWrap{
     position: fixed;
     left: 18px;
@@ -319,13 +326,13 @@
     border-radius: 999px;
     border: 1px solid rgba(255,255,255,.18);
     cursor: pointer;
-    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.92), rgba(255,79,163,0.32));
-    box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.88), rgba(255,61,154,0.30));
+    box-shadow: 0 14px 30px rgba(0,0,0,0.40);
     transition: transform .2s ease, box-shadow .2s ease;
   }
   #askBtn:hover{
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 18px 40px rgba(255,79,163,0.25);
+    box-shadow: 0 18px 45px rgba(255,61,154,0.22);
   }
   #askBtn span{ font-size: 22px; }
   #askLabel{
@@ -343,17 +350,14 @@
     max-width: calc(100vw - 36px);
     height: 470px;
     max-height: calc(100vh - 140px);
-    background: rgba(10,10,14,.92);
+    background: rgba(15,15,20,.92);
     border: 1px solid rgba(255,255,255,.14);
     border-radius: 22px;
-    box-shadow: 0 20px 70px rgba(0,0,0,.70);
+    box-shadow: 0 20px 75px rgba(0,0,0,.72);
     display: none;
     overflow: hidden;
     backdrop-filter: blur(10px);
-    cursor: var(--askCursor, auto);
   }
-  #askPanel button, #askPanel a, #askPanel input { cursor: var(--askPointer, pointer); }
-
   .askHeader{
     display:flex;
     align-items:center;
@@ -381,11 +385,12 @@
   }
   .askClose:hover{ color: #fff; }
 
+  /* Cursor mini bar inside Ask Everose (hidden unless asked) */
   #cursorMini{
     display:none;
     padding: 10px 12px;
     border-bottom: 1px solid rgba(255,255,255,.10);
-    background: rgba(255,79,163,.06);
+    background: rgba(255,61,154,.06);
     gap: 8px;
     align-items:center;
     flex-wrap: wrap;
@@ -407,13 +412,13 @@
     font-size: 14px;
   }
   .cursorPick:hover{
-    border-color: rgba(255,79,163,.35);
-    background: rgba(255,79,163,.12);
+    border-color: rgba(255,61,154,.40);
+    background: rgba(255,61,154,.12);
   }
   #cursorReset{
     border:none;
-    background: rgba(255,79,163,.24);
-    border: 1px solid rgba(255,79,163,.35);
+    background: rgba(255,61,154,.24);
+    border: 1px solid rgba(255,61,154,.40);
     color: white;
     border-radius: 999px;
     padding: 8px 10px;
@@ -422,6 +427,11 @@
     letter-spacing: .06em;
     font-size: 11px;
   }
+  #cursorReset:hover{ background: rgba(255,61,154,.32); }
+
+  /* Cursor only affects Ask Everose panel */
+  #askPanel { cursor: var(--askCursor, auto); }
+  #askPanel button, #askPanel a, #askPanel input { cursor: var(--askPointer, pointer); }
 
   #askMessages{
     padding: 12px;
@@ -438,17 +448,16 @@
     padding: 10px 12px;
     border-radius: 16px;
     font-size: 13px;
-    line-height: 1.42;
+    line-height: 1.45;
     border: 1px solid rgba(255,255,255,.10);
     box-shadow: 0 10px 20px rgba(0,0,0,.25);
     white-space: pre-wrap;
   }
   .msg.user .bubble{
-    background: rgba(255,79,163,.14);
-    border-color: rgba(255,79,163,.22);
+    background: rgba(255,61,154,.14);
+    border-color: rgba(255,61,154,.24);
   }
   .msg.bot .bubble{ background: rgba(255,255,255,.06); }
-
   .bubble ul{ margin: 6px 0 0 18px; padding: 0; }
   .bubble li{ margin: 6px 0; }
 
@@ -459,7 +468,7 @@
     display:flex;
     gap: 8px;
     border-top: 1px solid rgba(255,255,255,.10);
-    background: rgba(10,10,14,.92);
+    background: rgba(15,15,20,.92);
   }
   #askInput{
     flex:1;
@@ -476,31 +485,42 @@
     border-radius: 16px;
     padding: 10px 14px;
     cursor:pointer;
-    background: rgba(255,79,163,.28);
-    border: 1px solid rgba(255,79,163,.40);
+    background: rgba(255,61,154,.28);
+    border: 1px solid rgba(255,61,154,.44);
     color: white;
     font-weight: 900;
     letter-spacing: .06em;
   }
+  #askSend:hover{ background: rgba(255,61,154,.36); }
 
+  /* Responsive */
   @media (max-width: 900px){
     .hero{ flex-direction: column; padding-top: 120px; }
     .hero-right{ width: 100%; justify-content:center; }
     .hero-img{ width: 100%; }
-    nav{ gap: 10px; }
-    nav a{ font-size: 11px; letter-spacing: .18em; }
+    .topbar{ padding: 0 14px; }
+    .navLeft a{ font-size: 11px; padding: 9px 12px; letter-spacing:.10em; }
+    .navRight{ display:none; }
   }
 </style>
 </head>
 
 <body>
 
-<nav>
-  <a href="#home">Home</a>
-  <a href="#story">Our Story</a>
-  <a href="#hints">Hints</a>
-  <a href="#quiz">Find Your Scent</a>
-</nav>
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="navLeft">
+    <a href="#home">Home</a>
+    <a href="#about">About Me</a>
+    <a href="#hints">Hints</a>
+    <a href="#quiz">Find Your Scent</a>
+  </div>
+  <div class="navRight" aria-label="Icons (decorative)">
+    <button class="iconBtn" title="Search" aria-label="Search">⌕</button>
+    <button class="iconBtn" title="Account" aria-label="Account">👤</button>
+    <button class="iconBtn" title="Bag" aria-label="Bag">👜</button>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -510,21 +530,21 @@
     </h1>
 
     <p class="hero-sub">
-      Luxury fragrance, softly blooming. <span class="pink">We’re building our first scents right now.</span><br/>
-      Clean. Personal. A little addictive. ✨
+      Luxury fragrance, softly blooming.<br/>
+      We’re building our first scents right now — personal, clean, and a little unforgettable.
     </p>
 
     <button class="cta" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'})">
-      FIND YOUR SCENT
+      Find Your Scent
     </button>
 
-    <div class="chips">
-      <div class="chip">
-        <small>LAUNCHING IN</small>
+    <div class="countBox" aria-label="Countdowns">
+      <div class="countRow">
+        <span>Launching In</span>
         <b id="launchCountdown">—</b>
       </div>
-      <div class="chip">
-        <small>NEXT UPDATE</small>
+      <div class="countRow">
+        <span>Next Update</span>
         <b id="updateCountdown">—</b>
       </div>
     </div>
@@ -532,16 +552,17 @@
 
   <div class="hero-right">
     <div class="hero-img" aria-label="Everose hero image">
-      <img src="assets/everose-hero.jpg" alt="Everose hero image"/>
+      <!-- Upload your image to /assets/everose-hero.png -->
+      <img src="assets/everose-hero.png" alt="Everose perfume hero image"/>
     </div>
   </div>
 </section>
 
-<!-- OUR STORY -->
-<section class="section" id="story">
+<!-- ABOUT ME -->
+<section class="section" id="about">
   <div class="card">
-    <h2 class="h">Our Story</h2>
-    <div class="pinkline"></div>
+    <h2 class="h">About Me</h2>
+    <div class="subline"></div>
     <p class="p">
       Hi! My name is Cruz Keller, and I absolutely love perfume. I was born in New York, then moved to New Jersey,
       then to Miami, and after a few more moves, I finally landed in Austin.<br/><br/>
@@ -555,14 +576,14 @@
 <!-- HINTS -->
 <section class="section" id="hints">
   <div class="card">
-    <h2 class="h">Everose Hints</h2>
-    <div class="pinkline"></div>
-    <p class="p">
-      ✨ One scent feels like getting a suntan.<br/>
-      ❄ One scent feels like silk in winter air.<br/>
-      🌷 One scent feels like something new beginning.<br/>
-      🍂 One scent feels warm… familiar… unforgettable.
-    </p>
+    <h2 class="h">Hints</h2>
+    <div class="subline"></div>
+    <ul class="hintList">
+      <li>✨ One scent feels like getting a suntan.</li>
+      <li>❄ One scent feels like silk in winter air.</li>
+      <li>🌷 One scent feels like something new beginning.</li>
+      <li>🍂 One scent feels warm… familiar… unforgettable.</li>
+    </ul>
   </div>
 </section>
 
@@ -570,7 +591,7 @@
 <section class="section" id="quiz">
   <div class="card">
     <h2 class="h">Find Your Scent</h2>
-    <div class="pinkline"></div>
+    <div class="subline"></div>
     <p class="p">Choose what feels most like you 💗</p>
 
     <div class="quiz-row">
@@ -602,11 +623,12 @@
   <div class="askHeader">
     <div class="askTitle">
       <b>Ask Everose</b>
-      <small>black + white • pink details • scent help</small>
+      <small>soft answers • dark luxe • scent help</small>
     </div>
     <button class="askClose" id="askClose" aria-label="Close">✕</button>
   </div>
 
+  <!-- Cursor bar appears ONLY when asked -->
   <div id="cursorMini">
     <span class="tag">Cursor</span>
     <button class="cursorPick" data-emoji="🎀">🎀</button>
@@ -628,8 +650,13 @@
 </div>
 
 <script>
-  /* DATES */
+  /* =========================
+     DATES (your final dates)
+     ========================= */
+  // LAUNCH: September 29, 2026 at 12:00:00
   const launchDate = new Date("September 29, 2026 12:00:00").getTime();
+
+  // UPDATE: January 24, 2026 at 2:00 PM
   const updateDate = new Date("January 24, 2026 14:00:00").getTime();
 
   function fmtCountdown(targetMs){
@@ -643,22 +670,30 @@
     return `${days}d ${hours}h ${mins}m ${secs}s`;
   }
   function tick(){
-    document.getElementById("launchCountdown").textContent = fmtCountdown(launchDate);
-    document.getElementById("updateCountdown").textContent = fmtCountdown(updateDate);
+    const lc = document.getElementById("launchCountdown");
+    const uc = document.getElementById("updateCountdown");
+    if (lc) lc.textContent = fmtCountdown(launchDate);
+    if (uc) uc.textContent = fmtCountdown(updateDate);
   }
-  tick(); setInterval(tick, 1000);
+  tick();
+  setInterval(tick, 1000);
 
+  /* QUIZ */
   function result(type){
     const a = document.getElementById("answer");
+    if (!a) return;
     const map = {
       soft:  "• Soft + airy 🌸\n• Gentle, close-to-the-skin\n• Pretty, clean, effortless ✨",
       warm:  "• Warm + comforting 🍂\n• Familiar, cozy, unforgettable\n• The kind of scent people remember 💗",
       fresh: "• Fresh + confident ❄️\n• Clean, crisp, bold energy\n• Signature / main-character vibes ✨",
-      bright:"• Playful + layered 💋\n• A little sweet, a little clean, a little warm\n• Total signature scent energy 🪞✨"
+      bright:"• Playful + layered 💋\n• A little sweet, a little clean, a little warm\n• Total signature scent energy ✧"
     };
     a.textContent = map[type] || "";
   }
 
+  /* =========================
+     ASK EVEROSE (smarter-ish, wide variety)
+     ========================= */
   (function(){
     const askBtn = document.getElementById("askBtn");
     const askPanel = document.getElementById("askPanel");
@@ -673,47 +708,17 @@
     let userName = localStorage.getItem("everose_name") || "";
     let vip = (localStorage.getItem("everose_vip") === "true");
 
-    function escapeHtml(s){
-      return (s||"").replace(/[&<>"']/g, (c)=>({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-      }[c]));
-    }
-    function parseName(q){
-      let m = q.match(/\bmy name is\s+([a-zA-Z'-]{2,20})/i);
-      if (m) return m[1];
-      m = q.match(/\b(i'm|im|i am)\s+([a-zA-Z'-]{2,20})\b/i);
-      if (m) return m[2];
-      return "";
-    }
-    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-    function hasAny(q, words){ return words.some(w => q.includes(w)); }
-
-    function addBubble(content, who="bot", html=false){
-      const row = document.createElement("div");
-      row.className = `msg ${who}`;
-      const bubble = document.createElement("div");
-      bubble.className = "bubble";
-      if (html) bubble.innerHTML = content;
-      else bubble.textContent = content;
-      row.appendChild(bubble);
-      messages.appendChild(row);
-      messages.scrollTop = messages.scrollHeight;
-      return row;
-    }
-    function botHTML(html){ addBubble(html, "bot", true); }
-    function user(text){ addBubble(text, "user"); }
-
     function openChat(){
       askPanel.style.display = "block";
       setTimeout(()=> input.focus(), 50);
 
       if (!messages.dataset.greeted){
         botHTML(`
-          <b>Hi bestie 🌸</b><br/>
+          <b>Hi 🌸 I’m Ask Everose.</b><br/>
           <ul>
-            <li>Ask about <b>launch</b>, <b>update</b>, <b>hints</b>, or <b>finding your scent</b> ✨</li>
+            <li>Ask about <b>launch</b>, <b>next update</b>, <b>hints</b>, or <b>finding your scent</b> ✨</li>
             <li>Say “<b>my name is ___</b>” and I’ll remember you 💗</li>
-            <li>If you want the <b>cursor changer</b>, ask: <b>show cursor changer</b></li>
+            <li>If you want the <b>cursor changer</b>, just ask</li>
             <li>VIP: type <b>everose vip</b> 💎</li>
           </ul>
         `);
@@ -729,11 +734,45 @@
     });
     askClose.addEventListener("click", closeChat);
 
+    function addBubble(content, who="bot", html=false){
+      const row = document.createElement("div");
+      row.className = `msg ${who}`;
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      if (html) bubble.innerHTML = content;
+      else bubble.textContent = content;
+      row.appendChild(bubble);
+      messages.appendChild(row);
+      messages.scrollTop = messages.scrollHeight;
+      return row;
+    }
+
+    function bot(text){ addBubble(text, "bot"); }
+    function botHTML(html){ addBubble(html, "bot", true); }
+    function user(text){ addBubble(text, "user"); }
+
     function thinking(){
       return addBubble("Interesting 👀✨ I’m thinking…", "bot");
     }
 
-    /* Cursor only inside Ask Everose */
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+    function hasAny(q, words){ return words.some(w => q.includes(w)); }
+
+    function escapeHtml(s){
+      return (s||"").replace(/[&<>"']/g, (c)=>({
+        "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"
+      }[c]));
+    }
+
+    function parseName(q){
+      let m = q.match(/\bmy name is\s+([a-zA-Z'-]{2,20})/i);
+      if (m) return m[1];
+      m = q.match(/\b(i'm|im|i am)\s+([a-zA-Z'-]{2,20})\b/i);
+      if (m) return m[2];
+      return "";
+    }
+
+    /* Cursor only for Ask Everose panel */
     function makeEmojiCursor(emoji) {
       const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">
         <text x="2" y="24" font-size="24">${emoji}</text>
@@ -786,7 +825,7 @@
           <b>Nice to meet you, ${escapeHtml(userName)} 💗</b><br/>
           <ul>
             <li>I’ll remember your name next time ✨</li>
-            <li>Want scent help or launch info?</li>
+            <li>Want <b>scent help</b> or <b>launch info</b>?</li>
           </ul>
         `;
       }
@@ -817,17 +856,17 @@
         `;
       }
 
-      if (hasAny(lower, ["launch","release","drop","come out","when does it launch"])){
+      if (hasAny(lower, ["launch", "release", "drop", "come out", "when does it launch"])){
         return `
           <b>Launch info 📅✨</b><br/>
           <ul>
-            <li><b>September 29, 2026</b></li>
-            <li>Countdown is on the homepage ⏳</li>
+            <li><b>September 29, 2026</b> at <b>12:00 PM</b></li>
+            <li>Countdown is live on the homepage ⏳</li>
           </ul>
         `;
       }
 
-      if (hasAny(lower, ["update","next update","when is the update"])){
+      if (hasAny(lower, ["update", "next update", "when is the update"])){
         return `
           <b>Next update 💗</b><br/>
           <ul>
@@ -837,7 +876,7 @@
         `;
       }
 
-      if (hasAny(lower, ["hints","notes","vibe"])){
+      if (hasAny(lower, ["hints", "notes", "clues", "what's the vibe"])){
         return `
           <b>Everose hints ✨</b><br/>
           <ul>
@@ -849,7 +888,7 @@
         `;
       }
 
-      if (hasAny(lower, ["first scent","first perfume","first product","product"])){
+      if (hasAny(lower, ["first scent","first perfume","first product","what are you selling","product"])){
         return `
           <b>The first Everose scent? 🤫✨</b><br/>
           <ul>
@@ -860,27 +899,58 @@
         `;
       }
 
+      if (hasAny(lower, ["soft","airy","light","floral","powder"])){
+        return `
+          <b>Soft bloom 🌸</b><br/>
+          <ul>
+            <li>Gentle + close-to-the-skin</li>
+            <li>Clean, pretty, effortless ✨</li>
+            <li>Rosy soft or creamy soft?</li>
+          </ul>
+        `;
+      }
+      if (hasAny(lower, ["warm","cozy","vanilla","amber","sweet"])){
+        return `
+          <b>Warm glow 🍂</b><br/>
+          <ul>
+            <li>Comforting + addictive</li>
+            <li>Familiar, unforgettable 💗</li>
+            <li>Warm-sweet or warm-spicy?</li>
+          </ul>
+        `;
+      }
+      if (hasAny(lower, ["fresh","clean","citrus","mint","ocean"])){
+        return `
+          <b>Fresh energy ❄️</b><br/>
+          <ul>
+            <li>Crisp + confident</li>
+            <li>Clean, expensive, “just showered” ✨</li>
+            <li>Sparkly fresh or crisp fresh?</li>
+          </ul>
+        `;
+      }
+
       if (hasAny(lower, ["hi","hello","hey","hii","yo"])){
-        const nameBit = userName ? ` ${escapeHtml(userName)} 💗` : " bestie 💗";
+        const nameBit = userName ? ` ${escapeHtml(userName)} 💗` : " 💗";
         return pick([
-          `<b>Hii${nameBit} 🌸</b><br/><ul><li>Do you want <b>launch</b>, <b>update</b>, or <b>scent help</b>?</li></ul>`,
-          `<b>Hey${nameBit} ✨</b><br/><ul><li>Tell me one word: clean / cozy / sweet / airy 👀</li></ul>`,
-          `<b>Hello${nameBit} 💋</b><br/><ul><li>I can help with hints + matching your vibe ✨</li></ul>`
+          `<b>Hii${nameBit} 🌸</b><br/><ul><li>Want <b>scent help</b>, <b>launch</b>, or <b>hints</b>?</li></ul>`,
+          `<b>Hey${nameBit} ✨</b><br/><ul><li>Give me 2 words: “clean / cozy / sweet / airy” 👀</li></ul>`,
+          `<b>Hello${nameBit} 💋</b><br/><ul><li>I can match your vibe in one message 😭✨</li></ul>`
         ]);
       }
 
       return pick([
         `<b>I got you 👀✨</b><br/>
          <ul>
-           <li>Ask “when is launch”</li>
-           <li>Ask “when is the update”</li>
-           <li>Ask “show cursor changer”</li>
-           <li>Or drop 2–3 vibe words (clean/cozy/sweet/airy)</li>
+           <li><b>Launch</b> → “when is launch”</li>
+           <li><b>Update</b> → “when is the update”</li>
+           <li><b>Cursor</b> → “show cursor changer”</li>
+           <li><b>Scent</b> → tell me warm/fresh/soft</li>
          </ul>`,
-        `<b>I’m listening 🪞✨</b><br/>
+        `<b>I’m listening ✧</b><br/>
          <ul>
-           <li>Say it however you want — I’ll figure it out 💗</li>
-           <li>Give me 2–3 keywords and I’ll answer</li>
+           <li>Drop 2–3 keywords (example: “clean, pink, expensive”)</li>
+           <li>I’ll match you to a vibe 💗</li>
          </ul>`
       ]);
     }
@@ -897,7 +967,7 @@
       setTimeout(() => {
         if (t && t.parentNode) t.remove();
         botHTML(reply(text));
-      }, 1200);
+      }, 900);
     });
   })();
 </script>
