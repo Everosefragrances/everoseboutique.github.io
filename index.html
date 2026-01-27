@@ -1,47 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Everose</title>
-
-<!-- Luxe fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
 <style>
   :root{
-    --bg:#101013;
-    --panel:#14141a;
-    --panel2:#0f0f14;
-    --ink:#f4f4f6;
-    --muted:rgba(255,255,255,.72);
-    --muted2:rgba(255,255,255,.58);
-    --border:rgba(255,255,255,.16);
-    --soft:rgba(255,255,255,.08);
-    --pink:#ff3d9a;       /* darker pink pop */
+    --bg:#e7e7ea;                 /* main grey */
+    --bg2:#f3f3f5;                /* lighter grey */
+    --panel:rgba(255,255,255,.74);
+    --panel2:rgba(255,255,255,.62);
+    --ink:#111114;                /* black text */
+    --muted:rgba(17,17,20,.68);
+    --muted2:rgba(17,17,20,.55);
+    --border:rgba(17,17,20,.14);
+    --soft:rgba(17,17,20,.06);
+    --pink:#ff3d9a;               /* darker pink pop */
     --pink2:#ff78bd;
   }
 
   html{ scroll-behavior:smooth; }
+
   body{
     margin:0;
     color:var(--ink);
     font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     background:
-      radial-gradient(1000px 600px at 12% 12%, rgba(255,61,154,.12), transparent 55%),
-      radial-gradient(900px 550px at 78% 28%, rgba(255,120,189,.08), transparent 58%),
-      linear-gradient(to bottom, #0e0e12, #121217, #0f0f14);
+      radial-gradient(900px 520px at 14% 18%, rgba(255,61,154,.07), transparent 55%),
+      radial-gradient(900px 520px at 85% 22%, rgba(255,120,189,.05), transparent 58%),
+      linear-gradient(to bottom, var(--bg), var(--bg2));
     overflow-x:hidden;
   }
 
-  /* ===== Top bar vibe (left nav + right icons) ===== */
+  /* Top bar */
   .topbar{
     position:fixed;
-    top:14px;
-    left:0;
-    right:0;
+    top:14px; left:0; right:0;
     z-index:1000;
     display:flex;
     align-items:center;
@@ -64,42 +52,42 @@
     text-transform:uppercase;
     padding:10px 14px;
     border-radius: 10px;
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.18);
-    color: rgba(255,255,255,.92);
+    background: rgba(255,255,255,.72);
+    border: 1px solid var(--border);
+    color: rgba(17,17,20,.88);
+    box-shadow: 0 10px 30px rgba(0,0,0,.10);
     transition: transform .15s ease, background .15s ease, border-color .15s ease;
   }
   .navLeft a:hover{
     transform: translateY(-1px);
-    background: rgba(255,61,154,.12);
-    border-color: rgba(255,61,154,.30);
+    border-color: rgba(255,61,154,.35);
+    box-shadow: 0 14px 40px rgba(255,61,154,.10);
   }
 
   .navRight{
     display:flex;
     gap:12px;
     align-items:center;
-    opacity:.9;
   }
   .iconBtn{
     width:38px;
     height:38px;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,.18);
-    background: rgba(255,255,255,.06);
-    color: rgba(255,255,255,.85);
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.68);
+    color: rgba(17,17,20,.78);
     display:grid;
     place-items:center;
     cursor:pointer;
-    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,.10);
+    transition: transform .15s ease, border-color .15s ease;
   }
   .iconBtn:hover{
     transform: translateY(-1px);
-    background: rgba(255,61,154,.10);
-    border-color: rgba(255,61,154,.26);
+    border-color: rgba(255,61,154,.35);
   }
 
-  /* ===== Hero: EXACT split layout vibe ===== */
+  /* Hero */
   .hero{
     min-height: 100vh;
     display:flex;
@@ -109,8 +97,8 @@
     padding: 110px 6vw 60px;
     position:relative;
   }
-  .hero-left{ max-width: 640px; z-index:1; }
-  .hero-right{ flex:1; display:flex; justify-content:flex-end; z-index:1; }
+  .hero-left{ max-width: 640px; }
+  .hero-right{ flex:1; display:flex; justify-content:flex-end; }
 
   .hero-title{
     font-family:"Playfair Display", serif;
@@ -118,6 +106,7 @@
     line-height: .95;
     margin: 0 0 10px;
     letter-spacing:-0.02em;
+    color: rgba(17,17,20,.92);
   }
   .hero-title .script{
     font-family:"Great Vibes", cursive;
@@ -132,7 +121,7 @@
     max-width: 560px;
     color: var(--muted);
     font-size: 16px;
-    line-height:1.7;
+    line-height:1.75;
     margin: 0 0 18px;
   }
 
@@ -142,20 +131,20 @@
     justify-content:center;
     padding: 14px 18px;
     border-radius: 10px;
-    border: 2px solid rgba(255,61,154,.80);
-    background: rgba(255,255,255,.06);
-    color: rgba(255,255,255,.92);
+    border: 2px solid rgba(255,61,154,.75);
+    background: rgba(255,255,255,.62);
+    color: rgba(17,17,20,.90);
     font-weight: 900;
     letter-spacing: .08em;
     text-transform: uppercase;
     font-size: 12px;
     cursor:pointer;
-    transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+    box-shadow: 0 18px 60px rgba(0,0,0,.10);
+    transition: transform .18s ease, box-shadow .18s ease;
   }
   .cta:hover{
     transform: translateY(-2px);
-    background: rgba(255,61,154,.12);
-    box-shadow: 0 20px 80px rgba(255,61,154,.12);
+    box-shadow: 0 22px 80px rgba(255,61,154,.12);
   }
 
   .hero-img{
@@ -164,15 +153,15 @@
     border-radius: 26px;
     overflow:hidden;
     position:relative;
-    border: 1px solid rgba(255,255,255,.16);
-    box-shadow: 0 30px 120px rgba(0,0,0,.60);
-    background:#111;
+    border: 1px solid rgba(17,17,20,.14);
+    box-shadow: 0 30px 120px rgba(0,0,0,.18);
+    background: #dcdce0;
   }
   .hero-img img{
     width:100%;
     height:100%;
     object-fit:cover;
-    filter: saturate(0.08) contrast(1.10) brightness(0.92);
+    filter: saturate(0.08) contrast(1.06) brightness(1.02);
     transform: scale(1.02);
   }
   .hero-img::after{
@@ -180,27 +169,27 @@
     position:absolute;
     inset:0;
     background:
-      radial-gradient(900px 420px at 70% 45%, rgba(255,61,154,.22), transparent 56%),
-      linear-gradient(to bottom, rgba(0,0,0,.08), rgba(0,0,0,.62));
+      radial-gradient(900px 420px at 70% 45%, rgba(255,61,154,.10), transparent 58%),
+      linear-gradient(to bottom, rgba(255,255,255,.08), rgba(0,0,0,.06));
     pointer-events:none;
   }
 
-  /* Countdown box like inspo */
+  /* Countdown box */
   .countBox{
     margin-top: 20px;
-    background: rgba(255,255,255,.06);
-    border: 1px solid rgba(255,255,255,.16);
+    background: rgba(255,255,255,.72);
+    border: 1px solid rgba(17,17,20,.14);
     border-radius: 14px;
     padding: 14px 16px;
     max-width: 520px;
-    box-shadow: 0 30px 120px rgba(0,0,0,.40);
+    box-shadow: 0 30px 120px rgba(0,0,0,.12);
   }
   .countRow{
     display:flex;
     justify-content:space-between;
     gap: 14px;
     padding: 10px 0;
-    border-top: 1px solid rgba(255,255,255,.10);
+    border-top: 1px solid rgba(17,17,20,.10);
   }
   .countRow:first-child{ border-top:none; }
   .countRow span{
@@ -208,33 +197,34 @@
     letter-spacing: .16em;
     text-transform: uppercase;
     font-size: 12px;
-    color: rgba(255,255,255,.70);
+    color: rgba(17,17,20,.62);
   }
   .countRow b{
     font-family:"Playfair Display", serif;
     font-size: 18px;
     letter-spacing:.02em;
-    color: rgba(255,255,255,.92);
+    color: rgba(17,17,20,.90);
     white-space:nowrap;
   }
 
-  /* ===== Sections ===== */
+  /* Sections */
   .section{
     max-width: 1100px;
     margin: 80px auto;
     padding: 0 6vw;
   }
   .card{
-    background: rgba(255,255,255,.05);
-    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.72);
+    border: 1px solid rgba(17,17,20,.12);
     border-radius: 22px;
     padding: 34px 26px;
-    box-shadow: 0 30px 120px rgba(0,0,0,.40);
+    box-shadow: 0 30px 120px rgba(0,0,0,.12);
   }
   .h{
     font-family:"Playfair Display", serif;
     font-size: 44px;
     margin: 0 0 8px;
+    color: rgba(17,17,20,.92);
   }
   .subline{
     height:2px;
@@ -245,20 +235,12 @@
   }
   .p{
     margin:0;
-    color: var(--muted);
+    color: rgba(17,17,20,.70);
     font-size: 16px;
     line-height: 1.75;
   }
 
-  /* Hints list */
-  .hintList{
-    margin: 0;
-    padding-left: 18px;
-    color: var(--muted);
-    line-height: 1.9;
-  }
-
-  /* Quiz */
+  /* Buttons */
   .quiz-row{
     display:flex;
     gap:10px;
@@ -266,711 +248,49 @@
     margin-top: 14px;
   }
   .quiz-row button{
-    background: rgba(255,255,255,.06);
-    border: 1px solid rgba(255,255,255,.16);
-    color: rgba(255,255,255,.90);
+    background: rgba(255,255,255,.78);
+    border: 1px solid rgba(17,17,20,.16);
+    color: rgba(17,17,20,.88);
     padding: 12px 14px;
     border-radius: 999px;
     cursor:pointer;
     font-weight: 900;
-    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
   }
   .quiz-row button:hover{
     transform: translateY(-2px);
-    background: rgba(255,61,154,.14);
-    border-color: rgba(255,61,154,.34);
-  }
-  #answer{
-    margin-top: 16px;
-    color: rgba(255,255,255,.88);
-    font-weight: 650;
-    white-space: pre-wrap;
+    border-color: rgba(255,61,154,.38);
+    box-shadow: 0 18px 70px rgba(255,61,154,.10);
   }
 
-  /* Footer */
-  footer{
-    margin-top: 80px;
-    padding: 34px 6vw 90px;
-    border-top: 1px solid rgba(255,255,255,.10);
-    display:flex;
-    justify-content:space-between;
-    gap: 18px;
-    flex-wrap:wrap;
-    color: rgba(255,255,255,.58);
-  }
-  footer .brand{
-    font-family:"Great Vibes", cursive;
-    font-size: 34px;
-    color: rgba(255,255,255,.90);
-  }
-  footer .by{
-    font-family:"Great Vibes", cursive;
-    font-size: 24px;
-    color: rgba(255,120,189,.92);
-  }
-
-  /* ===== Ask Everose (bottom-left) ===== */
-  #askWrap{
-    position: fixed;
-    left: 18px;
-    bottom: 18px;
-    z-index: 9999;
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    gap: 6px;
-  }
-  #askBtn{
-    width: 56px;
-    height: 56px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,.18);
-    cursor: pointer;
-    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.88), rgba(255,61,154,0.30));
-    box-shadow: 0 14px 30px rgba(0,0,0,0.40);
-    transition: transform .2s ease, box-shadow .2s ease;
-  }
-  #askBtn:hover{
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 18px 45px rgba(255,61,154,0.22);
-  }
-  #askBtn span{ font-size: 22px; }
-  #askLabel{
-    font-size: 12px;
-    letter-spacing: .08em;
-    color: rgba(255,255,255,.70);
-    padding-left: 6px;
-  }
-
+  /* Ask Everose stays readable on grey */
   #askPanel{
-    position: fixed;
-    left: 18px;
-    bottom: 92px;
-    width: 360px;
-    max-width: calc(100vw - 36px);
-    height: 470px;
-    max-height: calc(100vh - 140px);
-    background: rgba(15,15,20,.92);
-    border: 1px solid rgba(255,255,255,.14);
-    border-radius: 22px;
-    box-shadow: 0 20px 75px rgba(0,0,0,.72);
-    display: none;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,.86) !important;
+    border: 1px solid rgba(17,17,20,.14) !important;
   }
   .askHeader{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding: 12px 12px 10px;
-    background: rgba(255,255,255,.06);
-    border-bottom: 1px solid rgba(255,255,255,.10);
+    background: rgba(255,255,255,.72) !important;
+    border-bottom: 1px solid rgba(17,17,20,.10) !important;
   }
-  .askTitle b{
-    font-family: "Playfair Display", serif;
-    font-size: 16px;
-  }
-  .askTitle small{
-    display:block;
-    color: rgba(255,255,255,.60);
-    font-size: 12px;
-    margin-top: 2px;
-  }
-  .askClose{
-    border:none;
-    background: transparent;
-    cursor:pointer;
-    font-size: 18px;
-    color: rgba(255,255,255,.72);
-  }
-  .askClose:hover{ color: #fff; }
-
-  /* Cursor mini bar inside Ask Everose (hidden unless asked) */
-  #cursorMini{
-    display:none;
-    padding: 10px 12px;
-    border-bottom: 1px solid rgba(255,255,255,.10);
-    background: rgba(255,61,154,.06);
-    gap: 8px;
-    align-items:center;
-    flex-wrap: wrap;
-  }
-  #cursorMini .tag{
-    font-size: 11px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.60);
-    margin-right: 6px;
-  }
-  .cursorPick{
-    border: 1px solid rgba(255,255,255,.14);
-    background: rgba(255,255,255,.06);
-    color: white;
-    border-radius: 999px;
-    padding: 8px 10px;
-    cursor:pointer;
-    font-size: 14px;
-  }
-  .cursorPick:hover{
-    border-color: rgba(255,61,154,.40);
-    background: rgba(255,61,154,.12);
-  }
-  #cursorReset{
-    border:none;
-    background: rgba(255,61,154,.24);
-    border: 1px solid rgba(255,61,154,.40);
-    color: white;
-    border-radius: 999px;
-    padding: 8px 10px;
-    cursor:pointer;
-    font-weight: 900;
-    letter-spacing: .06em;
-    font-size: 11px;
-  }
-  #cursorReset:hover{ background: rgba(255,61,154,.32); }
-
-  /* Cursor only affects Ask Everose panel */
-  #askPanel { cursor: var(--askCursor, auto); }
-  #askPanel button, #askPanel a, #askPanel input { cursor: var(--askPointer, pointer); }
-
-  #askMessages{
-    padding: 12px;
-    height: calc(100% - 160px);
-    overflow:auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-  }
-  .msg{ margin: 10px 0; display:flex; }
-  .msg.user{ justify-content:flex-end; }
-  .msg.bot{ justify-content:flex-start; }
-  .bubble{
-    max-width: 86%;
-    padding: 10px 12px;
-    border-radius: 16px;
-    font-size: 13px;
-    line-height: 1.45;
-    border: 1px solid rgba(255,255,255,.10);
-    box-shadow: 0 10px 20px rgba(0,0,0,.25);
-    white-space: pre-wrap;
-  }
-  .msg.user .bubble{
-    background: rgba(255,61,154,.14);
-    border-color: rgba(255,61,154,.24);
-  }
-  .msg.bot .bubble{ background: rgba(255,255,255,.06); }
-  .bubble ul{ margin: 6px 0 0 18px; padding: 0; }
-  .bubble li{ margin: 6px 0; }
-
-  #askForm{
-    position:absolute;
-    left:0; right:0; bottom:0;
-    padding: 10px;
-    display:flex;
-    gap: 8px;
-    border-top: 1px solid rgba(255,255,255,.10);
-    background: rgba(15,15,20,.92);
-  }
+  .askTitle small{ color: rgba(17,17,20,.60) !important; }
+  .askClose{ color: rgba(17,17,20,.65) !important; }
+  .msg.bot .bubble{ background: rgba(255,255,255,.78) !important; }
+  .bubble{ border: 1px solid rgba(17,17,20,.10) !important; color: rgba(17,17,20,.88) !important; }
   #askInput{
-    flex:1;
-    border-radius: 16px;
-    border: 1px solid rgba(255,255,255,.14);
-    padding: 10px 12px;
-    outline:none;
-    background: rgba(255,255,255,.06);
-    color: white;
-    font-family: inherit;
+    background: rgba(255,255,255,.78) !important;
+    border: 1px solid rgba(17,17,20,.14) !important;
+    color: rgba(17,17,20,.88) !important;
   }
-  #askSend{
-    border:none;
-    border-radius: 16px;
-    padding: 10px 14px;
-    cursor:pointer;
-    background: rgba(255,61,154,.28);
-    border: 1px solid rgba(255,61,154,.44);
-    color: white;
-    font-weight: 900;
-    letter-spacing: .06em;
+  #askForm{
+    background: rgba(255,255,255,.86) !important;
+    border-top: 1px solid rgba(17,17,20,.10) !important;
   }
-  #askSend:hover{ background: rgba(255,61,154,.36); }
 
   /* Responsive */
   @media (max-width: 900px){
     .hero{ flex-direction: column; padding-top: 120px; }
     .hero-right{ width: 100%; justify-content:center; }
     .hero-img{ width: 100%; }
-    .topbar{ padding: 0 14px; }
-    .navLeft a{ font-size: 11px; padding: 9px 12px; letter-spacing:.10em; }
     .navRight{ display:none; }
   }
 </style>
-</head>
-
-<body>
-
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="navLeft">
-    <a href="#home">Home</a>
-    <a href="#about">About Me</a>
-    <a href="#hints">Hints</a>
-    <a href="#quiz">Find Your Scent</a>
-  </div>
-  <div class="navRight" aria-label="Icons (decorative)">
-    <button class="iconBtn" title="Search" aria-label="Search">⌕</button>
-    <button class="iconBtn" title="Account" aria-label="Account">👤</button>
-    <button class="iconBtn" title="Bag" aria-label="Bag">👜</button>
-  </div>
-</div>
-
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-left">
-    <h1 class="hero-title">
-      Everose <span class="script">softly blooming</span>
-    </h1>
-
-    <p class="hero-sub">
-      Luxury fragrance, softly blooming.<br/>
-      We’re building our first scents right now — personal, clean, and a little unforgettable.
-    </p>
-
-    <button class="cta" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'})">
-      Find Your Scent
-    </button>
-
-    <div class="countBox" aria-label="Countdowns">
-      <div class="countRow">
-        <span>Launching In</span>
-        <b id="launchCountdown">—</b>
-      </div>
-      <div class="countRow">
-        <span>Next Update</span>
-        <b id="updateCountdown">—</b>
-      </div>
-    </div>
-  </div>
-
-  <div class="hero-right">
-    <div class="hero-img" aria-label="Everose hero image">
-      <!-- Upload your image to /assets/everose-hero.png -->
-      <img src="assets/everose-hero.png" alt="Everose perfume hero image"/>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT ME -->
-<section class="section" id="about">
-  <div class="card">
-    <h2 class="h">About Me</h2>
-    <div class="subline"></div>
-    <p class="p">
-      Hi! My name is Cruz Keller, and I absolutely love perfume. I was born in New York, then moved to New Jersey,
-      then to Miami, and after a few more moves, I finally landed in Austin.<br/><br/>
-      I’m 13 years old and currently attend Alpha School. My family is a family of four — my dad, mom, my brother, and me.<br/><br/>
-      We also have a dog named Banner. He’s a Rottweiler named after the Incredible Hulk.<br/><br/>
-      I’m so excited to start my own fragrance brand and share my love for scent with the world.
-    </p>
-  </div>
-</section>
-
-<!-- HINTS -->
-<section class="section" id="hints">
-  <div class="card">
-    <h2 class="h">Hints</h2>
-    <div class="subline"></div>
-    <ul class="hintList">
-      <li>✨ One scent feels like getting a suntan.</li>
-      <li>❄ One scent feels like silk in winter air.</li>
-      <li>🌷 One scent feels like something new beginning.</li>
-      <li>🍂 One scent feels warm… familiar… unforgettable.</li>
-    </ul>
-  </div>
-</section>
-
-<!-- FIND YOUR SCENT -->
-<section class="section" id="quiz">
-  <div class="card">
-    <h2 class="h">Find Your Scent</h2>
-    <div class="subline"></div>
-    <p class="p">Choose what feels most like you 💗</p>
-
-    <div class="quiz-row">
-      <button onclick="result('soft')">Light scent</button>
-      <button onclick="result('warm')">Medium scent</button>
-      <button onclick="result('fresh')">Strong scent</button>
-      <button onclick="result('bright')">A mix of everything</button>
-    </div>
-
-    <div id="answer"></div>
-  </div>
-</section>
-
-<footer>
-  <div>
-    <div class="brand">Everose</div>
-    <div style="margin-top:6px;">Luxury fragrance • softly blooming</div>
-  </div>
-  <div class="by">founded by Cruz Keller</div>
-</footer>
-
-<!-- ASK EVEROSE -->
-<div id="askWrap">
-  <button id="askBtn" aria-label="Ask Everose"><span>💬</span></button>
-  <div id="askLabel">Ask Everose</div>
-</div>
-
-<div id="askPanel" role="dialog" aria-label="Ask Everose chat">
-  <div class="askHeader">
-    <div class="askTitle">
-      <b>Ask Everose</b>
-      <small>soft answers • dark luxe • scent help</small>
-    </div>
-    <button class="askClose" id="askClose" aria-label="Close">✕</button>
-  </div>
-
-  <!-- Cursor bar appears ONLY when asked -->
-  <div id="cursorMini">
-    <span class="tag">Cursor</span>
-    <button class="cursorPick" data-emoji="🎀">🎀</button>
-    <button class="cursorPick" data-emoji="🦢">🦢</button>
-    <button class="cursorPick" data-emoji="🤍">🤍</button>
-    <button class="cursorPick" data-emoji="✧">✧</button>
-    <button class="cursorPick" data-emoji="♡">♡</button>
-    <button class="cursorPick" data-emoji="💋">💋</button>
-    <button class="cursorPick" data-emoji="💎" id="diamondCursorBtn" style="display:none;">💎</button>
-    <button id="cursorReset">Reset</button>
-  </div>
-
-  <div id="askMessages"></div>
-
-  <form id="askForm">
-    <input id="askInput" type="text" placeholder="Ask anything… 🌸" autocomplete="off" />
-    <button id="askSend" type="submit">Send</button>
-  </form>
-</div>
-
-<script>
-  /* =========================
-     DATES (your final dates)
-     ========================= */
-  // LAUNCH: September 29, 2026 at 12:00:00
-  const launchDate = new Date("September 29, 2026 12:00:00").getTime();
-
-  // UPDATE: January 24, 2026 at 2:00 PM
-  const updateDate = new Date("January 24, 2026 14:00:00").getTime();
-
-  function fmtCountdown(targetMs){
-    const now = Date.now();
-    const d = targetMs - now;
-    if (d <= 0) return "Unlocked ✨";
-    const days = Math.floor(d / (1000*60*60*24));
-    const hours = Math.floor((d % (1000*60*60*24)) / (1000*60*60));
-    const mins = Math.floor((d % (1000*60*60)) / (1000*60));
-    const secs = Math.floor((d % (1000*60)) / 1000);
-    return `${days}d ${hours}h ${mins}m ${secs}s`;
-  }
-  function tick(){
-    const lc = document.getElementById("launchCountdown");
-    const uc = document.getElementById("updateCountdown");
-    if (lc) lc.textContent = fmtCountdown(launchDate);
-    if (uc) uc.textContent = fmtCountdown(updateDate);
-  }
-  tick();
-  setInterval(tick, 1000);
-
-  /* QUIZ */
-  function result(type){
-    const a = document.getElementById("answer");
-    if (!a) return;
-    const map = {
-      soft:  "• Soft + airy 🌸\n• Gentle, close-to-the-skin\n• Pretty, clean, effortless ✨",
-      warm:  "• Warm + comforting 🍂\n• Familiar, cozy, unforgettable\n• The kind of scent people remember 💗",
-      fresh: "• Fresh + confident ❄️\n• Clean, crisp, bold energy\n• Signature / main-character vibes ✨",
-      bright:"• Playful + layered 💋\n• A little sweet, a little clean, a little warm\n• Total signature scent energy ✧"
-    };
-    a.textContent = map[type] || "";
-  }
-
-  /* =========================
-     ASK EVEROSE (smarter-ish, wide variety)
-     ========================= */
-  (function(){
-    const askBtn = document.getElementById("askBtn");
-    const askPanel = document.getElementById("askPanel");
-    const askClose = document.getElementById("askClose");
-    const form = document.getElementById("askForm");
-    const input = document.getElementById("askInput");
-    const messages = document.getElementById("askMessages");
-
-    const cursorMini = document.getElementById("cursorMini");
-    const diamondBtn = document.getElementById("diamondCursorBtn");
-
-    let userName = localStorage.getItem("everose_name") || "";
-    let vip = (localStorage.getItem("everose_vip") === "true");
-
-    function openChat(){
-      askPanel.style.display = "block";
-      setTimeout(()=> input.focus(), 50);
-
-      if (!messages.dataset.greeted){
-        botHTML(`
-          <b>Hi 🌸 I’m Ask Everose.</b><br/>
-          <ul>
-            <li>Ask about <b>launch</b>, <b>next update</b>, <b>hints</b>, or <b>finding your scent</b> ✨</li>
-            <li>Say “<b>my name is ___</b>” and I’ll remember you 💗</li>
-            <li>If you want the <b>cursor changer</b>, just ask</li>
-            <li>VIP: type <b>everose vip</b> 💎</li>
-          </ul>
-        `);
-        messages.dataset.greeted = "true";
-      }
-      renderVIP();
-    }
-    function closeChat(){ askPanel.style.display = "none"; }
-
-    askBtn.addEventListener("click", () => {
-      if (askPanel.style.display === "block") closeChat();
-      else openChat();
-    });
-    askClose.addEventListener("click", closeChat);
-
-    function addBubble(content, who="bot", html=false){
-      const row = document.createElement("div");
-      row.className = `msg ${who}`;
-      const bubble = document.createElement("div");
-      bubble.className = "bubble";
-      if (html) bubble.innerHTML = content;
-      else bubble.textContent = content;
-      row.appendChild(bubble);
-      messages.appendChild(row);
-      messages.scrollTop = messages.scrollHeight;
-      return row;
-    }
-
-    function bot(text){ addBubble(text, "bot"); }
-    function botHTML(html){ addBubble(html, "bot", true); }
-    function user(text){ addBubble(text, "user"); }
-
-    function thinking(){
-      return addBubble("Interesting 👀✨ I’m thinking…", "bot");
-    }
-
-    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-    function hasAny(q, words){ return words.some(w => q.includes(w)); }
-
-    function escapeHtml(s){
-      return (s||"").replace(/[&<>"']/g, (c)=>({
-        "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"
-      }[c]));
-    }
-
-    function parseName(q){
-      let m = q.match(/\bmy name is\s+([a-zA-Z'-]{2,20})/i);
-      if (m) return m[1];
-      m = q.match(/\b(i'm|im|i am)\s+([a-zA-Z'-]{2,20})\b/i);
-      if (m) return m[2];
-      return "";
-    }
-
-    /* Cursor only for Ask Everose panel */
-    function makeEmojiCursor(emoji) {
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">
-        <text x="2" y="24" font-size="24">${emoji}</text>
-      </svg>`;
-      const data = encodeURIComponent(svg);
-      return {
-        cursor: `url("data:image/svg+xml,${data}") 4 24, auto`,
-        pointer:`url("data:image/svg+xml,${data}") 4 24, pointer`
-      };
-    }
-    function applyAskCursor(emoji){
-      const c = makeEmojiCursor(emoji);
-      document.documentElement.style.setProperty("--askCursor", c.cursor);
-      document.documentElement.style.setProperty("--askPointer", c.pointer);
-      localStorage.setItem("everose_ask_cursor", emoji);
-    }
-    function resetAskCursor(){
-      document.documentElement.style.setProperty("--askCursor", "auto");
-      document.documentElement.style.setProperty("--askPointer", "pointer");
-      localStorage.removeItem("everose_ask_cursor");
-    }
-
-    function showCursorBar(){
-      cursorMini.style.display = "flex";
-      renderVIP();
-    }
-    function renderVIP(){
-      diamondBtn.style.display = vip ? "inline-flex" : "none";
-    }
-
-    cursorMini.addEventListener("click", (e) => {
-      const b = e.target.closest(".cursorPick");
-      if (!b) return;
-      applyAskCursor(b.getAttribute("data-emoji"));
-    });
-    document.getElementById("cursorReset").addEventListener("click", resetAskCursor);
-
-    const savedAskCursor = localStorage.getItem("everose_ask_cursor");
-    if (savedAskCursor) applyAskCursor(savedAskCursor);
-
-    function reply(qRaw){
-      const q = (qRaw||"").trim();
-      const lower = q.toLowerCase();
-
-      const nm = parseName(q);
-      if (nm){
-        userName = nm;
-        localStorage.setItem("everose_name", userName);
-        return `
-          <b>Nice to meet you, ${escapeHtml(userName)} 💗</b><br/>
-          <ul>
-            <li>I’ll remember your name next time ✨</li>
-            <li>Want <b>scent help</b> or <b>launch info</b>?</li>
-          </ul>
-        `;
-      }
-
-      if (lower.includes("everose vip") || lower.includes("unlock vip") || lower.includes("vip mode")){
-        vip = true;
-        localStorage.setItem("everose_vip","true");
-        renderVIP();
-        return `
-          <b>VIP unlocked 💎✨</b><br/>
-          <ul>
-            <li>Diamond cursor is now available 💎</li>
-            <li>Ask: <b>show cursor changer</b> to open it</li>
-            <li>Welcome to the inner circle 🤫</li>
-          </ul>
-        `;
-      }
-
-      if (hasAny(lower, ["cursor", "cursor changer", "change cursor", "show cursor"])){
-        showCursorBar();
-        const nameBit = userName ? `, <b>${escapeHtml(userName)}</b>` : "";
-        return `
-          <b>Cursor station unlocked${nameBit} ✨</b><br/>
-          <ul>
-            <li>Pick one up top ☝️ (only affects <b>this chat</b>)</li>
-            <li>Hit reset anytime 💗</li>
-          </ul>
-        `;
-      }
-
-      if (hasAny(lower, ["launch", "release", "drop", "come out", "when does it launch"])){
-        return `
-          <b>Launch info 📅✨</b><br/>
-          <ul>
-            <li><b>September 29, 2026</b> at <b>12:00 PM</b></li>
-            <li>Countdown is live on the homepage ⏳</li>
-          </ul>
-        `;
-      }
-
-      if (hasAny(lower, ["update", "next update", "when is the update"])){
-        return `
-          <b>Next update 💗</b><br/>
-          <ul>
-            <li><b>January 24, 2026</b></li>
-            <li><b>2:00 PM</b></li>
-          </ul>
-        `;
-      }
-
-      if (hasAny(lower, ["hints", "notes", "clues", "what's the vibe"])){
-        return `
-          <b>Everose hints ✨</b><br/>
-          <ul>
-            <li>🌞 One scent feels like getting a suntan</li>
-            <li>❄ One scent feels like silk in winter air</li>
-            <li>🌷 One scent feels like something new beginning</li>
-            <li>🍂 One scent feels warm… familiar… unforgettable</li>
-          </ul>
-        `;
-      }
-
-      if (hasAny(lower, ["first scent","first perfume","first product","what are you selling","product"])){
-        return `
-          <b>The first Everose scent? 🤫✨</b><br/>
-          <ul>
-            <li>Secret for now.</li>
-            <li>But I can give hints based on your vibe 👀</li>
-            <li>Pick one: <b>warm 🍂</b> / <b>fresh ❄️</b> / <b>soft 🌸</b></li>
-          </ul>
-        `;
-      }
-
-      if (hasAny(lower, ["soft","airy","light","floral","powder"])){
-        return `
-          <b>Soft bloom 🌸</b><br/>
-          <ul>
-            <li>Gentle + close-to-the-skin</li>
-            <li>Clean, pretty, effortless ✨</li>
-            <li>Rosy soft or creamy soft?</li>
-          </ul>
-        `;
-      }
-      if (hasAny(lower, ["warm","cozy","vanilla","amber","sweet"])){
-        return `
-          <b>Warm glow 🍂</b><br/>
-          <ul>
-            <li>Comforting + addictive</li>
-            <li>Familiar, unforgettable 💗</li>
-            <li>Warm-sweet or warm-spicy?</li>
-          </ul>
-        `;
-      }
-      if (hasAny(lower, ["fresh","clean","citrus","mint","ocean"])){
-        return `
-          <b>Fresh energy ❄️</b><br/>
-          <ul>
-            <li>Crisp + confident</li>
-            <li>Clean, expensive, “just showered” ✨</li>
-            <li>Sparkly fresh or crisp fresh?</li>
-          </ul>
-        `;
-      }
-
-      if (hasAny(lower, ["hi","hello","hey","hii","yo"])){
-        const nameBit = userName ? ` ${escapeHtml(userName)} 💗` : " 💗";
-        return pick([
-          `<b>Hii${nameBit} 🌸</b><br/><ul><li>Want <b>scent help</b>, <b>launch</b>, or <b>hints</b>?</li></ul>`,
-          `<b>Hey${nameBit} ✨</b><br/><ul><li>Give me 2 words: “clean / cozy / sweet / airy” 👀</li></ul>`,
-          `<b>Hello${nameBit} 💋</b><br/><ul><li>I can match your vibe in one message 😭✨</li></ul>`
-        ]);
-      }
-
-      return pick([
-        `<b>I got you 👀✨</b><br/>
-         <ul>
-           <li><b>Launch</b> → “when is launch”</li>
-           <li><b>Update</b> → “when is the update”</li>
-           <li><b>Cursor</b> → “show cursor changer”</li>
-           <li><b>Scent</b> → tell me warm/fresh/soft</li>
-         </ul>`,
-        `<b>I’m listening ✧</b><br/>
-         <ul>
-           <li>Drop 2–3 keywords (example: “clean, pink, expensive”)</li>
-           <li>I’ll match you to a vibe 💗</li>
-         </ul>`
-      ]);
-    }
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const text = input.value.trim();
-      if (!text) return;
-
-      user(text);
-      input.value = "";
-
-      const t = thinking();
-      setTimeout(() => {
-        if (t && t.parentNode) t.remove();
-        botHTML(reply(text));
-      }, 900);
-    });
-  })();
-</script>
-
-</body>
-</html>
