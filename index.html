@@ -5,672 +5,174 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Everose Boutique</title>
 
-<!-- Fonts (serif + cursive like inspo) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-  :root{
-    --bg:#e7e7e7;
-    --paper:#ffffff;
-    --ink:#111111;
-    --muted:#4a4a4a;
-    --line:rgba(0,0,0,.12);
-    --pink:#ff4fa3;
-    --pinkSoft:rgba(255,79,163,.12);
+:root{
+  --bg:#e6e6e6;
+  --paper:#ffffff;
+  --ink:#111;
+  --muted:#555;
+  --pink:#ff5fa2;
+}
 
-    --globalCursor: auto;
-    --globalPointer: pointer;
-  }
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter, sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  cursor: var(--askCursor, auto);
+}
+a, button { cursor: var(--askPointer, pointer); }
 
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  body{
-    margin:0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    overflow-x:hidden;
-  }
+header{
+  position:sticky; top:0;
+  background:rgba(230,230,230,.9);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid rgba(0,0,0,.1);
+  z-index:1000;
+}
+.header-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:16px;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+}
+.brand{
+  font-family:"Great Vibes", cursive;
+  font-size:40px;
+  text-align:center;
+}
 
-  /* CURSOR CHANGER WORKS EVERYWHERE */
-  html, body{
-    cursor: var(--globalCursor) !important;
-  }
-  a, button, input, label, select, textarea{
-    cursor: var(--globalPointer) !important;
-  }
+.nav a{
+  text-decoration:none;
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:.1em;
+  color:#111;
+  margin-right:16px;
+}
 
-  header{
-    position:sticky;
-    top:0;
-    z-index:1000;
-    background: rgba(231,231,231,.86);
-    backdrop-filter: blur(10px);
-    border-bottom:1px solid var(--line);
-  }
+.hero{
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  min-height:90vh;
+}
+.hero-left{
+  padding:80px 60px;
+}
+.hero-left h2{
+  font-family:"Playfair Display", serif;
+  font-size:70px;
+  line-height:.95;
+  margin:0;
+}
+.hero-left .script{
+  font-family:"Great Vibes", cursive;
+  font-size:76px;
+  margin-top:-10px;
+}
+.hero-left p{
+  max-width:520px;
+  color:var(--muted);
+  line-height:1.7;
+}
+.cta{
+  margin-top:24px;
+  padding:14px 22px;
+  border:2px solid var(--pink);
+  background:#fff;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  border-radius:10px;
+}
+.hero-right{
+  background:url("https://i.postimg.cc/MH73SY8L/Screenshot-2026-01-31-at-1-51-34-PM.png") center/cover no-repeat;
+  filter:grayscale(100%);
+}
 
-  .header-inner{
-    max-width: 1200px;
-    margin:0 auto;
-    padding: 14px 16px;
-    display:grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items:center;
-    gap: 12px;
-  }
+.section{
+  max-width:1200px;
+  margin:auto;
+  padding:80px 20px;
+}
+.section h3{
+  font-family:"Great Vibes", cursive;
+  font-size:54px;
+  margin-bottom:30px;
+}
 
-  .nav-left{
-    display:flex;
-    align-items:center;
-    gap: 18px;
-    min-width: 0;
-  }
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:24px;
+}
+.product{
+  background:#fff;
+  border-radius:20px;
+  padding:30px;
+  text-align:center;
+}
+.product.pink{background:#ffe3ef}
+.product.yellow{background:#fff6cc}
+.product.lavender{background:#f0e9ff}
+.product h4{
+  font-family:"Playfair Display", serif;
+  margin-bottom:10px;
+}
+.product button{
+  margin-top:14px;
+  padding:12px;
+  border-radius:999px;
+  border:2px solid #111;
+  background:#fff;
+  font-weight:700;
+}
 
-  .shop-btn{
-    border:2px solid #111;
-    background:#fff;
-    color:#111;
-    font-weight:800;
-    font-size:12px;
-    padding:10px 16px;
-    border-radius:12px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    cursor:pointer;
-    transition: transform .15s ease, background .15s ease;
-  }
-  .shop-btn:hover{ transform: translateY(-1px); background: #f8f8f8; }
+.quote{
+  background:#111;
+  color:#fff;
+  padding:120px 20px;
+  text-align:center;
+}
+.quote h2{
+  font-family:"Playfair Display", serif;
+  font-size:48px;
+}
+.quote p{
+  font-family:"Great Vibes", cursive;
+  font-size:32px;
+  color:var(--pink);
+}
 
-  .nav-left a{
-    text-decoration:none;
-    color:#111;
-    font-weight:700;
-    font-size:12px;
-    letter-spacing:.10em;
-    text-transform:uppercase;
-    opacity:.9;
-  }
-  .nav-left a:hover{ opacity:1; }
+footer{
+  padding:40px 20px;
+  background:#fff;
+  text-align:center;
+}
+footer .brand{
+  font-size:32px;
+}
 
-  .brand{
-    font-family: "Great Vibes", cursive;
-    font-size: 40px;
-    line-height: 1;
-    letter-spacing: .02em;
-    margin:0;
-    text-align:center;
-  }
+#askWrap{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+}
+#askBtn{
+  width:56px;height:56px;
+  border-radius:50%;
+  border:1px solid #ccc;
+  background:#fff;
+  font-size:22px;
+}
 
-  .icons{
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-    gap: 14px;
-  }
-  .icon-btn{
-    border:none;
-    background:transparent;
-    padding:8px;
-    border-radius:10px;
-    cursor:pointer;
-    opacity:.85;
-  }
-  .icon-btn:hover{ opacity:1; background: rgba(0,0,0,.04); }
-  .icon{
-    width:20px; height:20px;
-    display:block;
-  }
-
-  /* HERO */
-  .hero{
-    position:relative;
-    min-height: calc(100vh - 78px);
-    display:grid;
-    grid-template-columns: 1.15fr 1fr;
-    align-items:stretch;
-    border-bottom:1px solid var(--line);
-    background: var(--bg);
-  }
-
-  .hero-left{
-    padding: clamp(38px, 5vw, 70px);
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    gap: 16px;
-  }
-
-  .hero-title{
-    font-family: "Playfair Display", serif;
-    font-size: clamp(54px, 6vw, 86px);
-    line-height: .93;
-    margin:0;
-    letter-spacing:-0.02em;
-  }
-
-  .hero-script{
-    font-family: "Great Vibes", cursive;
-    font-size: clamp(52px, 6vw, 84px);
-    line-height: .9;
-    margin: -10px 0 0;
-    color:#111;
-  }
-
-  .hero-sub{
-    max-width: 640px;
-    margin:0;
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.7;
-  }
-
-  .hero-cta{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width: fit-content;
-    border: 2px solid var(--pink);
-    background: rgba(255,255,255,.9);
-    padding: 14px 22px;
-    border-radius: 12px;
-    font-weight: 900;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    font-size: 12px;
-    cursor:pointer;
-    transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
-  }
-  .hero-cta:hover{
-    transform: translateY(-1px);
-    background: rgba(255,79,163,.08);
-    box-shadow: 0 12px 30px rgba(255,79,163,.18);
-  }
-
-  .hero-right{
-    position:relative;
-    border-left:1px solid var(--line);
-    background:#ddd;
-    overflow:hidden;
-  }
-
-  .hero-right::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background-image: url("https://i.postimg.cc/MH73SY8L/Screenshot-2026-01-31-at-1-51-34-PM.png");
-    background-size: cover;
-    background-position: center;
-    filter: grayscale(100%) contrast(1.08) brightness(1.03);
-    transform: scale(1.02);
-  }
-
-  .hero-right::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-      radial-gradient(900px 520px at 18% 75%, rgba(255,79,163,.16), transparent 58%),
-      linear-gradient(to left, rgba(0,0,0,.07), rgba(0,0,0,.00) 55%),
-      linear-gradient(to bottom, rgba(255,255,255,.16), rgba(255,255,255,.05));
-    pointer-events:none;
-  }
-
-  section{ scroll-margin-top: 120px; }
-
-  .wrap{
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 64px 16px;
-  }
-
-  .titleRow{
-    display:flex;
-    align-items:flex-end;
-    justify-content:space-between;
-    gap:16px;
-    flex-wrap:wrap;
-    margin-bottom: 18px;
-  }
-
-  .scriptTitle{
-    font-family:"Great Vibes", cursive;
-    font-size: clamp(46px, 5vw, 72px);
-    margin:0;
-    line-height: .95;
-  }
-
-  .shopAllBtn{
-    border:2px solid #111;
-    background:#fff;
-    color:#111;
-    font-weight:900;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    font-size:12px;
-    padding: 12px 18px;
-    border-radius: 12px;
-    cursor:pointer;
-    transition: transform .15s ease, background .15s ease;
-  }
-  .shopAllBtn:hover{ transform: translateY(-1px); background:#f8f8f8; }
-
-  .grid{
-    display:grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 18px;
-  }
-
-  .product{
-    border:1px solid var(--line);
-    border-radius: 18px;
-    padding: 18px;
-    background: #fff;
-  }
-
-  .product.p1{ background: rgba(255, 242, 246, .9); }
-  .product.p2{ background: rgba(255, 236, 247, .9); }
-  .product.p3{ background: rgba(255, 252, 224, .9); }
-  .product.p4{ background: rgba(244, 238, 255, .9); }
-
-  .tag{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    padding: 6px 10px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing:.10em;
-    text-transform:uppercase;
-    border: 1px solid rgba(0,0,0,.12);
-    background: rgba(255,255,255,.7);
-  }
-
-  .productTop{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    height: 220px;
-    border-radius: 16px;
-    background: rgba(255,255,255,.65);
-    border: 1px solid rgba(0,0,0,.08);
-    margin-top: 12px;
-    overflow:hidden;
-  }
-
-  .bottle{
-    width: 78px;
-    height: 150px;
-    border-radius: 18px;
-    border: 2px solid rgba(0,0,0,.22);
-    background:
-      linear-gradient(to bottom, rgba(255,255,255,.85), rgba(255,255,255,.55));
-    position:relative;
-    filter: grayscale(100%) contrast(1.05);
-  }
-  .bottle:before{
-    content:"";
-    position:absolute;
-    top:-18px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 44px;
-    height: 24px;
-    border-radius: 10px 10px 8px 8px;
-    border: 2px solid rgba(0,0,0,.22);
-    background: rgba(255,255,255,.7);
-  }
-  .bottle:after{
-    content:"";
-    position:absolute;
-    inset: 18px 10px auto 10px;
-    height: 36px;
-    border-radius: 12px;
-    background: rgba(255,79,163,.10);
-    border: 1px solid rgba(255,79,163,.25);
-  }
-
-  .pName{
-    font-family:"Playfair Display", serif;
-    font-size: 22px;
-    margin: 16px 0 6px;
-  }
-  .pDesc{
-    margin:0;
-    color: rgba(0,0,0,.70);
-    font-size: 13px;
-    line-height: 1.5;
-    min-height: 40px;
-  }
-  .pPrice{
-    margin: 10px 0 14px;
-    font-weight: 900;
-  }
-
-  .addBtn{
-    width:100%;
-    border:2px solid rgba(0,0,0,.85);
-    background:#fff;
-    color:#111;
-    border-radius: 14px;
-    padding: 14px 16px;
-    font-weight: 900;
-    letter-spacing:.08em;
-    text-transform: uppercase;
-    font-size: 12px;
-    cursor:pointer;
-    transition: transform .15s ease, background .15s ease, border-color .15s ease;
-  }
-  .addBtn:hover{
-    transform: translateY(-1px);
-    background: rgba(255,255,255,.8);
-    border-color: rgba(255,79,163,.55);
-  }
-
-  .features{
-    margin-top: 56px;
-    border-top: 1px solid var(--line);
-    padding-top: 36px;
-    display:grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 18px;
-  }
-  .feature{
-    background: rgba(255,255,255,.65);
-    border: 1px solid rgba(0,0,0,.10);
-    border-radius: 18px;
-    padding: 18px;
-    display:flex;
-    gap: 14px;
-    align-items:flex-start;
-  }
-  .fImg{
-    width: 56px;
-    height: 92px;
-    border-radius: 14px;
-    border: 2px solid rgba(0,0,0,.22);
-    overflow:hidden;
-    background: rgba(255,255,255,.75);
-    flex: 0 0 auto;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    filter: grayscale(100%) contrast(1.05);
-  }
-  .fImg i{
-    font-style: normal;
-    font-size: 22px;
-  }
-  .fTitle{
-    font-weight: 950;
-    letter-spacing:.08em;
-    text-transform: uppercase;
-    font-size: 12px;
-    margin: 0 0 6px;
-  }
-  .fText{
-    margin:0;
-    color: rgba(0,0,0,.70);
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  /* QUOTE (kept, but nav link removed like you asked) */
-  .quoteWrap{
-    margin-top: 64px;
-    border-top: 1px solid var(--line);
-    padding-top: 56px;
-  }
-  .quoteCard{
-    background: rgba(255,255,255,.75);
-    border: 1px solid rgba(0,0,0,.12);
-    border-radius: 22px;
-    padding: 44px 22px;
-    text-align:center;
-  }
-  .quoteBig{
-    font-family:"Playfair Display", serif;
-    font-size: clamp(26px, 3.2vw, 40px);
-    line-height: 1.2;
-    margin: 0 0 10px;
-  }
-  .quoteSmall{
-    margin:0;
-    color: rgba(0,0,0,.70);
-    font-size: 14px;
-  }
-  .sig{
-    margin-top: 18px;
-    font-family:"Great Vibes", cursive;
-    font-size: 28px;
-    color: rgba(255,79,163,.95);
-  }
-
-  footer{
-    border-top:1px solid var(--line);
-    padding: 26px 16px 96px;
-    background: rgba(255,255,255,.35);
-    margin-top: 64px;
-  }
-  .footer-inner{
-    max-width:1200px;
-    margin:0 auto;
-    display:flex;
-    justify-content:space-between;
-    gap:16px;
-    flex-wrap:wrap;
-    align-items:center;
-  }
-  .fbrand{
-    font-family:"Great Vibes", cursive;
-    font-size: 34px;
-  }
-
-  /* ===== CHAT + GLOBAL CURSOR PICKER ===== */
-  #askWrap{
-    position: fixed;
-    left: 16px;
-    bottom: 16px;
-    z-index: 9999;
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    gap: 6px;
-  }
-  #askBtn{
-    width: 56px;
-    height: 56px;
-    border-radius: 999px;
-    border: 1px solid rgba(0,0,0,.18);
-    cursor: pointer;
-    background: #fff;
-    box-shadow: 0 14px 30px rgba(0,0,0,0.18);
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-  }
-  #askBtn:hover{
-    transform: translateY(-2px) scale(1.03);
-    border-color: rgba(255,79,163,.55);
-    box-shadow: 0 18px 40px rgba(0,0,0,0.22);
-  }
-  #askBtn span{ font-size: 22px; }
-  #askLabel{
-    font-size: 12px;
-    letter-spacing: .06em;
-    color: rgba(0,0,0,.65);
-    padding-left: 6px;
-    text-transform: uppercase;
-    font-weight:800;
-  }
-
-  #askPanel{
-    position: fixed;
-    left: 16px;
-    bottom: 92px;
-    width: 360px;
-    max-width: calc(100vw - 32px);
-    height: 470px;
-    max-height: calc(100vh - 140px);
-    background: rgba(255,255,255,.96);
-    border: 1px solid rgba(0,0,0,.16);
-    border-radius: 18px;
-    box-shadow: 0 20px 70px rgba(0,0,0,.28);
-    display: none;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-  }
-  .askHeader{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding: 12px 12px 10px;
-    background: rgba(0,0,0,.04);
-    border-bottom: 1px solid rgba(0,0,0,.10);
-  }
-  .askTitle b{
-    font-family: "Playfair Display", serif;
-    font-size: 16px;
-  }
-  .askTitle small{
-    display:block;
-    color: rgba(0,0,0,.60);
-    font-size: 12px;
-    margin-top: 2px;
-  }
-  .askClose{
-    border:none;
-    background: transparent;
-    cursor:pointer;
-    font-size: 18px;
-    color: rgba(0,0,0,.65);
-  }
-  .askClose:hover{ color: #000; }
-
-  #cursorMini{
-    padding: 10px 12px;
-    border-bottom: 1px solid rgba(0,0,0,.10);
-    background: rgba(255,79,163,.06);
-    display:flex;
-    gap: 8px;
-    align-items:center;
-    flex-wrap: wrap;
-  }
-  #cursorMini .tag{
-    font-size: 11px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: rgba(0,0,0,.55);
-    margin-right: 6px;
-    font-weight: 900;
-  }
-  .cursorPick{
-    border: 1px solid rgba(0,0,0,.14);
-    background: #fff;
-    color: #111;
-    border-radius: 999px;
-    padding: 8px 10px;
-    cursor:pointer;
-    font-size: 14px;
-    font-weight: 800;
-  }
-  .cursorPick:hover{
-    border-color: rgba(255,79,163,.45);
-    background: rgba(255,79,163,.05);
-  }
-  #cursorReset{
-    border:1px solid rgba(255,79,163,.45);
-    background: rgba(255,79,163,.12);
-    color:#111;
-    border-radius: 999px;
-    padding: 8px 10px;
-    cursor:pointer;
-    font-weight: 900;
-    letter-spacing: .06em;
-    font-size: 11px;
-    text-transform: uppercase;
-  }
-  #cursorReset:hover{ background: rgba(255,79,163,.16); }
-
-  #askMessages{
-    padding: 12px;
-    height: calc(100% - 206px);
-    overflow:auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-  }
-
-  .msg{ margin: 10px 0; display:flex; }
-  .msg.user{ justify-content:flex-end; }
-  .msg.bot{ justify-content:flex-start; }
-  .bubble{
-    max-width: 86%;
-    padding: 10px 12px;
-    border-radius: 16px;
-    font-size: 13px;
-    line-height: 1.42;
-    border: 1px solid rgba(0,0,0,.10);
-    box-shadow: 0 10px 18px rgba(0,0,0,.10);
-    white-space: pre-wrap;
-    background:#fff;
-  }
-  .msg.user .bubble{
-    background: rgba(255,79,163,.12);
-    border-color: rgba(255,79,163,.22);
-  }
-  .msg.bot .bubble{ background: rgba(0,0,0,.03); }
-
-  #askForm{
-    position:absolute;
-    left:0; right:0; bottom:0;
-    padding: 10px;
-    display:flex;
-    gap: 8px;
-    border-top: 1px solid rgba(0,0,0,.10);
-    background: rgba(255,255,255,.96);
-  }
-  #askInput{
-    flex:1;
-    border-radius: 16px;
-    border: 1px solid rgba(0,0,0,.14);
-    padding: 10px 12px;
-    outline:none;
-    background: #fff;
-    color: #111;
-    font-family: inherit;
-  }
-  #askSend{
-    border:none;
-    border-radius: 16px;
-    padding: 10px 14px;
-    cursor:pointer;
-    background: rgba(255,79,163,.18);
-    border: 1px solid rgba(255,79,163,.45);
-    color: #111;
-    font-weight: 900;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    font-size: 12px;
-  }
-  #askSend:hover{ background: rgba(255,79,163,.24); }
-
-  @media (max-width: 980px){
-    .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .features{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
-  @media (max-width: 900px){
-    .hero{ grid-template-columns: 1fr; }
-    .hero-right{
-      min-height: 44vh;
-      border-left:none;
-      border-top:1px solid var(--line);
-    }
-    .nav-left a{ display:none; }
-  }
-  @media (max-width: 520px){
-    .grid{ grid-template-columns: 1fr; }
-    .features{ grid-template-columns: 1fr; }
-  }
 </style>
 </head>
 
@@ -678,320 +180,70 @@
 
 <header>
   <div class="header-inner">
-    <div class="nav-left">
-      <button class="shop-btn" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">SHOP</button>
+    <div class="nav">
       <a href="#shop">SHOP</a>
-      <a href="#features">WHY EVEROSE</a>
-      <!-- removed “A NOTE” link (it was basically the same) -->
     </div>
-
-    <h1 class="brand">Everose Boutique</h1>
-
-    <div class="icons" aria-label="header icons">
-      <button class="icon-btn" aria-label="Search">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="7"></circle>
-          <path d="M20 20l-3.5-3.5"></path>
-        </svg>
-      </button>
-      <button class="icon-btn" aria-label="Account">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M20 21a8 8 0 0 0-16 0"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-      </button>
-      <button class="icon-btn" aria-label="Cart">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M6 6h15l-2 9H7L6 6Z"></path>
-          <path d="M6 6 5 3H2"></path>
-          <circle cx="9" cy="20" r="1"></circle>
-          <circle cx="18" cy="20" r="1"></circle>
-        </svg>
-      </button>
-    </div>
+    <div class="brand">Everose Boutique</div>
+    <div></div>
   </div>
 </header>
 
-<section class="hero" id="home">
+<section class="hero">
   <div class="hero-left">
-    <h2 class="hero-title">Your signature scent</h2>
-    <div class="hero-script">Right this way</div>
-
-    <p class="hero-sub">
-      Everose Boutique is soft, personal, and effortlessly you — fragrance that highlights what’s already there.
-      <br><br>
-      <b>Find your scent, then shop your vibe.</b>
+    <h2>Signature scent</h2>
+    <div class="script">This way</div>
+    <p>
+      Everose Boutique is fragrance that feels personal, soft, and quietly unforgettable.
+      Designed to blend into your life — not overpower it.
     </p>
-
-    <button class="hero-cta" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">
-      FIND YOUR SCENT
-    </button>
+    <button class="cta">Find Your Scent</button>
   </div>
-
-  <div class="hero-right" aria-label="Everose hero image background"></div>
+  <div class="hero-right"></div>
 </section>
 
-<section class="wrap" id="shop">
-  <div class="titleRow">
-    <h3 class="scriptTitle">Meet The Scents</h3>
-    <button class="shopAllBtn" onclick="alert('Shop is coming soon ✨')">SHOP ALL</button>
-  </div>
-
-  <div class="grid">
-    <div class="product p1">
-      <span class="tag">Everyday</span>
-      <div class="productTop"><div class="bottle" aria-hidden="true"></div></div>
-      <div class="pName">The Bloom</div>
-      <p class="pDesc">Light, clean, and softly pretty. Like a fresh start.</p>
-      <div class="pPrice">$—</div>
-      <button class="addBtn" onclick="alert('Coming soon 💗')">ADD TO CART</button>
+<section class="section" id="shop">
+  <h3>Meet the Scents</h3>
+  <div class="products">
+    <div class="product pink">
+      <h4>The Bloom</h4>
+      <p>Light, fresh, and effortless.</p>
+      <button>Add to cart</button>
     </div>
-
-    <div class="product p2">
-      <span class="tag" style="border-color: rgba(255,79,163,.35); background: rgba(255,255,255,.75);">Signature</span>
-      <div class="productTop"><div class="bottle" aria-hidden="true"></div></div>
-      <div class="pName">The Rosette</div>
-      <p class="pDesc">Soft glam energy—flirty, warm, unforgettable.</p>
-      <div class="pPrice">$—</div>
-      <button class="addBtn" onclick="alert('Coming soon 💋')">ADD TO CART</button>
+    <div class="product yellow">
+      <h4>The Darling</h4>
+      <p>Warm, soft, everyday comfort.</p>
+      <button>Add to cart</button>
     </div>
-
-    <div class="product p3">
-      <span class="tag">New In</span>
-      <div class="productTop"><div class="bottle" aria-hidden="true"></div></div>
-      <div class="pName">The Air</div>
-      <p class="pDesc">Crisp, bright, confident. Clean girl but bold.</p>
-      <div class="pPrice">$—</div>
-      <button class="addBtn" onclick="alert('Coming soon ❄️')">ADD TO CART</button>
-    </div>
-
-    <div class="product p4">
-      <span class="tag">Cozy</span>
-      <div class="productTop"><div class="bottle" aria-hidden="true"></div></div>
-      <div class="pName">The Velvet</div>
-      <p class="pDesc">Warm, familiar, softly sweet. Hug-in-a-bottle.</p>
-      <div class="pPrice">$—</div>
-      <button class="addBtn" onclick="alert('Coming soon 🍂')">ADD TO CART</button>
+    <div class="product lavender">
+      <h4>The Velvet</h4>
+      <p>Romantic, smooth, unforgettable.</p>
+      <button>Add to cart</button>
     </div>
   </div>
+</section>
 
-  <div class="features" id="features">
-    <div class="feature">
-      <div class="fImg"><i>🤍</i></div>
-      <div>
-        <div class="fTitle">Soft + wearable</div>
-        <p class="fText">Fragrance that feels like you—never too much, always just right.</p>
-      </div>
-    </div>
-
-    <div class="feature">
-      <div class="fImg"><i>✨</i></div>
-      <div>
-        <div class="fTitle">Effortless vibe</div>
-        <p class="fText">From daydreams to dance floors, Everose stays with you.</p>
-      </div>
-    </div>
-
-    <div class="feature">
-      <div class="fImg"><i>🎀</i></div>
-      <div>
-        <div class="fTitle">Pretty packaging</div>
-        <p class="fText">Black + white with a kiss of pink—minimal but iconic.</p>
-      </div>
-    </div>
-
-    <div class="feature">
-      <div class="fImg"><i>🌸</i></div>
-      <div>
-        <div class="fTitle">Signature energy</div>
-        <p class="fText">Pick your mood—clean, cozy, sweet, airy—and find your match.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- still included as a section, but NOT in the top nav anymore -->
-  <div class="quoteWrap">
-    <div class="quoteCard">
-      <p class="quoteBig">“Perfume is a memory you can wear.”</p>
-      <p class="quoteSmall">Softly blooming, always.</p>
-      <div class="sig">with love, Cruz</div>
-    </div>
-  </div>
+<section class="quote">
+  <h2>Perfume should feel like a memory you want to keep.</h2>
+  <p>with love, Cruz</p>
 </section>
 
 <footer>
-  <div class="footer-inner">
-    <div>
-      <div class="fbrand">Everose Boutique</div>
-      <div style="margin-top:6px;color:rgba(0,0,0,.55)">Luxury fragrance • softly blooming</div>
-    </div>
-    <div style="font-weight:800; letter-spacing:.06em; text-transform:uppercase; font-size:12px; color:rgba(0,0,0,.65);">
-      coming soon ✨
-    </div>
-  </div>
+  <div class="brand">Everose Boutique</div>
+  <div>Luxury fragrance • softly blooming</div>
 </footer>
 
 <div id="askWrap">
-  <button id="askBtn" aria-label="Ask Everose"><span>💬</span></button>
-  <div id="askLabel">Ask Everose</div>
-</div>
-
-<div id="askPanel" role="dialog" aria-label="Ask Everose chat">
-  <div class="askHeader">
-    <div class="askTitle">
-      <b>Ask Everose Boutique</b>
-      <small>soft answers • pink energy • scent help</small>
-    </div>
-    <button class="askClose" id="askClose" aria-label="Close">✕</button>
-  </div>
-
-  <div id="cursorMini">
-    <span class="tag">Cursor</span>
-    <button class="cursorPick" data-emoji="🎀">🎀</button>
-    <button class="cursorPick" data-emoji="🦢">🦢</button>
-    <button class="cursorPick" data-emoji="🤍">🤍</button>
-    <button class="cursorPick" data-emoji="✧">✧</button>
-    <button class="cursorPick" data-emoji="♡">♡</button>
-    <button class="cursorPick" data-emoji="💋">💋</button>
-    <button id="cursorReset">Reset</button>
-  </div>
-
-  <div id="askMessages"></div>
-
-  <form id="askForm">
-    <input id="askInput" type="text" placeholder="Ask anything… 🌸" autocomplete="off" />
-    <button id="askSend" type="submit">Send</button>
-  </form>
+  <button id="askBtn">🎀</button>
 </div>
 
 <script>
-  // GLOBAL CURSOR CHANGER (WHOLE PAGE)
-  function makeEmojiCursor(emoji) {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">
-      <text x="2" y="24" font-size="24">${emoji}</text>
-    </svg>`;
-    const data = encodeURIComponent(svg);
-    return {
-      cursor: `url("data:image/svg+xml,${data}") 4 24, auto`,
-      pointer:`url("data:image/svg+xml,${data}") 4 24, pointer`
-    };
-  }
-
-  function applyGlobalCursor(emoji){
-    const c = makeEmojiCursor(emoji);
-    document.documentElement.style.setProperty("--globalCursor", c.cursor);
-    document.documentElement.style.setProperty("--globalPointer", c.pointer);
-    localStorage.setItem("everose_global_cursor", emoji);
-  }
-
-  function resetGlobalCursor(){
-    document.documentElement.style.setProperty("--globalCursor", "auto");
-    document.documentElement.style.setProperty("--globalPointer", "pointer");
-    localStorage.removeItem("everose_global_cursor");
-  }
-
-  const savedGlobal = localStorage.getItem("everose_global_cursor");
-  if (savedGlobal) applyGlobalCursor(savedGlobal);
-
-  document.getElementById("cursorMini").addEventListener("click", (e) => {
-    const b = e.target.closest(".cursorPick");
-    if (!b) return;
-    applyGlobalCursor(b.getAttribute("data-emoji"));
-  });
-  document.getElementById("cursorReset").addEventListener("click", resetGlobalCursor);
-
-  // CHAT
-  (function(){
-    const askBtn = document.getElementById("askBtn");
-    const askPanel = document.getElementById("askPanel");
-    const askClose = document.getElementById("askClose");
-    const form = document.getElementById("askForm");
-    const input = document.getElementById("askInput");
-    const messages = document.getElementById("askMessages");
-
-    function openChat(){
-      askPanel.style.display = "block";
-      setTimeout(()=> input.focus(), 50);
-
-      if (!messages.dataset.greeted){
-        botHTML(`
-          <b>Hi 🌸 I’m Ask Everose Boutique.</b><br/>
-          <ul>
-            <li>Tell me your vibe: <b>clean</b>, <b>cozy</b>, <b>sweet</b>, or <b>airy</b> ✨</li>
-            <li>Or ask: “Which scent should I pick?”</li>
-            <li>Cursor: pick one up top ☝️ (it changes the whole page)</li>
-          </ul>
-        `);
-        messages.dataset.greeted = "true";
-      }
-    }
-    function closeChat(){ askPanel.style.display = "none"; }
-
-    askBtn.addEventListener("click", () => {
-      if (askPanel.style.display === "block") closeChat();
-      else openChat();
-    });
-    askClose.addEventListener("click", closeChat);
-
-    function addBubble(content, who="bot", html=false){
-      const row = document.createElement("div");
-      row.className = `msg ${who}`;
-      const bubble = document.createElement("div");
-      bubble.className = "bubble";
-      if (html) bubble.innerHTML = content;
-      else bubble.textContent = content;
-      row.appendChild(bubble);
-      messages.appendChild(row);
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    function botHTML(html){ addBubble(html, "bot", true); }
-    function user(text){ addBubble(text, "user"); }
-    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-
-    function reply(qRaw){
-      const q = (qRaw||"").trim().toLowerCase();
-
-      if (q.includes("clean") || q.includes("fresh") || q.includes("airy")){
-        return `<b>You’re giving clean + airy ✨</b><br/><ul>
-          <li>Try <b>The Air</b> for crisp confidence</li>
-          <li>Or <b>The Bloom</b> for soft everyday pretty</li>
-        </ul>`;
-      }
-      if (q.includes("cozy") || q.includes("warm")){
-        return `<b>Cozy + warm energy 🍂</b><br/><ul>
-          <li><b>The Velvet</b> is your hug-in-a-bottle</li>
-          <li><b>The Rosette</b> if you want warm + flirty</li>
-        </ul>`;
-      }
-      if (q.includes("sweet")){
-        return `<b>Sweet but still classy 💋</b><br/><ul>
-          <li><b>The Rosette</b> = soft glam signature</li>
-          <li><b>The Velvet</b> = cozy sweetness</li>
-        </ul>`;
-      }
-      if (q.includes("which scent") || q.includes("pick") || q.includes("help")){
-        return pick([
-          `<b>Okay bestie 💗</b><br/><ul><li>One word: clean / cozy / sweet / airy?</li></ul>`,
-          `<b>I got you ✨</b><br/><ul><li>Tell me: day vibe or night vibe?</li></ul>`
-        ]);
-      }
-
-      return `<b>Tell me your vibe 🌸</b><br/><ul>
-        <li>clean</li><li>cozy</li><li>sweet</li><li>airy</li>
-      </ul>`;
-    }
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const text = input.value.trim();
-      if (!text) return;
-
-      user(text);
-      input.value = "";
-      setTimeout(() => botHTML(reply(text)), 200);
-    });
-  })();
+function makeEmojiCursor(e){
+  const svg=`<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text x='2' y='24' font-size='24'>${e}</text></svg>`;
+  const url=`url("data:image/svg+xml,${encodeURIComponent(svg)}") 4 24`;
+  document.documentElement.style.setProperty('--askCursor', `${url}, auto`);
+  document.documentElement.style.setProperty('--askPointer', `${url}, pointer`);
+}
+makeEmojiCursor("🎀");
 </script>
 
 </body>
