@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shop • Everose Boutique</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#dcdcdc;
+    --paper:#ffffff;
+    --ink:#111111;
+    --muted:#5a5a5a;
+    --line:rgba(0,0,0,.12);
+    --pink:#ff4fa3;
+    --shadow:0 18px 45px rgba(0,0,0,.10);
+
+    --cursor:auto;
+    --pointer:pointer;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    cursor: var(--cursor);
+  }
+  a, button, input { cursor: var(--pointer); }
+
+  header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background: rgba(220,220,220,.88);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    max-width:1200px;
+    margin:0 auto;
+    padding:14px 16px;
+    display:grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items:center;
+    gap:12px;
+  }
+  .nav-left{
+    display:flex;
+    gap:18px;
+    align-items:center;
+  }
+  .nav-left a{
+    text-decoration:none;
+    color:#111;
+    font-weight:800;
+    font-size:12px;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+    opacity:.9;
+  }
+  .nav-left a:hover{opacity:1}
+
+  .brand{
+    font-family:"Great Vibes", cursive;
+    font-size:40px;
+    line-height:1;
+    margin:0;
+    text-align:center;
+  }
+
+  .nav-right{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+  }
+  .pill{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.65);
+    padding:10px 12px;
+    border-radius:999px;
+    font-weight:800;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .pill:hover{
+    transform: translateY(-1px);
+    background: rgba(255,79,163,.08);
+  }
+
+  .wrap{
+    max-width:1200px;
+    margin:0 auto;
+    padding: 32px 16px 80px;
+  }
+
+  .shop-shell{
+    background: rgba(255,255,255,.70);
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    box-shadow: var(--shadow);
+    overflow:hidden;
+  }
+
+  .shop-top{
+    padding: 26px 22px;
+    background: linear-gradient(to right, rgba(255,255,255,.95), rgba(255,79,163,.05));
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .shop-title{
+    margin:0;
+    font-family:"Playfair Display", serif;
+    font-size:44px;
+    line-height:1;
+  }
+  .shop-sub{
+    margin:8px 0 0;
+    color: var(--muted);
+    max-width: 560px;
+    line-height:1.6;
+  }
+
+  .shop-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .search{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding: 12px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,.9);
+  }
+  .search input{
+    border:none;
+    outline:none;
+    background: transparent;
+    width: 220px;
+    font-family: inherit;
+    font-size: 13px;
+  }
+
+  .filters{
+    padding: 16px 22px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    gap: 10px;
+    flex-wrap:wrap;
+    align-items:center;
+    background: rgba(255,255,255,.85);
+  }
+  .filter-btn{
+    border:1px solid rgba(0,0,0,.16);
+    background:#fff;
+    padding:10px 12px;
+    border-radius:999px;
+    font-weight:900;
+    font-size:12px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .filter-btn:hover{
+    transform: translateY(-1px);
+    background: rgba(255,79,163,.06);
+    border-color: rgba(255,79,163,.35);
+  }
+  .filter-btn.active{
+    background: rgba(255,79,163,.12);
+    border-color: rgba(255,79,163,.55);
+  }
+
+  .shop-body{
+    padding: 22px;
+    background: rgba(255,255,255,.70);
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px;
+  }
+  .tile{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius: 22px;
+    overflow:hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,.06);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .tile:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 18px 45px rgba(0,0,0,.10);
+  }
+  .tile-media{
+    height: 160px;
+    background:
+      radial-gradient(220px 160px at 20% 25%, rgba(255,79,163,.14), transparent 60%),
+      linear-gradient(to bottom, #f2f2f2, #ffffff);
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 48px;
+  }
+  .tile-inner{ padding: 16px 16px 18px; }
+  .kicker{
+    font-weight:900;
+    font-size:11px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color: rgba(0,0,0,.55);
+  }
+  .name{
+    margin: 8px 0 6px;
+    font-family:"Playfair Display", serif;
+    font-size: 20px;
+  }
+  .desc{
+    margin:0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  .meta{
+    margin-top: 14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 12px;
+  }
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid rgba(0,0,0,.12);
+    background: rgba(255,255,255,.85);
+    padding: 8px 10px;
+    border-radius: 999px;
+    font-weight:900;
+    font-size: 11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+  .ghost-btn{
+    border:1px solid rgba(255,79,163,.55);
+    background: rgba(255,79,163,.10);
+    color:#111;
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+  .ghost-btn:hover{ background: rgba(255,79,163,.16); }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding: 34px 16px 90px;
+    background: rgba(255,255,255,.55);
+    text-align:center;
+  }
+  footer .fbrand{ font-family:"Great Vibes", cursive; font-size: 34px; }
+  footer .sub{ margin-top:6px; color: rgba(0,0,0,.55); }
+  footer .by{
+    margin-top:10px;
+    font-family:"Great Vibes", cursive;
+    font-size: 24px;
+    color: rgba(255,79,163,.95);
+  }
+
+  /* Global cursor button */
+  #cursorBtn{
+    position: fixed;
+    left: 16px;
+    bottom: 16px;
+    width: 56px;
+    height: 56px;
+    border-radius: 999px;
+    border: 1px solid rgba(0,0,0,.18);
+    background: #fff;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.18);
+    font-size: 22px;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  #cursorBtn:hover{
+    transform: translateY(-2px) scale(1.03);
+    border-color: rgba(255,79,163,.55);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.22);
+  }
+
+  @media (max-width: 900px){
+    .nav-left a{ display:none; }
+    .search input{ width: 140px; }
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="nav-left">
+      <a href="index.html">HOME</a>
+      <a href="shop.html">SHOP</a>
+    </div>
+
+    <h1 class="brand">Everose Boutique</h1>
+
+    <div class="nav-right">
+      <a class="pill" href="index.html">Back</a>
+      <button class="pill" onclick="setCursorPrompt()">Cursor</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="shop-shell">
+    <div class="shop-top">
+      <div>
+        <h2 class="shop-title">Shop</h2>
+        <p class="shop-sub">
+          No products live yet — this is the boutique layout. Filter by vibe and explore what’s coming.
+        </p>
+      </div>
+
+      <div class="shop-actions">
+        <div class="search" title="Search (demo)">
+          <span style="opacity:.65;font-weight:900;">⌕</span>
+          <input id="shopSearch" placeholder="Search scents…" />
+        </div>
+        <button class="pill" onclick="openComingSoon()">Drop List</button>
+      </div>
+    </div>
+
+    <div class="filters" aria-label="Shop filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="soft">Soft</button>
+      <button class="filter-btn" data-filter="warm">Warm</button>
+      <button class="filter-btn" data-filter="fresh">Fresh</button>
+      <button class="filter-btn" data-filter="limited">Limited</button>
+    </div>
+
+    <div class="shop-body">
+      <div class="grid" id="shopGrid">
+
+        <div class="tile" data-tags="soft">
+          <div class="tile-media">🌸</div>
+          <div class="tile-inner">
+            <div class="kicker">Soft Collection</div>
+            <div class="name">Everose No. 01</div>
+            <p class="desc">Airy, delicate, close-to-the-skin. The kind of scent people lean in for.</p>
+            <div class="meta">
+              <span class="badge">Coming soon</span>
+              <button class="ghost-btn" onclick="openPreview('Everose No. 01')">Preview</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tile" data-tags="warm">
+          <div class="tile-media">🍂</div>
+          <div class="tile-inner">
+            <div class="kicker">Warm Collection</div>
+            <div class="name">Everose No. 02</div>
+            <p class="desc">Comforting, familiar, unforgettable. Like warmth on a winter coat.</p>
+            <div class="meta">
+              <span class="badge">Coming soon</span>
+              <button class="ghost-btn" onclick="openPreview('Everose No. 02')">Preview</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tile" data-tags="fresh">
+          <div class="tile-media">❄️</div>
+          <div class="tile-inner">
+            <div class="kicker">Fresh Collection</div>
+            <div class="name">Everose No. 03</div>
+            <p class="desc">Clean, crisp, confident. The “you smell expensive” effect.</p>
+            <div class="meta">
+              <span class="badge">Coming soon</span>
+              <button class="ghost-btn" onclick="openPreview('Everose No. 03')">Preview</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tile" data-tags="limited">
+          <div class="tile-media">💗</div>
+          <div class="tile-inner">
+            <div class="kicker">Limited Drop</div>
+            <div class="name">The First Bloom</div>
+            <p class="desc">A small release. A big feeling. Only for the people who were early.</p>
+            <div class="meta">
+              <span class="badge">Coming soon</span>
+              <button class="ghost-btn" onclick="openPreview('The First Bloom')">Preview</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tile" data-tags="soft fresh">
+          <div class="tile-media">✨</div>
+          <div class="tile-inner">
+            <div class="kicker">Signature</div>
+            <div class="name">Everose Aura</div>
+            <p class="desc">A soft-clean blend with a quiet sparkle. Feels like new beginnings.</p>
+            <div class="meta">
+              <span class="badge">Coming soon</span>
+              <button class="ghost-btn" onclick="openPreview('Everose Aura')">Preview</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tile" data-tags="warm limited">
+          <div class="tile-media">🪞</div>
+          <div class="tile-inner">
+            <div class="kicker">Boutique Reserve</div>
+            <div class="name">Velvet Rose</div>
+            <p class="desc">Warm and elegant. Like a memory you don’t want to lose.</p>
+            <div class="meta">
+              <span class="badge">Coming soon</span>
+              <button class="ghost-btn" onclick="openPreview('Velvet Rose')">Preview</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fbrand">Everose Boutique</div>
+  <div class="sub">Luxury fragrance • softly blooming</div>
+  <div class="by">founded by Cruz Keller</div>
+</footer>
+
+<button id="cursorBtn" title="Change cursor">🎀</button>
+
+<script>
+  /* Global cursor (works everywhere) */
+  function makeEmojiCursor(emoji) {
+    const svg =
+      `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+        <text x="2" y="24" font-size="24">${emoji}</text>
+      </svg>`;
+    const data = encodeURIComponent(svg);
+    return {
+      cursor: `url("data:image/svg+xml,${data}") 4 24, auto`,
+      pointer:`url("data:image/svg+xml,${data}") 4 24, pointer`
+    };
+  }
+  function applyCursor(emoji){
+    const c = makeEmojiCursor(emoji);
+    document.documentElement.style.setProperty("--cursor", c.cursor);
+    document.documentElement.style.setProperty("--pointer", c.pointer);
+    localStorage.setItem("everose_cursor", emoji);
+  }
+  function setCursorPrompt(){
+    const pick = prompt("Pick a cursor emoji (examples: 🎀 💗 ✧ 💎)","🎀");
+    if (pick && pick.trim()) applyCursor(pick.trim());
+  }
+  document.getElementById("cursorBtn").addEventListener("click", setCursorPrompt);
+
+  const saved = localStorage.getItem("everose_cursor");
+  if (saved) applyCursor(saved);
+
+  /* Filters + search (real) */
+  const filterBtns = Array.from(document.querySelectorAll(".filter-btn"));
+  const tiles = Array.from(document.querySelectorAll(".tile"));
+  const search = document.getElementById("shopSearch");
+  let activeFilter = "all";
+
+  function updateShop(){
+    const q = (search.value || "").toLowerCase().trim();
+    tiles.forEach(tile => {
+      const tags = (tile.getAttribute("data-tags") || "").toLowerCase();
+      const text = tile.innerText.toLowerCase();
+      const matchesFilter = (activeFilter === "all") || tags.includes(activeFilter);
+      const matchesSearch = !q || text.includes(q);
+      tile.style.display = (matchesFilter && matchesSearch) ? "block" : "none";
+    });
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeFilter = btn.dataset.filter;
+      updateShop();
+    });
+  });
+  search.addEventListener("input", updateShop);
+
+  function openPreview(name){
+    alert(`${name}\n\n• Status: Coming soon\n• This is a preview tile layout (no checkout yet).`);
+  }
+  function openComingSoon(){
+    alert("Drop List (Coming Soon)\n\n• Everose No. 01\n• Everose No. 02\n• Everose No. 03\n• The First Bloom\n• Everose Aura\n• Velvet Rose");
+  }
+
+  updateShop();
+</script>
+
+</body>
+</html>
